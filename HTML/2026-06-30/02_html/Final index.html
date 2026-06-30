@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>나만의 스터디 프로필 페이지</title>
+    </head>
+    <body id="top">
+        <header>
+            <h1>나만의 스터디 프로필 페이지</h1>
+            <nav><a href="#intro">소개</a> | <a href="#schedule">시간표</a> | <a href="#apply">신청</a></nav>
+        </header>
+        <main>
+            <section id="intro">
+                <article>
+                    <p>안녕하세요 제 이름은 <strong>한유진</strong>입니다.</p>
+                    <p><small>히히</small></p>
+                    <p>제 좌우명은 다음과 같습니다.</p>
+                    <blockquote>
+                        <strong>'노력은 배신하지 않는다.'</strong>
+                    </blockquote>
+                    <p>제가 좋아하는 <mark>화학식</mark>은 H<sub>2</sub>O 입니다.</p>
+                </article>
+            </section>
+
+            <section id="schedule">
+                <h2>시간표</h2>
+                <table border="1">
+                    <caption>시간표</caption>
+                    <thead>
+                        <tr><th>Mon</th><th>Wed</th><th>Fri</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>영어</td><td>과학</td><td>국어</td></tr>
+                        <tr><td>과학</td><td>국어</td><td>영어</td></tr>
+                        <tr><td>국어</td><td>영어</td><td>과학</td></tr>
+                        <tr><td colspan="3">일별로 3시간</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="apply">
+                <h2>스터디 신청 폼</h2>
+                <form>
+                    <label>이름: <input type="text"></label>
+                    <br><br>
+
+                    <label>이메일: <input type="email"></label>
+                    <br><br>
+
+                    <label>목표 점수: <input type="number"></label>
+                    <br><br>
+
+                    <label>성별:</label>
+                    <label><input type="radio" name="gender">남성</label>
+                    <label><input type="radio" name="gender">여성</label>
+                    <label><input type="radio" name="gender">기타</label>
+                    <br><br>
+
+                    <label>관심 분야:</label>
+                    <br>
+                    <label><input type="checkbox">국어</label>
+                    <label><input type="checkbox">영어</label>
+                    <label><input type="checkbox">과학</label>
+                    <label><input type="checkbox">수학</label>
+                    <br><br>
+
+                    <label>시작 희망일: <input type="date"></label>
+                    <br><br>
+
+                    <label>하고 싶은 말:</label>
+                    <br>
+                    <textarea></textarea>
+                    <br><br>
+
+                    <label>거주 지역:
+                        <select>
+                            <option>서울</option>
+                            <option>인천</option>
+                            <option>경기</option>
+                            <option>대전</option>
+                            <option>부산</option>
+                            <option>대구</option>
+                            <option>광주</option>
+                        </select>
+                    </label>
+                    <br><br>
+
+                    <button type="submit">신청하기</button>
+                </form>
+            </section>
+        </main>
+
+        <aside>
+            <h2>부가 정보</h2>
+
+            <h3>링크</h3>
+            <ul>
+                <li><a href="https://sealworldking.tistory.com" target="_blank">Tistory 블로그</a></li>
+                <li><a href="https://github.com/sealworldking" target="_blank">GitHub</a></li>
+                <li><a href="mailto:yujin@gachon.ac.kr">이메일 보내기</a></li>
+            </ul>
+
+            <h3>사진</h3>
+            <img src="./Profile.png" alt="프로필 사진" width="200">
+
+            <h3>비밀 정보</h3>
+            <details>
+                <summary>비밀 정보 보기</summary>
+                <p>숨겨진 정보</p>
+
+                <details>
+                    <summary>1급 비밀</summary>
+                    <p>중첩된 비밀 정보</p>
+                </details>
+            </details>
+        </aside>
+
+        <footer>
+            <hr>
+            <p>&copy; 2026 한유진. All rights reserved.</p>
+            <a href="#top">맨 위로</a>
+        </footer>
+    </body>
+</html>

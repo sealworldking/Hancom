@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>표 합치기</title>
+    </head>
+    <body>
+        <h1>표 합치기</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th colspan="3">
+                        성적표
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td rowspan="5">과목</td><td>영어</td><td>90</td></tr>
+                <tr><td>수학</td><td>85</td></tr>
+                <tr><td>국어</td><td>85</td></tr>
+                <tr><td>사회</td><td>85</td></tr>
+                <tr><td>과학</td><td>85</td></tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+
+<!-- 
+추가로 공부한 것
+<table>
+    <thead>...</thead>
+    <tbody>...</tbody>
+    <tfoot>...</tfoot>
+</table>
+이러한 형식으로, 표도 위, 중간, 아래 구간으로 나눠서 코딩할 수 있다. (구조화에 좋음)
+rowspan 등을 통해 합치면
+이미 차지된 공간으로 인식되어, 자동으로 그냥 비워두고 다음 칸부터 채워진다.
+-->

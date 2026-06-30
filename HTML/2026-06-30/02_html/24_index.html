@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>입력 Type</title>
+    </head>
+    <body>
+        <h1>입력 Type</h1>
+        <form>
+            <label>이메일: <input type="email", placeholder="메일"></label>
+            <br>
+            <label>비밀번호: <input type="password"></label>
+            <br>
+            <label>동의: <input type="checkbox"></label>
+            <br>
+            <label>성별: <input type="radio" name="gender">남</label> <label><input type="radio" name="gender">여</label>
+            <br>
+            <input type="date">
+            <br>
+            <textarea>안녕하세요!</textarea>
+            <br>
+            <select>
+                <option>서울</option>
+                <option>부산</option>
+                <option>제주도</option>
+            </select>
+        </form>
+    </body>
+</html>
+
+<!-- 
+<추가로 학습한 내용>: 
+radio 타입은 checkbox와는 달리 단일 선택이 가능한 타입이다.
+<input type="radio">남
+<input type="radio">여
+그러나 이렇게 쓴다면, 독립적인 2개의 개체로 인식하기 때문에 동시 선택이 가능해진다.
+따라서
+<input type="radio" name="gender">남
+<input type="radio" name="gender">여
+와 같은 방법으로 동일 name으로 규정해 줌으로써 둘 중 하나만 선택 가능하게 만들어줘야 한다.
+
+또한, textarea는 textarea 내부의 모든 공백과 줄바꿈을 그대로 반영한다. 그래서
+<textarea>
+    안녕하세요!
+</textarea>
+이렇게 작서할 경우, 인사가 이상한 위치에 나올 수 있다.
+그러므로
+<textarea>안녕하세요!</textarea> 와 같은 방법으로 코드를 작성해줘야 앞에 들여쓰기 없이 인사가 들어간다.
+-->
