@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>음성 넣기</title>
+    </head>
+    <body>
+        <h1>음성 파일</h1>
+        <audio controls autoplay>
+            <source src="./Audio.mp3" type="audio/mpeg">
+            <source src="./Audio.ogg" type="audio/ogg">
+            내 브라우저는 Audio를 지원하지 않습니다.
+        </audio>
+    </body>
+</html>
+
+<!-- 
+controls 속성을 반드시 넣어줘야 한다.
+source는 빈 태그이다.
+오디오도 autoplay를 지원한다.
+
+추가로 학습한 것: 오디오는 source 태그를 여러 개 넣어주면 브라우저가 지원하는 오디오 형식에 맞춰서 재생할 수 있다.
+    - 만약 지원하는 형식이 없다면, 그 아래에 있는 텍스트가 브라우저에 표시된다.
+-->
