@@ -5,7 +5,7 @@ p { color: green;}
 .special {color: orange;}
 .apple { color: red;}
 .apple::marker { color: black;}
-li em { color: purple;}
+li em { color: blue;}
 
 /* 
 새롭게 알게 된 것
