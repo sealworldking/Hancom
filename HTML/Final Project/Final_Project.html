@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 소개 사이트</title>
+</head>
+<body>
+    <header class="site-header">
+        <h1>한유진</h1>
+        <nav>
+            <a href="#about" class="nav-link">소개</a>
+            <br>
+            <a href="#like" class="nav-link">좋아하는 것</a>
+            <br>
+            <a href="#skill" class="nav-link">할 줄 아는 것</a>
+            <br>
+            <a href="#contact" class="nav-link">연락처</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section" id="about">
+            <h2>소개</h2>
+            <p>안녕하세요, <strong>HTML을 막 배운</strong> <mark>한유진</mark>입니다.</p>
+            <img src="./Profile.png" alt="My Profile Picture" width="200" class="profile-img">
+            <p><strong>My Github: </strong><a href="https://github.com/sealworldking" target="_blank" alt="https://github.com/sealworldking">링크</a></p>
+        </section>
+
+        <section class="section" id="like">
+            <h2>좋아하는 것</h2>
+            <ol>
+                <li>음악 듣기</li>
+                <li>여행하기</li>
+                <li>맛집 탐방하기</li>
+            </ol>
+        </section>
+
+        <section class="section" id="skill">
+            <h2>할 줄 아는 것</h2>
+            <ul>
+                <li>HTML 뼈대 만들기</li>
+                <li>시멘틱 태그로 구조 짜기</li>
+                <li>표, 폼, 링크 넣기</li>
+            </ul>
+
+            <h2>공부 기록</h2>
+            <table>
+                <table border="1">
+                <thead><tr><th>날짜</th><th>배운 것</th></tr></thead>
+                <tbody>
+                    <tr><td>1일차</td><td>태그, 뼈대</td></tr>
+                    <tr><td>2일차</td><td>표, 폼, 시멘틱</td></tr>
+                    <tr><td>3일차</td><td>AI, Project</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="section" id="contact">
+            <h2>연락처</h2>
+            <form action="/send" method="post">
+                <label for="name">이름: </label>
+                <input type="text" id="name" name="name" required>
+                <br>
+                <br>
+                <input type="radio" id="male" name="gender" value="남">
+                <label for="male">남</label>
+                <input type="radio" id="female" name="gender" value="여">
+                <label for="female">여</label>
+                <br>
+                <br>
+                <label for="msg">하고 싶은 말</label>
+                <br>
+                <textarea id="msg" name="msg" rows="3"></textarea>
+                <br>
+                <br>
+                <button type="submit" class="btn">보내기</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer class="site-footer">
+        <small>&copy; 2026 한유진</small>
+    </footer>
+
+</body>
+</html>
