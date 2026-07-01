@@ -1,0 +1,24 @@
+/* body => h1, img, p, ul => .special(클래스) => a : 일반 => 구체 순서 */
+
+h1 { color: red;}
+p { color: green;}
+.special {color: orange;}
+.apple { color: red;}
+.apple::marker { color: black;}
+li em { color: purple;}
+
+/* 
+새롭게 알게 된 것
+<ul>
+    <li>사과</li>
+</ul>
+에 대해서, 사과라는 글자만 빨간색으로 바꾸고 싶다면 클래스를 더해줘서
+<ul>
+    <li class="apple">사과</li>
+</ul>
+과 같이 바꿔주고 CSS에서 .apple { color: red;} 로 지정해주면 된다.
+그런데 이런 경우, 맨 앞의 말머리도 같이 빨간색으로 변하게 되는데,
+그것이 싫다면 
+.apple::marker { color: black;}와 같은 방법으로
+marker에 대해 색을 따로 지정해주면 된다.
+*/

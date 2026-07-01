@@ -1,0 +1,27 @@
+body {background-color:burlywood;font-family:sans-serif;}
+
+/* 요소 선택자 */
+h1 {color: azure; text-align:center;}
+p {color:gray; text-align:center;}
+
+/* 클래스 선택자 */
+.special {color: orangered; font-weight:bold; text-align:center;}
+
+/* 자손 선택자 */
+li em {color: purple; font-style:normal; text-align:center;}
+
+/* 
+코드 순서에는 중요한 관례가 존재한다.
+항상 코드는 일반적인 것 -> 구체적인 것 순으로 작성하는 것이 좋다.
+
+추가적으로 학습한 것
+예를 들어서, <p class="special">아무 말</p> 과 같은 코드가 존재할 때,
+
+p { color: green; } ← 일반적
+.special { color: orange; } ← 구체적
+
+이기 때문에, 구체적인 special 의 스타일을 따르게 된다.
+따라서, 헷갈리지 않으려면 구체적인 것을 나중에 작성하는 것이 좋다.
+
+만약 일반/구체적 과 같은 구체성 차이가 없는 경우라면 나중 줄에서 설정한 것을 따른다.
+*/
