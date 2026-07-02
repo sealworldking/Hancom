@@ -1,0 +1,28 @@
+ul {
+    background-color: white;
+    padding: 10px; /*안쪽 여백 - 글자와 테두리 사이 공간*/
+    border: 5px solid navy; /*테두리 - 두께, 실선, 남색*/
+    margin:10px 20px 30px 40px; /*바깥 여백 - 옆 요소와의 거리*/
+    list-style:none; /*말머리 없애기*/
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3) /*그림자 만들기*/
+}
+
+/* 
+값 1개 - 상하좌우 전부 동일하게
+margin: 20px
+
+값 2개 - 상하 / 좌우
+margin: 10px 30px; 상하 10, 좌우 30
+
+값 4개 - 상 - 우 - 하 - 좌
+margin: 10px 20px 30px 40px;
+
+margin-top:10px;
+margin-right:20px;
+margin-bottom:30px;
+margin-left:40px;
+
+추가로 학습한 것: 박스에 그림자 넣기
+box-shadow: 2px 2px 8px rgba(0,0,0,0.3) 과 같은 코드로 그림자를 만들 수 있다.
+    - 그림자의 x축, y축, 흐림 반경, 색상(색깔(?,?,?) + 투명도) 순으로 작성한다.
+*/

@@ -1,0 +1,47 @@
+.card{
+    width:300px;
+    height:150px;
+    perspective:600px;
+    /* 3D 화면 구성 */
+}
+
+.inner {
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform 0.6s;  /* transform 이 바뀔 때 0.6초에 걸쳐 부드럽게 바뀌도록 설정 */
+    transform-style: preserve-3d;   /*자식을 3D 공간에 둠*/
+}
+
+.card:hover .inner{
+    transform:rotateY(180deg)
+}
+
+.front, .back{
+    position: absolute; /*앞, 뒷면을 .inner 위에 겹쳐 쌓음*/
+    inset:0; /*top, right, bottom, left 전부 0(부모 꽉 채움)*/
+    display:flex; /* 안에 있는 글자를 가운데 두기 위해서*/
+    align-items:center; /*세로 가운데 정렬*/
+    justify-content:center;
+    border-radius:12px;
+    color:white; /*둥근 모서리*/
+    font-size:20px;
+    backface-visibility:hidden;
+}
+
+.front{
+    background:rgb(255, 0, 0);
+}
+
+.back{
+    background:blue;
+    transform:rotateY(180deg);
+}
+
+/* 
+추가로 학습한 것: 왜 back을 맨 처음에 180도 돌려 놓을까?
+    뒷면을 처음부터 180도 뒤집어 앞면과 등을 맞대게 함.
+      - 처음(0도): back은 등을 진 상태 → backface-visibility:hidden 때문에 숨겨짐 → 앞면만 보임
+      - hover 시 .inner가 180도 회전하면 back은 360도(=정면)가 됨 → 보이게 되고, 반대로 front는 180도로 등을 져서 숨겨짐
+      결국 앞·뒤가 항상 반대 방향을 보게 만들어, 뒤집을 때만 뒷면이 나타나도록 하는 설정.
+*/

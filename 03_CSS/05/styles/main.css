@@ -1,0 +1,18 @@
+.menu{
+    display:flex;
+    gap:10px;
+    /* 자식 사이 간격 */
+    list-style:none;
+    /* 목록 점 제거 */
+}
+
+/* 
+li 부분 디자인 입히기
+*/
+.menu li{
+    background-color: rgb(189, 189, 255);
+    border-radius: 5px;
+    color: gray;
+    padding:15px;
+    font-size: 20px;
+}

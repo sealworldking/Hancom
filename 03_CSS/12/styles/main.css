@@ -1,0 +1,106 @@
+body {
+    min-height:1500px;
+}
+
+/* 부모 박스: position:relative */
+.parent{
+    position:relative;
+    border:2px dashed red;
+    border-radius:8px;
+    height:120px;
+    background-color:rgb(248,241,231);
+    margin:10px 0;
+}
+
+/* relative:원애 자리 기준으로 이동 */
+.ptag{
+    position:absolute;
+    top:6px;
+    left:10px;
+    color:purple;
+    font-weight:bold;
+}
+
+.rel{
+    position:relative;
+    top:30px;
+    left:20px;
+    width:150px;
+    padding:8px;
+    background:rgb(101,247,191);
+    font-weight:bold;
+    color:rgb(12,92,65);
+}
+
+.abs{
+    position:absolute;
+    background:rgb(132,45,59);
+    color:antiquewhite;
+    padding:10px;
+    bottom:50px;
+    right:16px;
+    z-index:10;
+}
+
+.fixed{
+    position:fixed;
+    background-color:blueviolet;
+    color:white;
+    font-weight:bold;
+    border-radius:6px;
+    bottom:16px;
+    right:16px;
+    padding:10px;
+}
+
+/* sticky: 스크롤하다 top: 0지점에 닿으면 착 붙음 */
+.sticky{
+    position:sticky;
+    top:0;
+    margin:10px 0;
+    padding:8px 12px;
+    background:rgb(176,204,62);
+    color:blanchedalmond;
+    font-weight:bold;
+    border-radius:6px;
+}
+
+.card{
+    position:relative;
+    width: 160px;
+    padding: 16px;
+    margin-top: 16px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: crimson;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/*
+추가 활동: 카드 + NEW 뱃지 만들기
+- .card 에 position:relative 로 기준을 잡고, .badge 는 position:absolute 로 카드 모서리(top/right 음수값)에 겹쳐서 배치
+- .badge 는 border-radius:50%, flex 중앙정렬로 동그란 뱃지 모양 구현
+- .card:hover 에 transform:scale(1.03) + transition 으로 마우스 올리면 살짝 커지는 효과 추가
+- .card, .badge 에 box-shadow 로 입체감(그림자) 추가
+*/

@@ -1,0 +1,16 @@
+.neon{
+    border:0.5px solid red;
+    width:250px;
+    height:100px;
+    /* 가운데 정렬 3종세트. 꼭 기억해두자. */
+    display:flex;   align-items:center;   justify-content:center;
+    /* 모서리 둥글게 하는 코드 */
+    border-radius:20px;
+    /* 135도 방향으로 색을 섞는 핵심 코드 */
+    background:linear-gradient(135deg, #ec4899, #146786);
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+    /* 25px 반경의 그림자를 0,0위치에 넣는다. 그림자 색은 rgba로. 그리고 투명도까지 설정하면 끝. 그림자로 글로우를 넣는 것이다.*/
+    box-shadow:0 0 25px rgba(249, 76, 162, 0.7);
+}

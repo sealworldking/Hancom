@@ -1,0 +1,27 @@
+.box{
+    border:1px solid;
+    width:200px;
+    height:200px;
+    display:flex;   /*글자를 가운데 두기 위한 준비*/
+    align-items:center;   /*세로 가운데 정렬*/
+    justify-content:center;    /*가로 가운데 정렬*/
+    background-color:hotpink;
+    color:white;
+    border-radius:16px;
+    transition:transform 1.0s ease, box-shadow 0.4s ease 1.0s;
+    /* box-shadow는 1.0초(=회전 시간) 기다렸다가 0.4초에 걸쳐 나타남 */
+    margin:50px;
+}
+
+.box:hover{
+    transform:rotate(10deg) rotateY(720deg) scale(1.2);
+    box-shadow:0 15px 30px rgba(0,0,0,0.4);  /* 회전이 다 끝난 뒤 생기는 그림자 */
+}
+
+/*
+마우스를 갖다 대면 회전, 확대되도록 하는 것을 새롭게 배운 것이다.
+추가 학습한 것
+    - 마우스를 갖다대면 카드가 돌아가면서 뒤집어지는 것도 같이 하도록 설정하였다.
+    또한, ease 말고도 linear(일정한 속도), ease-in(점점 빨라짐), ease-out(점점 느려짐) 등의 속도 리듬들도 시도해봤다.
+    또한, 그림자도 1.0초 기다리게 하여 다 돌아간 뒤, 0.4초에 걸쳐서 그림자가 생기도록 기능도 추가해보았다.
+*/

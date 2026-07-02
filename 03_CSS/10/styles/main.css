@@ -1,0 +1,40 @@
+@keyframes move{
+    /* 시작(0%) | 끝(100%): 제자리 */
+    0%, 100% {transform: translateY(0);}
+    /* 중간(50%): 위로 30px 올라감! (translateY 음수=위) */
+    50% {transform:translateX(500px)}
+}
+
+.ball{
+    border:1px solid red;
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:orange;
+    animation:move 1.5s ease infinite;
+}
+
+/*
+추가 공부한 것:
+    포물선 운동 - X는 등속, Y는 포물선 공식(-4H*t*(1-t))으로 10%마다 좌표를 미리 계산해서 찍음
+    animation-timing-function도 ease가 아니라 linear로 써야 함
+    (좌표에 곡선을 이미 계산해뒀으므로, 여기에 ease까지 얹으면 모양이 틀어짐)
+
+@keyframes move{
+    0%   { transform: translate(0px,   0px); }
+    10%  { transform: translate(50px,  -72px); }
+    20%  { transform: translate(100px, -128px); }
+    30%  { transform: translate(150px, -168px); }
+    40%  { transform: translate(200px, -192px); }
+    50%  { transform: translate(250px, -200px); }
+    60%  { transform: translate(300px, -192px); }
+    70%  { transform: translate(350px, -168px); }
+    80%  { transform: translate(400px, -128px); }
+    90%  { transform: translate(450px, -72px); }
+    100% { transform: translate(500px, 0px); }
+}
+
+.ball{
+    animation:move 1.5s linear infinite;
+}
+*/
