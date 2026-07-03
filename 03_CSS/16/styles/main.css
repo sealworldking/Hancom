@@ -1,0 +1,47 @@
+.card{
+    width:150px;
+    height:100px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgb(251,175,175);
+
+    border-radius:8px;
+    /* 투명도 85% */
+    opacity:0.85;
+    /* 아래로 그림자 */
+    box-shadow:0 6px 18px rgb(236, 252, 59);
+    /* 바뀔 때 0.3초 스르륵 */
+    transition: all 0.3s ease;
+    color:white;
+    font-weight:bold;
+    font-size:20px;
+}
+
+/* 마우스 올리면 -> 떠오르고 또렷해지고 그림자 커짐 */
+.card:hover{
+    opacity:1;
+    /* 위로 8px 떠오름 */
+    transform:translateY(-8px);
+    /* 그림자 진하게 */
+    box-shadow:0 16px 32px rgb(251,175,175);
+}
+
+/*
+   추가 학습한 부분:
+   - .card:hover 안에 font-size:23px 추가
+   - .card에 이미 transition:all 0.3s ease가 걸려있어서
+     font-size도 자동으로 부드럽게 전환됨
+     (all이 모든 속성 변화를 포함하므로 따로
+     transition에 font-size를 추가할 필요 없음)
+   - 20px -> 23px, 약 15% 확대 (적당히 커지는 정도)
+   - 참고: transform:scale()로도 비슷한 효과를 낼 수 있지만,
+     그건 카드 전체를 비율 확대하는 방식이라 결과가 다름.
+     카드 크기는 고정하고 글자만 키우려면 font-size가 더 정확함
+*/
+
+/*
+.card:hover{
+    font-size:23px;
+}
+*/

@@ -1,0 +1,53 @@
+/* :root=문서 전체의 뿌리 -> 어디서든 꺼내 쓸 수 있음(안에 변수 정의) */
+:root{
+    /* 메인 색(이 한 줄만 고치면 전체 반영) */
+    --main-color:red;
+    /* 버튼 사이 간격 */
+    --gap:12px;
+}
+
+.row{
+    gap:var(--gap);
+    display:flex;
+}
+
+/* 변수 꺼내 쓰기 */
+.btn{
+    padding:8px 18px;
+    border:none;
+    border-radius:8px;
+    background:var(--main-color);
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/*
+   추가 학습한 부분:
+   - .btn 안에 하드코딩되어 있던 border-radius, padding,
+     color(글자색)도 --main-color, --gap과 똑같은 방식으로
+     :root에 이름표(--btn-radius, --btn-padding, --btn-text-color)를
+     붙이고 var()로 꺼내 쓰도록 확장
+   - :root + var() 패턴을 반복 적용한 것.
+   - 버튼이 여러 개로 늘어나도 :root 값 한 줄만 고치면
+     모서리 둥글기·안쪽 여백·글자색이 한번에 반영됨
+*/
+
+/*
+고칠 수 있는 코드:
+:root{
+    --btn-radius:8px;
+    --btn-padding:8px 18px;
+    --btn-text-color:white;
+}
+
+.btn{
+    padding:var(--btn-padding);
+    border:none;
+    border-radius:var(--btn-radius);
+    background:var(--main-color);
+    color:var(--btn-text-color);
+    font-weight:700;
+    cursor:pointer;
+}
+*/
