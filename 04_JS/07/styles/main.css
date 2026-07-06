@@ -1,0 +1,14 @@
+/* 곱하기 버튼을 눌러봐 글자의 스타일 지정 */
+#out{
+    font-size:20px;font-weight:700;margin-top:12px;
+}
+
+/* 숫자가 들어가는 공간 스타일 지정 */
+input{
+    width:60px;padding:6px;font-size:14px;
+}
+
+/* 곱하기 버튼의 스타일 지정 */
+button{
+    padding:6px 14px;font-size:14px;
+}

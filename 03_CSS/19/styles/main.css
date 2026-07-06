@@ -1,0 +1,744 @@
+/* ===== 리셋 ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =====================================================
+   팔레트 — 화이트 · 블랙 · 블루 조합으로 전면 교체.
+   그라디언트 · 그림자를 적극 활용해 눈에 띄는 분위기로.
+   ===================================================== */
+:root {
+  --paper: #ffffff;        /* 배경 — 화이트 */
+  --paper-alt: #eaf1fd;    /* 카드·줄무늬용 옅은 블루 */
+  --ink: #0b1220;          /* 본문 글자 — 블랙에 가까운 네이비 */
+  --ink-soft: #57708c;     /* 보조 글자 — 블루 그레이 */
+  --line: #d3e0f4;         /* 테두리·구분선 — 옅은 블루 */
+  --accent: #2563eb;       /* 블루 포인트 */
+  --accent-light: #60a5fa; /* 그라디언트용 밝은 블루 */
+  --accent-dark: #1e3a8a;  /* 그라디언트용 짙은 네이비블루 */
+  --gap: 18px;
+
+  --font-head: "Fraunces", Georgia, serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--paper);
+  /* 은은한 점무늬 + 위에서 아래로 살짝 깔리는 블루 그라디언트 */
+  background-image: radial-gradient(var(--line) 0.8px, transparent 0.8px),
+                     linear-gradient(180deg, #ffffff 0%, #eef3fc 100%);
+  background-size: 18px 18px, 100% 100%;
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  word-break: keep-all;   /* 한글 단어 중간이 아니라 띄어쓰기 단위로만 줄바꿈 */
+}
+
+a {
+  color: var(--accent-dark);
+}
+
+/* ===== 헤더 — 화이트 배경 + 하단 그림자로 붕 뜬 느낌 ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  padding: 20px 28px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+
+.wordmark h1 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.tagline {
+  margin-top: 2px;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+
+.site-header nav {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-link {
+  position: relative;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-link:hover {
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent-dark);
+}
+
+/* ===== 섹션 공통 — 화이트 카드 + 은은한 그림자 + 자동 번호 ===== */
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  counter-reset: section-count;
+}
+
+.section {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 36px;
+  margin-bottom: 48px;
+  counter-increment: section-count;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+  scroll-margin-top: 116px;   /* sticky 헤더 높이(~100px)만큼 여유를 둬 앵커 이동 시 안 가리게 함 */
+}
+
+/* 모서리가 파란 그라디언트로 살짝 접힌 듯한 디테일 */
+.section::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 26px;
+  height: 26px;
+  border-radius: 0 14px 0 0;
+  background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.section h2 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.section h2::before {
+  content: "0" counter(section-count) " / ";
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.h2-sub {
+  color: var(--ink-soft);
+  font-weight: 500;
+  font-style: normal;
+  font-size: 22px;
+}
+
+.section h3 {
+  font-family: var(--font-head);
+  font-size: 19px;
+  margin: 24px 0 10px;
+  color: var(--accent-dark);
+}
+
+/* HTML 파트 / CSS 파트 경계선 — 그라디언트 줄 + 양끝 라벨 */
+.part-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 36px 0 8px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--accent-dark);
+}
+
+.part-divider-line {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent-light), var(--accent-dark));
+}
+
+/* ===== 1. 사이트 분석 : grid 카드 ===== */
+.target-link {
+  margin-bottom: 20px;
+  color: var(--ink-soft);
+}
+
+.target-link a {
+  font-weight: 600;
+}
+
+/* ===== 분석 항목 아코디언 리스트 (클릭해서 펼치기) ===== */
+.analysis-list {
+  margin: 20px 0 28px 22px;
+}
+
+/* 요약표 토글 — 번호 목록(1. 2. 3.)이 아니라 별도 카드로 구분.
+   점선 테두리 + 옅은 배경으로 "본문 목록과 다른 종류"임을 표시 */
+.summary-toggle {
+  margin: 20px 0 28px 0;
+  padding: 4px 18px;
+  border: 1.5px dashed var(--line);
+  background: var(--paper-alt);
+}
+
+.analysis-list > li {
+  border-top: 1px solid var(--line);
+  padding: 4px 0;
+}
+
+.analysis-list > li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.analysis-list > li::marker {
+  color: var(--accent);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* <details> 자리를 대신하는 <label> — 블록으로 만들어
+   제목(.acc-summary)과 내용(.analysis-item-body)이 세로로 쌓이게 함 */
+.analysis-item {
+  display: block;
+}
+
+/* 라벨 전체가 클릭 토글 영역이면 펼친 내용을 클릭·드래그할 때도 닫혀 불편함.
+   → 내용 영역은 클릭 토글에서 제외하고, 제목 줄만 클릭 대상으로 둠 */
+.analysis-item .analysis-item-body {
+  pointer-events: none;
+}
+.analysis-item .analysis-item-body a,
+.analysis-item .analysis-item-body code {
+  pointer-events: auto;   /* 내용 속 링크·코드는 선택/클릭 가능하게 되살림 */
+}
+.acc-summary {
+  pointer-events: auto;
+}
+
+.acc-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  font-weight: 600;
+}
+
+.acc-summary::before {
+  content: "\25B8";
+  color: var(--accent);
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+/* 체크(열림) 상태면 삼각형 마커를 90도 회전 */
+.acc-toggle:checked + .analysis-item .acc-summary::before {
+  transform: rotate(90deg);
+}
+
+/* ===== 펼침 애니메이션 — JS 없이 순수 CSS로 0.5초 슬라이드 =====
+   <details> 대신 숨긴 체크박스(.acc-toggle) + <label>을 써서
+   열림·닫힘 양쪽 모두 매번 max-height 트랜지션이 걸리게 함.
+
+   max-height는 실제 내용보다 "약간만" 커야 속도가 정확함.
+   값이 실제 높이보다 훨씬 크면 → 열 때 순식간에 펼쳐지고(빈 구간을 빠르게 통과),
+   닫을 때는 빈 구간을 지나느라 딜레이처럼 보임.
+   그래서 내용이 짧은 항목은 작은 값을, 긴 항목만 큰 값을 줌. */
+.analysis-item-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+/* 기본(짧은 HTML 정리 항목들) — 내용에 가까운 값이라 속도가 정확 */
+.acc-toggle:checked + .analysis-item .analysis-item-body {
+  max-height: 800px;
+}
+
+/* 내용이 긴 SpaceX 분석 항목(acc-1)만 예외로 큰 값 — 잘림 방지.
+   이 항목은 코드 20줄 + 설명 5개라 800px로는 잘리므로 넉넉히 둠 */
+#acc-1:checked + .analysis-item .analysis-item-body {
+  max-height: 2000px;
+}
+
+/* 요약표 아코디언(acc-25, acc-26) — 표가 15줄/9줄이라 800px로는 잘림 */
+#acc-25:checked + .analysis-item .analysis-item-body {
+  max-height: 1700px;
+}
+
+#acc-26:checked + .analysis-item .analysis-item-body {
+  max-height: 1300px;
+}
+
+.collapse-inner {
+  padding: 4px 4px 22px 4px;
+}
+
+/* 코드 박스 — macOS 창 흉내(신호등 점) 대신, 이 페이지 자체의 플랫한
+   잉크 테두리 스타일에 맞춰 코너에 파일명 라벨만 살짝 붙임 */
+.code-window {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f7faff;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.code-window::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.code-block {
+  background: transparent;
+  color: var(--ink);
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.85;
+  padding: 30px 22px 22px;
+  overflow-x: auto;
+}
+
+/* 페이지 공용 code 칩 스타일(탠 배경·테두리)이 코드 블록 안까지 번지는 것을 막음 */
+.code-block code {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* 문법 강조 — 페이지 자체의 테라코타·잉크 팔레트로 통일 (다른 사이트에서 뜯어온 느낌 대신
+   이 문서 색으로 채색해서 코드도 "이 페이지의 일부"처럼 보이게) */
+.tok-comment { color: var(--ink-soft); font-style: italic; }
+.tok-selector { color: var(--accent-dark); font-weight: 600; }
+.tok-prop { color: #0e7490; }
+.tok-value { color: var(--accent); }
+
+.explain-list {
+  list-style: none;
+  font-size: 14.5px;
+  color: #000;                    /* 에스프레소 톤 → 완전한 검은색 */
+}
+
+.explain-list > li {
+  position: relative;
+  padding: 8px 0 8px 18px;
+  line-height: 1.7;
+}
+
+.explain-list > li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.explain-list .sub-point {
+  margin-top: 5px;
+  padding-left: 4px;
+  font-size: 14.5px;              /* 본문 설명과 동일한 크기로 통일 */
+  color: #000;                    /* 보조설명도 완전 검은색으로 통일 */
+}
+
+/* 설명 문장 속 code — 글씨체는 주변 설명 글자와 동일하게(코드체 제거),
+   단 색(테라코타)과 얇은 밑줄로 코드임을 가볍게 구분 */
+.explain-list code {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  font-family: inherit;           /* 코드체 제거 → 주변 글자와 같은 폰트 */
+  font-weight: inherit;           /* 굵기도 주변과 동일 */
+  color: var(--accent-dark);      /* 색은 원래대로 테라코타 */
+  border-bottom: 1px solid var(--line);  /* 밑줄 원래대로 */
+}
+
+.verify-note {
+  margin-top: var(--gap);
+  padding: 14px 18px;
+  border-left: 3px dashed var(--accent);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* ===== 2. HTML/CSS 정리 : 표 (에디토리얼 스타일) ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+th {
+  background: var(--accent-dark);
+  color: var(--paper);
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+td:first-child {
+  white-space: nowrap;
+}
+
+tbody tr:hover {
+  background: var(--paper-alt);
+}
+
+code {
+  background: var(--paper-alt);
+  border: 1px solid var(--line);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 13px;
+  color: var(--accent-dark);
+}
+
+/* 표 안의 code는 형광펜(배경 칩) 없이 색 + 굵기 + 밑줄로만 구분 — 내용 정리처럼 담백하게 */
+table code {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  color: var(--accent-dark);
+  font-weight: 700;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ===== 3. 퀴즈 : 5지선다 체크박스 + 정답 확인, 힌트 버튼 =====
+   문제마다 독립된 카드 블록으로 분리 — 진하고 눈에 띄는 색으로 대비 확보 */
+.quiz-hint {
+  margin-bottom: var(--gap);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.quiz-item {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+.quiz-item-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.quiz-num {
+  flex-shrink: 0;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+}
+
+.quiz-tag {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--accent);
+  color: var(--accent-dark);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.quiz-question {
+  font-weight: 700;
+  font-size: 15.5px;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+/* 퀴즈 안 code — 형광펜(배경 칩) 없이 글자 색만 다르게, 진하게 */
+.quiz-item code {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+/* 문제(왼쪽) + 정답 확인, 힌트 버튼(오른쪽) 가로 배치 */
+.quiz-body {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;   /* 버튼 칸을 문제 우측 "아래"에 붙임 */
+}
+
+.quiz-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.quiz-choices {
+  list-style: none;
+}
+
+.quiz-choices li + li {
+  margin-top: 2px;
+}
+
+.quiz-choices label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink);        /* 연한 하늘색 대신 진한 네이비로 대비 확보 */
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.quiz-choices label:hover {
+  background: var(--paper-alt);
+}
+
+/* 실제 radio는 숨기고, 옆의 사각 박스를 체크박스처럼 그려서 보여줌 */
+.quiz-choices input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.quiz-radio-box {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border: 1.5px solid var(--accent);
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.quiz-choices input:checked + .quiz-radio-box {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.quiz-choices input:checked + .quiz-radio-box::after {
+  content: "\2713";
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 오른쪽 버튼 칸 */
+.quiz-side {
+  flex-shrink: 0;
+  width: 132px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-check-input,
+.quiz-hint-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.quiz-btn {
+  display: block;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.quiz-btn:hover {
+  transform: translateY(-1px);
+}
+
+.quiz-btn-check {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.quiz-btn-check::before {
+  content: "정답 확인";
+}
+
+.quiz-btn-hint {
+  background: var(--paper);
+  color: var(--accent-dark);
+  border: 1.5px solid var(--accent);
+}
+
+.quiz-btn-hint::before {
+  content: "힌트 보기";
+}
+
+/* 힌트 체크박스가 켜지면 버튼 글자 교체 + 힌트 박스 표시 (JS 없이 :has()로 처리) */
+.quiz-item:has(.quiz-hint-input:checked) .quiz-btn-hint::before {
+  content: "힌트 숨기기";
+}
+
+.quiz-hint-box {
+  display: none;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #fff7e6;
+  border-left: 3px solid #d97706;
+  color: #000;
+  font-size: 13.5px;
+}
+
+.quiz-hint-label {
+  color: #ca8a04;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.quiz-item:has(.quiz-hint-input:checked) .quiz-hint-box {
+  display: block;
+}
+
+.quiz-result {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.quiz-result strong {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.quiz-result-empty {
+  background: #f1f5f9;
+  border-left: 3px solid var(--ink-soft);
+  color: var(--ink);
+}
+
+.quiz-result-correct {
+  background: #eafbf1;
+  border-left: 3px solid #16a34a;
+  color: #000;    /* 정답입니다 라벨을 뺀 설명 본문은 검은색 */
+}
+
+.quiz-result-correct strong {
+  color: #16a34a;
+}
+
+.quiz-result-wrong {
+  background: #fdecec;
+  border-left: 3px solid #dc2626;
+  color: #000;    /* 아쉬워요 라벨을 뺀 설명 본문은 검은색 */
+}
+
+.quiz-result-wrong strong {
+  color: #dc2626;
+}
+
+/* 정답 확인 체크박스가 켜졌을 때 — 선택 상태에 따라 셋 중 하나만 보여줌
+   (:has()로 "이 문제 안에 무엇이 체크됐는지"를 감지 — 전부 순수 CSS) */
+.quiz-item:has(.quiz-check-input:checked):not(:has(.quiz-choices input:checked)) .quiz-result-empty {
+  display: block;
+}
+
+.quiz-item:has(.quiz-check-input:checked):has(.quiz-opt-correct:checked) .quiz-result-correct {
+  display: block;
+}
+
+.quiz-item:has(.quiz-check-input:checked):has(.quiz-choices input:checked):not(:has(.quiz-opt-correct:checked)) .quiz-result-wrong {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .quiz-body {
+    flex-direction: column;
+  }
+  .quiz-side {
+    width: 100%;
+    flex-direction: row;
+  }
+}
+
+/* ===== 푸터 ===== */
+.site-footer {
+  text-align: center;
+  padding: 28px;
+  border-top: 2px solid var(--ink);
+  color: var(--ink-soft);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}

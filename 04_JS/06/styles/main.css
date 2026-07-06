@@ -1,0 +1,9 @@
+/* id가 result 인 요소, 즉  '아이스크림을 고르고 확인을 눌러봐' 이 파트에 대한 스타일 수정.*/
+#result{
+    font-size:18px;font-weight:700;margin-top:12px;
+}
+
+/* select, button 종류 모두 지목 */
+select,button{
+    padding:8px 12px;font-size:14px;
+}

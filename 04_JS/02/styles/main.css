@@ -1,0 +1,11 @@
+/* ID가 title 인 아직 그대로 입니다의 스타일을 조정. */
+#title{
+    color:tomato;
+    font-size:40px;
+}
+
+/* 바꾸기 의 스타일을 조정 */
+button{
+    padding:10px 20px;
+    cursor:pointer;
+}

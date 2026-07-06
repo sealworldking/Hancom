@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>미니 프로젝트 — 사이트 분석, HTML/CSS 정리, 퀴즈</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wordmark">
+      <h1>Mini Project</h1>
+      <p class="tagline">Yujin Han, 2026.06.29 ~ 2026.07.03 HTML &amp; CSS</p>
+    </div>
+    <nav>
+      <a href="#analysis" class="nav-link">사이트 분석</a>
+      <a href="#summary" class="nav-link">HTML, CSS 정리</a>
+      <a href="#quiz" class="nav-link">퀴즈 5개</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ① 마음에 드는 웹사이트 찾고 분석 -->
+    <section class="section" id="analysis">
+      <h2>마음에 드는 웹사이트 분석 <span class="h2-sub">— SpaceX</span></h2>
+      <p class="target-link">분석 대상: <a href="https://www.spacex.com/" target="_blank">spacex.com</a></p>
+
+      <ol class="analysis-list">
+        <li>
+          <input type="checkbox" id="acc-1" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-1">
+              <span class="acc-summary">동영상 삽입 공간 생성 + 무한 재생</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="style.css">
+                <pre class="code-block"><code><span class="tok-selector">.video-wrapper</span> {
+  <span class="tok-prop">display</span>: <span class="tok-value">block</span>;
+  <span class="tok-prop">position</span>: <span class="tok-value">absolute</span>;
+  <span class="tok-prop">width</span>: <span class="tok-value">100%</span>;
+  <span class="tok-prop">top</span>: <span class="tok-value">0</span>;
+  <span class="tok-prop">left</span>: <span class="tok-value">0</span>;
+  <span class="tok-prop">bottom</span>: <span class="tok-value">100px</span>;
+}
+
+<span class="tok-selector">.video-wrapper video</span> {
+  <span class="tok-prop">position</span>: <span class="tok-value">absolute</span>;
+  <span class="tok-prop">width</span>: <span class="tok-value">100%</span>;
+  <span class="tok-prop">height</span>: <span class="tok-value">100%</span>;
+  <span class="tok-prop">object-fit</span>: <span class="tok-value">cover</span>;
+}
+
+<span class="tok-selector">.full-video</span> {
+  <span class="tok-prop">bottom</span>: <span class="tok-value">0</span>;
+  <span class="tok-prop">height</span>: <span class="tok-value">100%</span>;
+}</code></pre>
+              </div>
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;video</span> <span class="tok-prop">autoplay</span> <span class="tok-prop">loop</span> <span class="tok-prop">playsinline</span><span class="tok-selector">&gt;</span>
+  <span class="tok-selector">&lt;source</span> <span class="tok-prop">src</span>=<span class="tok-value">"movie.webm"</span> <span class="tok-prop">type</span>=<span class="tok-value">"video/webm"</span><span class="tok-selector">&gt;</span>
+  <span class="tok-selector">&lt;source</span> <span class="tok-prop">src</span>=<span class="tok-value">"movie.mp4"</span> <span class="tok-prop">type</span>=<span class="tok-value">"video/mp4"</span><span class="tok-selector">&gt;</span>
+<span class="tok-selector">&lt;/video&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>.video-wrapper</code>는 <code>position: absolute</code>라서, 가장 가까운 position 조상 기준으로 <br><code>width: 100%; top: 0; left: 0; bottom: 100px;</code> 값이 잡힙니다 (조상의 좌측 상단에서 시작, 아래로부터 100px 떨어진 높이)</p>
+                  <p class="sub-point">→ 실제로 조상을 찾아보니 <code>div.section { position: relative; width: 485px; height: 730px; }</code> 이 존재한다는 걸 발견했습니다.</p>
+                  <p class="sub-point">→ 지금 브라우저 창 크기와 거의 같았습니다. 즉 사실상 화면 전체 기준으로 크기를 지정한 것과 다름없습니다.</p>
+                </li>
+                <li>
+                  <p><code>.video-wrapper video { position: absolute; width: 100%; height: 100%; }</code>는 영상 자체를 담는 블록(<code>.video-wrapper</code>)과 크기가 100% 똑같아지도록 영상을 끼워 넣는 코드입니다.</p>
+                  <p class="sub-point">→ 근데 이렇게 블록 크기에 영상을 억지로 맞추면, 영상 원본 비율은 무시된 채 찌그러질 수 있습니다.</p>
+                  <p class="sub-point">→ 이걸 막기 위해 쓴 게 <code>object-fit: cover</code>입니다 — 원본 비율은 유지한 채로 블록을 빈틈없이 채우고, 넘치는 부분만 잘라냅니다.</p>
+                </li>
+                <li>
+                  <p><code>.full-video</code> 클래스가 붙으면 <code>bottom: 0; height: 100%</code>로 값을 덮어써서 wrapper가 화면 하단까지 꽉 채웁니다.</p>
+                  <p class="sub-point">→ 기본 <code>.video-wrapper</code>의 코드를 살펴보면 <code>bottom: 100px</code>로 하단에 여백을 남기고 있는데, 이 홈페이지의 영상 4개는 전부 <code>full-video</code>가 붙어있어서 이 여백이 실제로 쓰이는 곳이 없습니다.</p>
+                  <p class="sub-point">→ 하단 여백의 존재 이유는 찾지 못했습니다. 아마 override 된 것으로 추정됩니다.</p>
+                </li>
+                <li>
+                  <p>자동재생, 무한반복, 음소거는 CSS가 아닌 HTML 속성 <code>autoplay loop muted playsinline</code>으로 처리하고 있습니다.</p>
+                  <p class="sub-point">→ 브라우저가 소리 있는 자동재생은 막기 때문에 무한재생을 위해 <code>muted</code>가 필수로 들어간 것을 볼 수 있습니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;video&gt;</code> 태그를 열어보면 <code>src</code> 속성이 아니라 안에 <code>&lt;source src="...mp4"&gt;</code> 자식 태그로 파일 경로가 들어있습니다.</p>
+                  <p class="sub-point">→ STEP 16에서 배운 <code>&lt;audio&gt;&lt;source&gt;&lt;/audio&gt;</code> 패턴과 똑같이, 영상도 <code>&lt;source&gt;</code>로 파일 경로를 지정합니다.</p>
+                  <p class="sub-point">→ <code>&lt;source&gt;</code>를 여러 개 순서대로 나열하면, 브라우저가 위에서부터 자기가 지원하는 첫 번째 형식을 골라 재생합니다. <br>(Ex: webm 안 되면 mp4로)</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 2. 시맨틱 태그 + 푸터 -->
+        <li>
+          <input type="checkbox" id="acc-18" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-18">
+              <span class="acc-summary">시맨틱 태그 구조 — header 1개, main, section은 0개 (+ 푸터)</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;header&gt;</span> 1개
+<span class="tok-selector">&lt;nav&gt;</span> 2개  <span class="tok-comment">(상단 메뉴 + 모바일용)</span>
+<span class="tok-selector">&lt;footer&gt;</span> 1개
+
+<span class="tok-selector">&lt;main&gt;</span> 0개
+<span class="tok-selector">&lt;section&gt;</span> 0개
+<span class="tok-selector">&lt;article&gt;</span> 0개</code></pre>
+              </div>
+              <div class="code-window" data-lang="style.css">
+                <pre class="code-block"><code><span class="tok-selector">.footer</span> {
+  <span class="tok-prop">display</span>: <span class="tok-value">flex</span>;
+  <span class="tok-prop">justify-content</span>: <span class="tok-value">space-between</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>실제로 태그 개수를 세어보니 <code>header</code>, <code>nav</code>, <code>footer</code>만 쓰고, <code>main</code>, <code>section</code>, <code>article</code>은 하나도 없었습니다.</p>
+                  <p class="sub-point">→ 나머지 레이아웃은 전부 뜻 없는 <code>div</code>로 짜여 있었습니다. 큰 회사 사이트도 시맨틱 태그를 교과서처럼 완벽하게 지키지는 않습니다.</p>
+                </li>
+                <li>
+                  <p>유일하게 쓰인 <code>footer</code>는 <code>flex</code>로 3개 요소를 양끝, 가운데에 배치합니다 — 왼쪽 <code>a.social</code>(X 링크), 가운데 <code>nav</code>(회사 정보 5개 링크), 오른쪽 <code>div.footer-text</code>입니다.</p>
+                  <p class="sub-point">→ 오른쪽은 로고 이미지처럼 보였지만 실제론 '© 2026 SpaceX'라는 그냥 글자였습니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 3. 레이아웃 -->
+        <li>
+          <input type="checkbox" id="acc-19" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-19">
+              <span class="acc-summary">레이아웃 — grid는 0개, flex는 41개</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-prop">display</span>: <span class="tok-value">grid</span>   <span class="tok-comment">0개</span>
+<span class="tok-prop">display</span>: <span class="tok-value">flex</span>   <span class="tok-comment">41개</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>display: grid</code>를 쓴 곳이 있나 하나하나 세어봤는데, 결과가 0개였습니다. 카드형으로 나란히 배치된 부분들도 사실은 grid가 아니라 전부 flex 조합으로 짜여 있었습니다.</p>
+                  <p class="sub-point">→ "행과 열이 자유로운 배치는 grid가 필수다"라고 생각하기 쉬운데, flex만으로도 충분히 이런 레이아웃을 만들 수 있다는 걸 확인한 셈입니다.</p>
+                </li>
+                <li>
+                  <p>실제로 flex가 어디에 쓰였는지 하나 찾아보니, 상단 메뉴 <code>.nav-links { display: flex; gap: 18px; }</code>였습니다.</p>
+                  <p class="sub-point">→ 예전 같으면 메뉴 항목마다 margin-right를 일일이 줬을 텐데, <code>gap</code> 한 줄이면 항목 사이 간격이 한 번에 해결됩니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 5. 대문자 표기 -->
+        <li>
+          <input type="checkbox" id="acc-21" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-21">
+              <span class="acc-summary">COMPANY 등 메뉴 라벨의 대문자 표기</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="style.css">
+                <pre class="code-block"><code><span class="tok-comment">실제 DOM 텍스트: "Company"</span>
+
+span {
+  <span class="tok-prop">text-transform</span>: <span class="tok-value">uppercase</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>실제 DOM 텍스트는 <code>Company</code>(첫 글자만 대문자)이고, <code>text-transform: uppercase</code>가 화면에서만 대문자로 바꿔 보여줍니다.</p>
+                  <p class="sub-point">→ 실제 구조는 <code>nav &gt; div.nav-links &gt; div &gt; div &gt; span</code>입니다.</p>
+                </li>
+                <li>
+                  <p>궁금해서 letter-spacing이랑 font-weight도 같이 확인해봤더니, <code>letter-spacing: 1.17px; font-weight: 700;</code>가 나란히 붙어있었습니다.</p>
+                  <p class="sub-point">→ 대문자로 바꾸기만 하면 글자가 다닥다닥 붙어 보이기 쉬운데, 자간을 살짝 벌리고 두껍게 만들어서 그 문제를 미리 보완해둔 것으로 보입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 6. Upcoming Launches -->
+        <li>
+          <input type="checkbox" id="acc-22" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-22">
+              <span class="acc-summary">Upcoming Launches 슬라이드 패널</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="style.css">
+                <pre class="code-block"><code><span class="tok-selector">.card-container</span> {
+  <span class="tok-prop">position</span>: <span class="tok-value">absolute</span>;
+  <span class="tok-prop">transition</span>: <span class="tok-value">left 1s, opacity 1s, visibility 1s</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>이 위젯 구조를 뜯어보니 <code>title</code>(제목), <code>arrow</code>(화살표), <code>card-container</code>(발사 일정 카드들) 세 부분으로 나뉘어 있었습니다.</p>
+                  <p class="sub-point">→ 애니메이션 방식이 좀 특이했는데, 보통 슬라이드 효과는 <code>transform</code>으로 많이 만드는 데 비해 여기는 <code>left</code> 값 자체를 1초 동안 움직여서 등장시키고 있었습니다.</p>
+                </li>
+                <li>
+                  <p>닫혀 있을 때 값을 실측해보니 <code>width: 245px; right: -97.5px;</code>였습니다.</p>
+                  <p class="sub-point">→ <code>right</code> 값이 음수라는 게 포인트인데, 그만큼 카드가 화면 오른쪽 바깥으로 밀려나서 안 보이게 숨어있다가, 열리는 순간 이 값이 0 쪽으로 움직이면서 화면 안으로 들어오는 방식입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 7. EXPLORE 버튼 -->
+        <li>
+          <input type="checkbox" id="acc-23" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-23">
+              <span class="acc-summary">EXPLORE 버튼 hover 애니메이션</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="style.css">
+                <pre class="code-block"><code><span class="tok-selector">.spx-button.primary</span> {
+  <span class="tok-prop">background</span>: <span class="tok-value">rgba(0, 0, 0, 0.5)</span>;
+  <span class="tok-prop">transition</span>: <span class="tok-value">background-color 0.5s cubic-bezier(0.19, 1, 0.22, 1)</span>;
+}
+<span class="tok-selector">.spx-button.primary:hover</span> {
+  <span class="tok-prop">background</span>: <span class="tok-value">#ffffff</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>hover 시 배경이 검정 반투명에서 흰색으로 부드럽게 바뀝니다.</p>
+                  <p class="sub-point">→ 화살표는 <code>div.arrow.icon.slide</code> 안 커스텀 아이콘(<code>&lt;arrow-svg&gt;</code>)이 담당합니다.</p>
+                </li>
+                <li>
+                  <p>버튼 자체의 박스 모델도 같이 확인해봤는데, <code>border-radius: 4px; padding: 0 20px; border: 1px solid rgba(240,240,250,.35);</code>로 되어 있었습니다.</p>
+                  <p class="sub-point">→ 이 테두리 색 값을 자세히 보니, CSS 변수 항목에서 발견했던 <code>--white-35</code>와 숫자가 정확히 똑같았습니다. 즉 이 버튼도 그 변수 스케일을 그대로 가져다 쓰고 있던 것입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 8. 색상, 폰트 -->
+        <li>
+          <input type="checkbox" id="acc-24" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-24">
+              <span class="acc-summary">색상, 폰트 디테일</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="style.css">
+                <pre class="code-block"><code><span class="tok-selector">body</span> {
+  <span class="tok-prop">background</span>: <span class="tok-value">rgb(0, 0, 0)</span>;
+  <span class="tok-prop">color</span>: <span class="tok-value">rgb(240, 240, 250)</span>;
+  <span class="tok-prop">font-family</span>: <span class="tok-value">"D-DIN"</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>배경색을 확인해보니 완전한 검정이 맞았는데, 글자색은 예상과 달리 순백이 아니라 살짝 푸른 기운이 도는 오프화이트였습니다.</p>
+                  <p class="sub-point">→ 폰트까지 같이 봤더니 구글 폰트가 아니라 자체 제작한 커스텀 폰트(D-DIN)를 쓰고 있었습니다 — 색이든 폰트든 미묘하게 다 손을 대놓은 셈입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 9. 이미지 지연 로딩 -->
+        <li>
+          <input type="checkbox" id="acc-36" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-36">
+              <span class="acc-summary">이미지 지연 로딩 — loading="lazy"</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;img</span> <span class="tok-prop">loading</span>=<span class="tok-value">"lazy"</span> <span class="tok-prop">src</span>=<span class="tok-value">"..."</span> <span class="tok-prop">alt</span>=<span class="tok-value">"..."</span><span class="tok-selector">&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>페이지 안 이미지를 전부 찾아서 속성을 확인해봤더니, 4개 모두 <code>loading="lazy"</code>가 붙어있었습니다.</p>
+                  <p class="sub-point">→ 이렇게 해두면 화면에 보이기 직전까지 다운로드를 미뤄서 초기 로딩 속도를 아낄 수 있습니다. 별도 JS 라이브러리 없이 HTML 속성 하나로 끝나는 게 신기했습니다.</p>
+                </li>
+                <li>
+                  <p>그런데 같이 확인해보니 <code>width</code>, <code>height</code> 속성은 4개 다 안 붙어있었습니다.</p>
+                  <p class="sub-point">→ lazy는 챙겼지만 크기를 미리 안 정해두면, 이미지가 실제로 로드되는 순간 그 자리만큼 레이아웃이 밀리는 현상(CLS)이 생길 수 있습니다. 완벽한 최적화까지는 아니었던 셈입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 10. CSS 변수 색상 스케일 -->
+        <li>
+          <input type="checkbox" id="acc-37" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-37">
+              <span class="acc-summary">CSS 변수 — 오프화이트 색상 스케일</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="style.css">
+                <pre class="code-block"><code><span class="tok-selector">:root</span> {
+  <span class="tok-prop">--white-100</span>: <span class="tok-value">rgba(240, 240, 250, 1)</span>;
+  <span class="tok-prop">--white-90</span>: <span class="tok-value">rgba(240, 240, 250, .9)</span>;
+  <span class="tok-prop">--white-50</span>: <span class="tok-value">rgba(240, 240, 250, .5)</span>;
+  <span class="tok-prop">--white-15</span>: <span class="tok-value">rgba(240, 240, 250, .15)</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>스타일시트를 뒤져서 <code>--</code>로 시작하는 변수들을 쭉 찾아봤더니, <code>:root</code> 안에 <code>--white-100</code>부터 <code>--white-15</code>까지 무려 16단계 변수가 정의돼 있었습니다.</p>
+                  <p class="sub-point">→ 자세히 보니 전에 확인했던 오프화이트 글자색 <code>rgb(240,240,250)</code> 딱 하나를 기준으로 삼고, 투명도만 조금씩 다르게 준 색상 스케일이었습니다.</p>
+                  <p class="sub-point">→ 즉 색을 쓸 때마다 새로 만드는 게 아니라, 기준색 하나에 투명도 변형만 줘서 변수로 재사용하고 있던 것입니다.</p>
+                </li>
+                <li>
+                  <p><code>--white-*</code> 계열 말고 다른 변수도 있는지 계속 찾아봤더니, <code>--black-50</code>, <code>--black-80</code>, <code>--gray-80/60/40</code>은 물론 <code>--countdown-digit-width</code>라는 것까지 나왔습니다.</p>
+                  <p class="sub-point">→ 이름부터 색상이 아니라 레이아웃 치수(숫자 폭)를 위한 변수라는 게 보여서, 색상뿐 아니라 크기까지 변수로 관리하는 훨씬 큰 디자인 시스템의 일부라는 걸 알 수 있었습니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 11. viewport 메타 태그 실전 비교 -->
+        <li>
+          <input type="checkbox" id="acc-38" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-38">
+              <span class="acc-summary">viewport 메타 태그 — 배운 것과 다른 점</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;meta</span> <span class="tok-prop">name</span>=<span class="tok-value">"viewport"</span> <span class="tok-prop">content</span>=<span class="tok-value">"width=device-width, user-scalable=1"</span><span class="tok-selector">&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>viewport 메타 태그도 그대로 따라 했는지 확인해봤는데, 로드맵에서 배운 표준형(<code>width=device-width, initial-scale=1.0</code>)과는 조금 달랐습니다. <code>initial-scale</code>은 아예 없고, 대신 <code>user-scalable=1</code>(확대·축소 허용)만 들어있었습니다.</p>
+                  <p class="sub-point">→ 배율을 1배로 딱 고정해버리는 대신, 사용자가 손가락으로 자유롭게 확대할 수 있게 일부러 열어둔 것으로 보입니다. 저시력 사용자를 생각하면 이쪽이 접근성 면에서 더 친절한 선택입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+      </ol>
+    </section>
+
+    <!-- ② HTML, CSS 정리 내용 -->
+    <section class="section" id="summary">
+      <h2>HTML, CSS 배운 내용 정리</h2>
+
+      <h3>HTML 핵심 — 리스트를 펼쳐 확인해보세요</h3>
+
+      <ol class="analysis-list">
+
+        <!-- 1. 태그와 요소 -->
+        <li>
+          <input type="checkbox" id="acc-2" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-2">
+              <span class="acc-summary">태그와 요소 — HTML의 최소 단위</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;h1&gt;</span>안녕<span class="tok-selector">&lt;/h1&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>HTML은 글마다 <code>태그</code>라는 이름표를 붙여, 그 글이 무엇인지 브라우저에게 알려주는 언어입니다.</p>
+                  <p class="sub-point">→ <code>&lt;h1&gt;</code> 여는 태그 + <code>안녕</code> 내용 + <code>&lt;/h1&gt;</code> 닫는 태그, 이 셋을 합쳐 요소(element)라고 부릅니다.</p>
+                </li>
+                <li>
+                  <p>대부분의 태그는 열고 닫는 한 쌍으로 쓰이며, 닫는 태그를 빠뜨리면 화면이 깨질 수 있습니다.</p>
+                  <p class="sub-point">→ 단, <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>처럼 넣을 내용이 없어 닫지 않는 빈 요소(void)도 있습니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 2. 문서 뼈대 -->
+        <li>
+          <input type="checkbox" id="acc-3" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-3">
+              <span class="acc-summary">문서 뼈대 — 모든 페이지의 시작</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-comment">&lt;!DOCTYPE html&gt;</span>
+<span class="tok-selector">&lt;html</span> <span class="tok-prop">lang</span>=<span class="tok-value">"ko"</span><span class="tok-selector">&gt;</span>
+  <span class="tok-selector">&lt;head&gt;</span>
+    <span class="tok-selector">&lt;meta</span> <span class="tok-prop">charset</span>=<span class="tok-value">"UTF-8"</span><span class="tok-selector">&gt;</span>
+    <span class="tok-selector">&lt;title&gt;</span>제목<span class="tok-selector">&lt;/title&gt;</span>
+  <span class="tok-selector">&lt;/head&gt;</span>
+  <span class="tok-selector">&lt;body&gt;</span>
+    <span class="tok-selector">&lt;h1&gt;</span>안녕하세요<span class="tok-selector">&lt;/h1&gt;</span>
+  <span class="tok-selector">&lt;/body&gt;</span>
+<span class="tok-selector">&lt;/html&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;head&gt;</code>는 화면엔 안 보이는, 인터페이스 뒤의 공간으로, 문자 인코딩, 탭 제목처럼 화면에는 보이지 않는 정보가 설정됩니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;body&gt;</code>는 화면에 실제로 보이는 모든 것이 들어가는 칸입니다.</p>
+                  <p class="sub-point">→ 화면을 이루는 대부분의 글자, 요소들의 뼈대가 이곳에서 설정됩니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;meta charset="UTF-8"&gt;</code>는 웹에서 한글이 올바르게 표시되도록 하는 코드입니다.</p>
+                  <p class="sub-point">→ 이 설정을 하지 않을 경우, 한글이 <code>???</code>로 깨져 나올 수 있어, 반드시 넣어야 합니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 3. 글쓰기 태그 -->
+        <li>
+          <input type="checkbox" id="acc-4" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-4">
+              <span class="acc-summary">글 쓰기 — 제목, 문단, 강조</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;h1&gt;</span>가장 큰 제목<span class="tok-selector">&lt;/h1&gt;</span>
+<span class="tok-selector">&lt;h2&gt;</span>중간 제목<span class="tok-selector">&lt;/h2&gt;</span>
+<span class="tok-selector">&lt;p&gt;</span>저는 코딩을 <span class="tok-selector">&lt;strong&gt;</span>정말<span class="tok-selector">&lt;/strong&gt;</span> 좋아합니다.<span class="tok-selector">&lt;/p&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;h1&gt;~&lt;h6&gt;</code>은 제목 6단계로, h1이 가장 크고 숫자가 커질수록 작아집니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;p&gt;</code>는 글 한 덩어리(문단)이고, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>은 각각 글자를 굵게 하거나 기울여 강조합니다.</p>
+                  <p class="sub-point">→ <code>&lt;p&gt;</code> 안에 <code>&lt;strong&gt;</code>을 넣는 것을 중첩(nesting)이라고 하는데, 이 경우 먼저 연 태그를 나중에 닫아줘야 합니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 4. 목록 -->
+        <li>
+          <input type="checkbox" id="acc-5" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-5">
+              <span class="acc-summary">목록 — 점 목록과 번호 목록</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;ul&gt;</span>
+  <span class="tok-selector">&lt;li&gt;</span>영화 감상<span class="tok-selector">&lt;/li&gt;</span>
+  <span class="tok-selector">&lt;li&gt;</span>산책<span class="tok-selector">&lt;/li&gt;</span>
+<span class="tok-selector">&lt;/ul&gt;</span>
+
+<span class="tok-selector">&lt;ol&gt;</span>
+  <span class="tok-selector">&lt;li&gt;</span>일어나기<span class="tok-selector">&lt;/li&gt;</span>
+  <span class="tok-selector">&lt;li&gt;</span>세수하기<span class="tok-selector">&lt;/li&gt;</span>
+<span class="tok-selector">&lt;/ol&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;ul&gt;</code>은 순서가 중요하지 않을 때 쓰는 점(•) 목록이고, <code>&lt;ol&gt;</code>은 순서가 중요할 때 쓰는 번호(1, 2, 3) 목록입니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;li&gt;</code>는 목록 안의 한 줄(항목)이며, ul과 ol 모두에서 내용을 채울 때 똑같이 쓰입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 5. 넣기 -->
+        <li>
+          <input type="checkbox" id="acc-6" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-6">
+              <span class="acc-summary">넣기 — 이미지, 링크, 영상</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;img</span> <span class="tok-prop">src</span>=<span class="tok-value">"cat.png"</span> <span class="tok-prop">alt</span>=<span class="tok-value">"고양이"</span><span class="tok-selector">&gt;</span>
+<span class="tok-selector">&lt;a</span> <span class="tok-prop">href</span>=<span class="tok-value">"https://google.com"</span><span class="tok-selector">&gt;</span>구글<span class="tok-selector">&lt;/a&gt;</span>
+<span class="tok-selector">&lt;iframe</span> <span class="tok-prop">src</span>=<span class="tok-value">"https://youtube.com/embed/..."</span><span class="tok-selector">&gt;&lt;/iframe&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;img&gt;</code>는 사진을 붙이는 태그로, <code>src</code>에는 사진 주소를, <code>alt</code>에는 사진이 안 뜰 때 대신 보일 글자를 입력해 줘야 합니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;a href="..."&gt;</code>는 누르면 다른 페이지로 연결되는 링크를 삽입할 때 사용합니다. 주소는 반드시 <code>https://</code>까지 적어야 동작합니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;iframe&gt;</code>은 유튜브, 구글 지도를 네모 창으로 페이지 안에 끼워넣는 태그입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 6. 구조 나누기 -->
+        <li>
+          <input type="checkbox" id="acc-7" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-7">
+              <span class="acc-summary">구조 나누기 — 시맨틱 태그</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;header&gt;</span>맨 위 (로고, 메뉴)<span class="tok-selector">&lt;/header&gt;</span>
+<span class="tok-selector">&lt;main&gt;</span>
+  <span class="tok-selector">&lt;section&gt;</span>한 주제로 묶인 내용<span class="tok-selector">&lt;/section&gt;</span>
+<span class="tok-selector">&lt;/main&gt;</span>
+<span class="tok-selector">&lt;footer&gt;</span>맨 아래 (저작권, 연락처)<span class="tok-selector">&lt;/footer&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>는 각각 머리말, 핵심 본문, 꼬리말이며, main은 한 페이지에 하나만 둬야 합니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>은 각각 메뉴 모음, 한 주제 묶음, 완결된 글을 의미합니다.</p>
+                  <p class="sub-point">→ 이름만 봐도 뜻이 드러나기 때문에, 검색엔진, 화면인식기가 구조를 바로 인식할 수 있습니다. (SEO, 접근성에 유리)</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 7. 표와 폼 -->
+        <li>
+          <input type="checkbox" id="acc-8" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-8">
+              <span class="acc-summary">표와 폼 — 데이터와 입력받기</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;table</span> <span class="tok-prop">border</span>=<span class="tok-value">"1"</span><span class="tok-selector">&gt;</span>
+  <span class="tok-selector">&lt;tr&gt;&lt;th&gt;</span>요일<span class="tok-selector">&lt;/th&gt;&lt;th&gt;</span>과목<span class="tok-selector">&lt;/th&gt;&lt;/tr&gt;</span>
+  <span class="tok-selector">&lt;tr&gt;&lt;td&gt;</span>월<span class="tok-selector">&lt;/td&gt;&lt;td&gt;</span>국어<span class="tok-selector">&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="tok-selector">&lt;/table&gt;</span>
+
+<span class="tok-selector">&lt;form&gt;</span>
+  <span class="tok-selector">&lt;input</span> <span class="tok-prop">type</span>=<span class="tok-value">"text"</span><span class="tok-selector">&gt;</span>
+  <span class="tok-selector">&lt;button&gt;</span>보내기<span class="tok-selector">&lt;/button&gt;</span>
+<span class="tok-selector">&lt;/form&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;table&gt;</code>/<code>&lt;tr&gt;</code>/<code>&lt;th&gt;</code>/<code>&lt;td&gt;</code>는 각각 표 전체, 가로 한 줄, 제목 칸, 내용 칸을 의미합니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;form&gt;</code>/<code>&lt;input&gt;</code>/<code>&lt;button&gt;</code>은 각각 입력칸 묶음, 글자 쓰는 칸, 누르는 버튼을 의미합니다.</p>
+                  <p class="sub-point">→ 재미있는 점은, <code>&lt;input&gt;</code>의 <code>type</code>을 email, password, date 등으로 바꾸면 칸 종류가 달라진다는 점입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 8. 헷갈리기 쉬운 포인트 -->
+        <li>
+          <input type="checkbox" id="acc-9" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-9">
+              <span class="acc-summary">헷갈리기 쉬운 포인트 — class, id, 경로</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;p</span> <span class="tok-prop">class</span>=<span class="tok-value">"note"</span><span class="tok-selector">&gt;</span>여러 개 공유 가능<span class="tok-selector">&lt;/p&gt;</span>
+<span class="tok-selector">&lt;h1</span> <span class="tok-prop">id</span>=<span class="tok-value">"top"</span><span class="tok-selector">&gt;</span>페이지에 하나뿐<span class="tok-selector">&lt;/h1&gt;</span>
+
+<span class="tok-selector">&lt;img</span> <span class="tok-prop">src</span>=<span class="tok-value">"./img/cat.png"</span><span class="tok-selector">&gt;</span>  <span class="tok-comment">&lt;!-- 지금 폴더 --&gt;</span>
+<span class="tok-selector">&lt;img</span> <span class="tok-prop">src</span>=<span class="tok-value">"../logo.png"</span><span class="tok-selector">&gt;</span>    <span class="tok-comment">&lt;!-- 한 칸 위 --&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>class</code>는 여러 요소가 같이 쓰는 이름표이고, <code>id</code>는 페이지에 딱 하나뿐인 이름표입니다.</p>
+                  <p class="sub-point">→ 시맨틱 태그가 있는 경우, <code>div</code>, <code>span</code>보다 먼저 쓰는 것이 구조 파악에 유리합니다.</p>
+                </li>
+                <li>
+                  <p>이미지가 안 뜨는 경우, 오류 원인 1위는 경로 오류입니다.</p>
+                  <p class="sub-point">→ <code>./</code>는 현재 폴더, <code>../</code>는 한 칸 상위 폴더, <code>https://</code>는 인터넷 절대경로를 의미한다는 점을 주의해야 합니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 9. 반응형 시작 -->
+        <li>
+          <input type="checkbox" id="acc-27" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-27">
+              <span class="acc-summary">반응형 시작 — viewport meta 태그</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;head&gt;</span>
+  <span class="tok-selector">&lt;meta</span> <span class="tok-prop">name</span>=<span class="tok-value">"viewport"</span> <span class="tok-prop">content</span>=<span class="tok-value">"width=device-width, initial-scale=1.0"</span><span class="tok-selector">&gt;</span>
+<span class="tok-selector">&lt;/head&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>는 화면 폭을 기기 화면 너비에 맞추고, 처음 확대 배율을 1배로 고정하는 태그입니다.</p>
+                  <p class="sub-point">→ 이 줄이 없으면 폰에서 페이지가 PC 폭 그대로 표시돼 글자가 깨알같이 작게 나옵니다.</p>
+                </li>
+                <li>
+                  <p>모바일 전용이 아니라 화면 크기에 맞추는 반응형의 출발점으로, 거의 모든 페이지 <code>&lt;head&gt;</code>에 기본으로 들어갑니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 10. div, span -->
+        <li>
+          <input type="checkbox" id="acc-28" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-28">
+              <span class="acc-summary">div, span — 블록 상자와 인라인 상자</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;div</span> <span class="tok-prop">class</span>=<span class="tok-value">"card"</span><span class="tok-selector">&gt;</span>
+  <span class="tok-selector">&lt;img</span> <span class="tok-prop">src</span>=<span class="tok-value">"shoes.png"</span> <span class="tok-prop">alt</span>=<span class="tok-value">"신발"</span><span class="tok-selector">&gt;</span>
+  <span class="tok-selector">&lt;p&gt;</span>운동화<span class="tok-selector">&lt;/p&gt;</span>
+<span class="tok-selector">&lt;/div&gt;</span>
+
+<span class="tok-selector">&lt;p&gt;</span>글자 중 <span class="tok-selector">&lt;span&gt;</span>여기만<span class="tok-selector">&lt;/span&gt;</span> 강조<span class="tok-selector">&lt;/p&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;div&gt;</code>는 뜻 없는 블록 상자로 한 줄을 통째로 차지하며 위→아래로 쌓이고, 여러 요소를 한 덩어리로 묶어 CSS로 함께 꾸밀 때 씁니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;span&gt;</code>은 인라인 상자로 줄을 바꾸지 않고 글자 사이에 끼어들며, 문장 속 일부만 콕 집어 꾸밀 때 씁니다.</p>
+                  <p class="sub-point">→ 뜻이 담긴 시맨틱 태그(header, nav, section 등)로 대체할 수 있으면 그걸 먼저 쓰고, 마땅한 게 없을 때만 div, span을 씁니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 11. 글자 꾸미기 -->
+        <li>
+          <input type="checkbox" id="acc-29" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-29">
+              <span class="acc-summary">글자 꾸미기 — mark, small, sub, sup</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;mark&gt;</span>형광펜<span class="tok-selector">&lt;/mark&gt;</span>
+<span class="tok-selector">&lt;small&gt;</span>작게<span class="tok-selector">&lt;/small&gt;</span>
+<span class="tok-selector">&lt;p&gt;</span>H<span class="tok-selector">&lt;sub&gt;</span>2<span class="tok-selector">&lt;/sub&gt;</span>O<span class="tok-selector">&lt;/p&gt;</span>
+<span class="tok-selector">&lt;p&gt;</span>x<span class="tok-selector">&lt;sup&gt;</span>2<span class="tok-selector">&lt;/sup&gt;</span><span class="tok-selector">&lt;/p&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;mark&gt;</code>는 형광펜처럼 배경을 칠해 강조하고, <code>&lt;small&gt;</code>은 글자를 작게 줄입니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;sub&gt;</code>는 아래첨자(H₂O), <code>&lt;sup&gt;</code>는 위첨자(x²)를 만듭니다.</p>
+                  <p class="sub-point">→ <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>(굵게, 기울임)과 함께 글자 꾸미기 태그 묶음으로 자주 쓰입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 12. 접기 -->
+        <li>
+          <input type="checkbox" id="acc-30" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-30">
+              <span class="acc-summary">접기 — details, summary</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;details&gt;</span>
+  <span class="tok-selector">&lt;summary&gt;</span>정답 보기<span class="tok-selector">&lt;/summary&gt;</span>
+  <span class="tok-selector">&lt;p&gt;</span>여기는 눌러야 보여<span class="tok-selector">&lt;/p&gt;</span>
+<span class="tok-selector">&lt;/details&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;details&gt;</code>는 JavaScript 없이 클릭으로 펴고 접는 상자이고, <code>&lt;summary&gt;</code>는 항상 보이는 제목(클릭 버튼) 역할을 합니다.</p>
+                  <p class="sub-point">→ FAQ, '더보기'처럼 눌러야 나머지 내용이 펼쳐지는 곳에 자주 씁니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 13. 미디어 -->
+        <li>
+          <input type="checkbox" id="acc-31" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-31">
+              <span class="acc-summary">미디어 — video, audio</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;video</span> <span class="tok-prop">controls</span> <span class="tok-prop">width</span>=<span class="tok-value">"320"</span> <span class="tok-prop">src</span>=<span class="tok-value">"movie.mp4"</span><span class="tok-selector">&gt;&lt;/video&gt;</span>
+
+<span class="tok-selector">&lt;audio</span> <span class="tok-prop">controls</span><span class="tok-selector">&gt;</span>
+  <span class="tok-selector">&lt;source</span> <span class="tok-prop">src</span>=<span class="tok-value">"song.mp3"</span> <span class="tok-prop">type</span>=<span class="tok-value">"audio/mpeg"</span><span class="tok-selector">&gt;</span>
+<span class="tok-selector">&lt;/audio&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>는 각각 내 영상, 음성 파일을 직접 재생하며, <code>controls</code> 속성을 붙여야 재생 버튼이 뜹니다.</p>
+                  <p class="sub-point">→ <code>&lt;source&gt;</code>로 파일 형식을 여러 개 적어두면, 브라우저가 지원하는 첫 형식을 골라 재생합니다.</p>
+                </li>
+                <li>
+                  <p><code>&lt;iframe&gt;</code>은 유튜브처럼 남의 페이지를 통째로 끼워 넣는 것이고, video, audio는 내 파일을 직접 재생한다는 점이 다릅니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 14. 줄, 선 -->
+        <li>
+          <input type="checkbox" id="acc-32" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-32">
+              <span class="acc-summary">줄, 선 — br, hr</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;p&gt;</span>첫째 줄<span class="tok-selector">&lt;br&gt;</span>둘째 줄<span class="tok-selector">&lt;/p&gt;</span>
+<span class="tok-selector">&lt;hr&gt;</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>&lt;br&gt;</code>은 한 문단 안에서 줄을 바꾸고, <code>&lt;hr&gt;</code>은 내용을 나누는 가로 선을 긋습니다.</p>
+                  <p class="sub-point">→ 둘 다 <code>&lt;img&gt;</code>처럼 닫는 태그 없이 쓰는 빈 요소(void)입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+      </ol>
+
+      <div class="summary-toggle">
+          <input type="checkbox" id="acc-25" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-25">
+              <span class="acc-summary">HTML 요약표 — 펼쳐서 보기</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <table>
+                <thead><tr><th>주제</th><th>태그 / 속성</th><th>한 줄 정리</th></tr></thead>
+                <tbody>
+                  <tr><td>뼈대</td><td><code>!</code> (Emmet)</td><td>doctype~body까지 자동 생성</td></tr>
+                  <tr><td>반응형 시작</td><td><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></td><td>화면 폭을 기기에 맞춤, 없으면 폰에서 글자 깨알같이 작아짐</td></tr>
+                  <tr><td>시맨틱</td><td><code>header, nav, main, section, article, aside, footer</code></td><td>뜻이 담긴 구역 태그, div보다 SEO, 접근성에 유리</td></tr>
+                  <tr><td>이름표</td><td><code>class</code> vs <code>id</code></td><td>class=여러 개 공유, id=페이지에 하나뿐</td></tr>
+                  <tr><td>목록</td><td><code>ul/ol/li</code></td><td>ul=점 목록, ol=번호 목록(순서 중요할 때)</td></tr>
+                  <tr><td>표</td><td><code>table/thead/tbody/tr/th/td, colspan/rowspan</code></td><td>가로줄 쌓기 + 칸 합치기, thead=제목줄/tbody=내용줄 구분</td></tr>
+                  <tr><td>폼</td><td><code>form/input/label/textarea/select</code></td><td>type에 따라 입력칸 모양이 달라짐</td></tr>
+                  <tr><td>경로</td><td><code>./ ../ https://</code></td><td>현재 폴더 / 상위 폴더 / 인터넷 절대경로</td></tr>
+                  <tr><td>이미지</td><td><code>img src alt</code></td><td>src=사진 주소, alt=안 뜰 때 대신 보일 글자</td></tr>
+                  <tr><td>링크</td><td><code>a href target="_blank"</code></td><td>href=이동 주소, target="_blank"=새 탭, #id, mailto:, tel: 도 가능</td></tr>
+                  <tr><td>div, span</td><td><code>div</code> vs <code>span</code></td><td>div=블록(한 줄 통째), span=인라인(글자 사이에 끼임)</td></tr>
+                  <tr><td>글자 꾸미기</td><td><code>strong, em, mark, small, sub, sup</code></td><td>굵게, 기울임, 형광펜, 작게, 아래첨자, 위첨자, 특수문자는 &lt; &gt; &amp;</td></tr>
+                  <tr><td>접기</td><td><code>details, summary</code></td><td>클릭하면 펴고 접히는 상자, JS 없이 구현</td></tr>
+                  <tr><td>미디어</td><td><code>video, audio, iframe</code></td><td>영상, 음성 재생, 외부 콘텐츠(유튜브, 지도) 삽입</td></tr>
+                  <tr><td>줄, 선</td><td><code>br, hr</code></td><td>br=줄바꿈, hr=가로 구분선</td></tr>
+                </tbody>
+              </table>
+             </div>
+            </div>
+            </label>
+      </div>
+
+      <div class="part-divider" role="separator" aria-label="HTML 파트와 CSS 파트 경계">
+        <span>HTML</span><span class="part-divider-line"></span><span>CSS</span>
+      </div>
+
+      <h3>CSS 핵심 — 리스트를 펼쳐 확인해보세요</h3>
+
+      <ol class="analysis-list">
+
+        <!-- 1. 선택자 -->
+        <li>
+          <input type="checkbox" id="acc-10" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-10">
+              <span class="acc-summary">선택자 — 누구를 어떻게 꾸밀지</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">h1</span> { <span class="tok-prop">color</span>: <span class="tok-value">red</span>; }            <span class="tok-comment">/* 요소 — 모든 h1 */</span>
+<span class="tok-selector">.special</span> { <span class="tok-prop">color</span>: <span class="tok-value">orange</span>; }   <span class="tok-comment">/* 클래스 — class="special" */</span>
+<span class="tok-selector">li em</span> { <span class="tok-prop">color</span>: <span class="tok-value">purple</span>; }      <span class="tok-comment">/* 자손 — li 안의 em */</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>CSS 한 줄은 <code>선택자 { 속성: 값; }</code> 형태로, 누구를(선택자) 어떻게(속성과 값) 꾸밀지 정합니다.</p>
+                  <p class="sub-point">→ 줄 끝의 세미콜론(<code>;</code>)을 빠뜨리면 적용되지 않으니 꼭 붙여줘야 합니다.</p>
+                </li>
+                <li>
+                  <p>선택자는 크게 3가지로, <code>h1</code>은 모든 요소를 고르는 요소 선택자, <code>.special</code>은 class를 콕 집는 클래스 선택자, <code>li em</code>은 li 안의 em만 고르는 자손 선택자입니다.</p>
+                </li>
+                <li>
+                  <p>작성 순서는 일반에서 구체로, 즉 요소 → 클래스 → 자손 순으로 쌓는 것이 관례입니다.</p>
+                  <p class="sub-point">→ 같은 속성이 충돌하면 더 구체적이거나 더 아래에 있는 규칙이 이기기 때문입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 2. 박스 모델 -->
+        <li>
+          <input type="checkbox" id="acc-11" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-11">
+              <span class="acc-summary">박스 모델 — margin, padding, border</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">.box</span> {
+  <span class="tok-prop">padding</span>: <span class="tok-value">20px</span>;          <span class="tok-comment">/* 안쪽 여백 */</span>
+  <span class="tok-prop">border</span>: <span class="tok-value">2px solid navy</span>; <span class="tok-comment">/* 테두리 */</span>
+  <span class="tok-prop">margin</span>: <span class="tok-value">20px</span>;           <span class="tok-comment">/* 바깥 여백 */</span>
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>모든 요소는 네모 상자이며, <code>padding</code>은 상자 안쪽 여백, <code>margin</code>은 바깥쪽 여백, <code>border</code>는 테두리를 의미합니다.</p>
+                  <p class="sub-point">→ 액자에 비유하면 padding은 사진과 액자 틀 사이, border는 틀, margin은 옆 액자와의 거리입니다.</p>
+                </li>
+                <li>
+                  <p><code>margin</code>과 <code>padding</code>은 값을 몇 개 쓰느냐로 방향이 정해집니다.</p>
+                  <p class="sub-point">→ 값 1개는 상하좌우 전부, 2개는 상하/좌우, 4개는 시계방향(상→우→하→좌)으로 적용됩니다.</p>
+                </li>
+                <li>
+                  <p><code>box-sizing: border-box</code>를 주면 padding과 border를 width 안에 포함해 계산하므로, 여백을 줘도 박스가 커지지 않아 레이아웃이 틀어지지 않습니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 3. flex -->
+        <li>
+          <input type="checkbox" id="acc-12" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-12">
+              <span class="acc-summary">flex — 가로로 나란히 배치</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">.menu</span> {
+  <span class="tok-prop">display</span>: <span class="tok-value">flex</span>;     <span class="tok-comment">/* 자식을 가로로 나란히 */</span>
+  <span class="tok-prop">gap</span>: <span class="tok-value">10px</span>;         <span class="tok-comment">/* 사이 간격 */</span>
+  <span class="tok-prop">list-style</span>: <span class="tok-value">none</span>;  <span class="tok-comment">/* 점 제거 */</span>
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>상자는 기본적으로 위에서 아래로 쌓이는데, 부모에 <code>display: flex</code> 한 줄을 주면 자식들이 가로로 나란히 배치됩니다.</p>
+                </li>
+                <li>
+                  <p><code>gap</code>은 자식 사이의 간격을, <code>list-style: none</code>은 목록의 점(•)을 없앨 때 사용합니다.</p>
+                  <p class="sub-point">→ flex는 부모에 적용하면 자식들이 알아서 나란히 놓이는 것이 핵심입니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 4. grid -->
+        <li>
+          <input type="checkbox" id="acc-13" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-13">
+              <span class="acc-summary">grid — 행과 열 2차원 격자</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">.grid</span> {
+  <span class="tok-prop">display</span>: <span class="tok-value">grid</span>;
+  <span class="tok-prop">grid-template-columns</span>: <span class="tok-value">repeat(3, 1fr)</span>; <span class="tok-comment">/* 3칸 균등 */</span>
+  <span class="tok-prop">gap</span>: <span class="tok-value">12px</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>flex가 가로 한 줄이라면, grid는 부모에 <code>display: grid</code> 한 줄로 행과 열을 동시에 다루는 2차원 격자를 만듭니다.</p>
+                </li>
+                <li>
+                  <p><code>grid-template-columns</code>는 칸(열)의 개수와 너비를 정하며, <code>repeat(3, 1fr)</code>은 3칸을 똑같은 너비로 나눕니다.</p>
+                  <p class="sub-point">→ <code>1fr</code>은 남은 공간을 1몫씩 나눠 갖는 비율 단위(fraction)로, gap을 먼저 뺀 뒤 남은 폭을 나누기 때문에 %보다 격자에서 깔끔합니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 5. position -->
+        <li>
+          <input type="checkbox" id="acc-14" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-14">
+              <span class="acc-summary">position — 요소 위치 잡기</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">.parent</span> { <span class="tok-prop">position</span>: <span class="tok-value">relative</span>; }  <span class="tok-comment">/* 기준이 되는 조상 */</span>
+<span class="tok-selector">.abs</span> {
+  <span class="tok-prop">position</span>: <span class="tok-value">absolute</span>;             <span class="tok-comment">/* 조상 기준으로 배치 */</span>
+  <span class="tok-prop">top</span>: <span class="tok-value">10px</span>; <span class="tok-prop">right</span>: <span class="tok-value">10px</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>position</code>은 요소를 어디에 놓을지 정하는 속성으로, 기본값인 <code>static</code>은 글 흐름대로 차곡차곡 쌓입니다.</p>
+                </li>
+                <li>
+                  <p><code>relative</code>는 원래 자리를 기준으로 살짝 이동하고, <code>absolute</code>는 가장 가까운 position 조상을 기준으로 배치됩니다.</p>
+                  <p class="sub-point">→ 그래서 무언가를 위에 겹쳐 띄울 때는 부모에 relative, 자식에 absolute를 주는 짝꿍 패턴을 가장 많이 씁니다.</p>
+                </li>
+                <li>
+                  <p><code>fixed</code>는 화면(뷰포트)에 고정되어 스크롤해도 그대로이고, <code>sticky</code>는 스크롤하다 일정 지점에서 착 붙습니다.</p>
+                  <p class="sub-point">→ 짝꿍 <code>top</code>, <code>left</code>로 위치를 미세 조정하고, 겹칠 때는 <code>z-index</code> 숫자가 큰 쪽이 위로 올라옵니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 6. 가상클래스, 가상요소 -->
+        <li>
+          <input type="checkbox" id="acc-15" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-15">
+              <span class="acc-summary">가상클래스, 가상요소 — :hover, ::before</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">a:link</span>    { <span class="tok-prop">color</span>: <span class="tok-value">royalblue</span>; }  <span class="tok-comment">/* 방문 전 */</span>
+<span class="tok-selector">a:visited</span> { <span class="tok-prop">color</span>: <span class="tok-value">purple</span>; }     <span class="tok-comment">/* 방문 후 */</span>
+<span class="tok-selector">a:hover</span>   { <span class="tok-prop">color</span>: <span class="tok-value">tomato</span>; }     <span class="tok-comment">/* 마우스 올림 */</span>
+<span class="tok-selector">a:active</span>  { <span class="tok-prop">color</span>: <span class="tok-value">red</span>; }        <span class="tok-comment">/* 누르는 중 */</span>
+
+<span class="tok-selector">.star::before</span> { <span class="tok-prop">content</span>: <span class="tok-value">"★ "</span>; } <span class="tok-comment">/* 앞에 별 장식 */</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>선택자 뒤에 콜론(<code>:</code>)과 상태를 붙인 가상클래스는 그 순간에만 스타일을 적용합니다. <code>:hover</code>는 마우스를 올렸을 때, <code>:active</code>는 누르는 중에 적용됩니다.</p>
+                  <p class="sub-point">→ 링크 4가지 상태는 반드시 <code>:link → :visited → :hover → :active</code> 순서(LVHA, '러브하')로 써야 하며, 순서가 틀리면 뒤 규칙에 덮여 효과가 안 보입니다.</p>
+                </li>
+                <li>
+                  <p>가상요소 <code>::before</code>와 <code>::after</code>는 HTML을 건드리지 않고 콘텐츠 앞뒤에 장식을 끼워 넣습니다.</p>
+                  <p class="sub-point">→ 이때 <code>content</code> 속성이 반드시 있어야 화면에 나타나며, 별, 따옴표, 밑줄 같은 순수 장식에 주로 씁니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 7. transform, transition, animation -->
+        <li>
+          <input type="checkbox" id="acc-16" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-16">
+              <span class="acc-summary">움직임 — transform, transition, animation</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">.box</span> { <span class="tok-prop">transition</span>: <span class="tok-value">transform 0.3s ease</span>; }
+<span class="tok-selector">.box:hover</span> { <span class="tok-prop">transform</span>: <span class="tok-value">rotate(10deg) scale(1.2)</span>; }
+
+<span class="tok-selector">@keyframes float</span> {
+  <span class="tok-value">0%, 100%</span> { <span class="tok-prop">transform</span>: <span class="tok-value">translateY(0)</span>; }
+  <span class="tok-value">50%</span>      { <span class="tok-prop">transform</span>: <span class="tok-value">translateY(-30px)</span>; }
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>transform</code>은 모양을 변형하는 속성으로, <code>rotate()</code>는 회전, <code>scale()</code>은 확대, <code>translateY()</code>는 상하 이동을 담당합니다.</p>
+                </li>
+                <li>
+                  <p><code>transition</code>은 변형에 시간을 줘 부드럽게 바뀌게 하며, 뒤에 붙는 <code>ease</code>, <code>linear</code> 등은 변화의 속도 리듬(easing)을 정합니다.</p>
+                  <p class="sub-point">→ transform과 transition은 짝꿍으로, <code>:hover</code>와 자주 함께 쓰여 스르륵 움직이는 효과를 만듭니다.</p>
+                </li>
+                <li>
+                  <p><code>@keyframes</code>는 0%부터 100%까지 구간별 모습을 정의하고, <code>animation</code>으로 요소에 적용합니다.</p>
+                  <p class="sub-point">→ <code>infinite</code>를 붙이면 마우스 조작 없이도 자동으로 무한 반복됩니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 8. CSS 변수, 리셋 -->
+        <li>
+          <input type="checkbox" id="acc-17" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-17">
+              <span class="acc-summary">변수와 리셋 — :root, var(), 초기화</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-comment">/* 리셋 — 맨 위에 먼저 */</span>
+<span class="tok-selector">*</span> { <span class="tok-prop">margin</span>: <span class="tok-value">0</span>; <span class="tok-prop">padding</span>: <span class="tok-value">0</span>; <span class="tok-prop">box-sizing</span>: <span class="tok-value">border-box</span>; }
+
+<span class="tok-comment">/* 변수 정의와 사용 */</span>
+<span class="tok-selector">:root</span> { <span class="tok-prop">--main-color</span>: <span class="tok-value">#ec4899</span>; }
+<span class="tok-selector">.btn</span> { <span class="tok-prop">background</span>: <span class="tok-value">var(--main-color)</span>; }</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>CSS 변수는 값에 이름표를 붙이는 기능으로, <code>:root</code> 안에 <code>--이름: 값;</code> 형태로 정의하고 <code>var(--이름)</code>으로 꺼내 씁니다.</p>
+                  <p class="sub-point">→ 여러 곳에서 같은 변수를 쓰면, <code>:root</code>의 한 줄만 고쳐도 사용처 전부가 한꺼번에 바뀌어 유지보수가 편합니다.</p>
+                </li>
+                <li>
+                  <p>브라우저는 요소에 기본 여백을 미리 넣어두기 때문에, 작업 시작 전 <code>*{margin: 0; padding: 0; box-sizing: border-box;}</code>로 초기화하는 것을 CSS 리셋이라고 합니다.</p>
+                  <p class="sub-point">→ 실무에서는 이 리셋 3줄을 CSS 맨 위에 먼저 깔고 스타일 작성을 시작합니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 9. 붙이는 방법 -->
+        <li>
+          <input type="checkbox" id="acc-33" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-33">
+              <span class="acc-summary">붙이는 방법 — 외부, 내부, 인라인</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="index.html">
+                <pre class="code-block"><code><span class="tok-selector">&lt;link</span> <span class="tok-prop">rel</span>=<span class="tok-value">"stylesheet"</span> <span class="tok-prop">href</span>=<span class="tok-value">"styles/main.css"</span><span class="tok-selector">&gt;</span> <span class="tok-comment">/* 외부 */</span>
+<span class="tok-selector">&lt;style&gt;</span> p { <span class="tok-prop">color</span>: <span class="tok-value">green</span>; } <span class="tok-selector">&lt;/style&gt;</span> <span class="tok-comment">/* 내부 */</span>
+<span class="tok-selector">&lt;p</span> <span class="tok-prop">style</span>=<span class="tok-value">"color: red;"</span><span class="tok-selector">&gt;</span>인라인<span class="tok-selector">&lt;/p&gt;</span> <span class="tok-comment">/* 인라인 */</span></code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p>CSS를 붙이는 방법은 외부 <code>&lt;link&gt;</code>, 내부 <code>&lt;style&gt;</code>, 인라인 <code>style=""</code> 3가지입니다.</p>
+                  <p class="sub-point">→ 외부는 별도 파일로 여러 페이지가 공유하기 쉬워 실무에서 가장 많이 씁니다.</p>
+                </li>
+                <li>
+                  <p>내부는 <code>&lt;head&gt;</code> 안에 <code>&lt;style&gt;</code> 태그로 그 페이지에서만 적용하고, 인라인은 태그에 직접 <code>style=""</code>로 한 요소에만 적용합니다.</p>
+                  <p class="sub-point">→ 충돌 시 인라인이 항상 이깁니다(우선순위: 인라인 > 내부, 외부).</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 10. 반응형 -->
+        <li>
+          <input type="checkbox" id="acc-34" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-34">
+              <span class="acc-summary">반응형 — @media</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">.box</span> { <span class="tok-prop">display</span>: <span class="tok-value">flex</span>; <span class="tok-prop">flex-direction</span>: <span class="tok-value">row</span>; }
+
+<span class="tok-selector">@media (max-width: 600px)</span> {
+  <span class="tok-selector">.box</span> { <span class="tok-prop">flex-direction</span>: <span class="tok-value">column</span>; }
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>@media (max-width: 600px)</code>처럼 조건을 걸면, 화면 폭이 그 조건을 만족할 때만 안쪽 규칙이 적용됩니다.</p>
+                  <p class="sub-point">→ 폭이 넓을 땐 기본 스타일, 좁아지면 미디어쿼리 안 스타일이 덮어써 반응형이 완성됩니다.</p>
+                </li>
+                <li>
+                  <p>PC에서는 <code>flex-direction: row</code>(가로), 모바일에서는 <code>column</code>(세로)으로 바꾸는 식으로 한 CSS 파일에서 화면 크기별 레이아웃을 동시에 관리합니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+        <!-- 11. 그림자, 효과 -->
+        <li>
+          <input type="checkbox" id="acc-35" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-35">
+              <span class="acc-summary">그림자, 효과 — box-shadow, gradient</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <div class="code-window" data-lang="main.css">
+                <pre class="code-block"><code><span class="tok-selector">.card</span> {
+  <span class="tok-prop">border-radius</span>: <span class="tok-value">16px</span>;
+  <span class="tok-prop">opacity</span>: <span class="tok-value">0.85</span>;
+  <span class="tok-prop">box-shadow</span>: <span class="tok-value">0 6px 18px rgba(0,0,0,0.25)</span>;
+  <span class="tok-prop">background</span>: <span class="tok-value">linear-gradient(135deg, #ec4899, #8b5cf6)</span>;
+}</code></pre>
+              </div>
+              <ul class="explain-list">
+                <li>
+                  <p><code>box-shadow</code>는 그림자, <code>border-radius</code>는 둥근 모서리, <code>opacity</code>는 투명도를 담당합니다.</p>
+                </li>
+                <li>
+                  <p><code>linear-gradient</code>는 두 색을 비스듬히 섞은 배경을 만들며, 각도(예: 135deg)로 방향을 정합니다.</p>
+                  <p class="sub-point">→ 넷 다 transition과 묶어 hover 시 부드럽게 바뀌는 카드 효과에 자주 함께 씁니다.</p>
+                </li>
+              </ul>
+             </div>
+            </div>
+            </label>
+        </li>
+
+      </ol>
+
+      <div class="summary-toggle">
+          <input type="checkbox" id="acc-26" class="acc-toggle" hidden>
+            <label class="analysis-item" for="acc-26">
+              <span class="acc-summary">CSS 요약표 — 펼쳐서 보기</span>
+              <div class="analysis-item-body">
+             <div class="collapse-inner">
+              <table>
+                <thead><tr><th>주제</th><th>속성</th><th>한 줄 정리</th></tr></thead>
+                <tbody>
+                  <tr><td>선택자</td><td><code>요소 / .클래스 / 자손</code></td><td>일반→구체 순서로 작성, 구체적, 나중 규칙이 이김</td></tr>
+                  <tr><td>박스 모델</td><td><code>margin/border/padding</code></td><td>바깥여백 / 테두리 / 안쪽여백, box-sizing:border-box 권장</td></tr>
+                  <tr><td>배치</td><td><code>display:flex / grid</code></td><td>가로 한 줄=flex, 행+열 격자=grid</td></tr>
+                  <tr><td>위치</td><td><code>position</code></td><td>relative(원래자리 기준), absolute(조상 기준), fixed(화면고정), sticky(붙기)</td></tr>
+                  <tr><td>가상클래스</td><td><code>:link :visited :hover :active</code></td><td>순서 고정(LVHA), 어기면 뒤 규칙에 덮임</td></tr>
+                  <tr><td>가상요소</td><td><code>::before ::after</code></td><td>content 필수, HTML 안 건드리고 장식 추가</td></tr>
+                  <tr><td>변수</td><td><code>:root { --이름: 값; } var(--이름)</code></td><td>반복되는 색, 간격을 한 곳에서 관리</td></tr>
+                  <tr><td>변형</td><td><code>transform: rotate/scale/translateY</code></td><td>회전, 확대, 이동, transition과 묶어 hover 효과 자주 만듦</td></tr>
+                  <tr><td>애니메이션</td><td><code>transition / @keyframes + animation</code></td><td>transition=상태변화 부드럽게, keyframes=자동 반복 동작</td></tr>
+                  <tr><td>반응형</td><td><code>@media (max-width: ...)</code></td><td>화면 폭 조건에 따라 다른 스타일 적용</td></tr>
+                  <tr><td>붙이는 방법</td><td><code>link rel="stylesheet", style, style=""</code></td><td>외부=별도 파일(권장), 내부=head 안, 인라인=태그 안, 충돌 시 인라인이 최우선</td></tr>
+                  <tr><td>리셋</td><td><code>* { margin: 0; padding: 0; box-sizing: border-box; }</code></td><td>브라우저 기본 여백 제거, 작업 시작 전 맨 위에 먼저 깔아둠</td></tr>
+                  <tr><td>그림자, 효과</td><td><code>box-shadow, border-radius, opacity, linear-gradient</code></td><td>그림자, 둥근 모서리, 투명도, 그라디언트 배경 — transition과 묶어 hover 시 뜨는 효과 자주 만듦</td></tr>
+                </tbody>
+              </table>
+             </div>
+            </div>
+            </label>
+      </div>
+    </section>
+
+    <!-- ③ HTML, CSS 퀴즈 5개 -->
+    <section class="section" id="quiz">
+      <h2>HTML, CSS 퀴즈 5개</h2>
+      <p class="quiz-hint">문제를 먼저 스스로 해결해보고, 클릭해서 정답을 확인해 보세요.</p>
+
+      <div class="quiz-item">
+        <div class="quiz-item-head"><span class="quiz-num">Q1</span><span class="quiz-tag">CSS</span></div>
+        <div class="quiz-body">
+          <div class="quiz-main">
+            <p class="quiz-question"><code>position: absolute</code>인 요소는 정확히 무엇을 기준으로 위치가 잡힐까?</p>
+            <ul class="quiz-choices">
+              <li><label><input type="radio" name="q1"><span class="quiz-radio-box"></span><span>항상 <code>&lt;body&gt;</code> 기준</span></label></li>
+              <li><label><input type="radio" name="q1" class="quiz-opt-correct"><span class="quiz-radio-box"></span><span>가장 가까운 조상 중 <code>position</code>이 <code>static</code>이 아닌 요소</span></label></li>
+              <li><label><input type="radio" name="q1"><span class="quiz-radio-box"></span><span>화면(뷰포트)에 항상 고정</span></label></li>
+              <li><label><input type="radio" name="q1"><span class="quiz-radio-box"></span><span>부모 요소의 <code>padding</code> 안쪽 끝</span></label></li>
+              <li><label><input type="radio" name="q1"><span class="quiz-radio-box"></span><span>가장 가까운 조상 중 <code>display: flex</code>인 요소</span></label></li>
+            </ul>
+          </div>
+          <div class="quiz-side">
+            <input type="checkbox" id="q1-check" class="quiz-check-input" hidden>
+            <label for="q1-check" class="quiz-btn quiz-btn-check"></label>
+            <input type="checkbox" id="q1-hint" class="quiz-hint-input" hidden>
+            <label for="q1-hint" class="quiz-btn quiz-btn-hint"></label>
+          </div>
+        </div>
+        <p class="quiz-hint-box"><span class="quiz-hint-label">HINT:</span><br>뭔가를 겹쳐서 띄우고 싶을 땐 부모한테 먼저 뭘 줘야 하는지, position 파트 다시 한번 떠올려보세요.</p>
+        <p class="quiz-result quiz-result-empty"><strong>선택 안 함</strong> 답을 하나 먼저 골라주세요.</p>
+        <p class="quiz-result quiz-result-correct"><strong>정답입니다</strong><br>가장 가까운 조상 중 <code>position</code>이 <code>static</code>이 아닌(relative, absolute, fixed 등) 요소를 기준으로 배치됩니다.<br>그런 조상이 하나도 없으면 <code>&lt;html&gt;</code> 문서 전체(뷰포트) 기준으로 잡혀 의도와 다르게 튀어버립니다.<br>그래서 무언가를 겹쳐 띄울 땐 부모에 <code>position: relative</code>, 자식에 <code>absolute</code>를 주는 짝꿍 패턴을 항상 함께 씁니다.</p>
+        <p class="quiz-result quiz-result-wrong"><strong>아쉬워요, 정답은 ②번</strong><br>가장 가까운 조상 중 <code>position</code>이 <code>static</code>이 아닌(relative, absolute, fixed 등) 요소를 기준으로 배치됩니다.<br>그런 조상이 하나도 없으면 <code>&lt;html&gt;</code> 문서 전체(뷰포트) 기준으로 잡혀 의도와 다르게 튀어버립니다.<br>그래서 무언가를 겹쳐 띄울 땐 부모에 <code>position: relative</code>, 자식에 <code>absolute</code>를 주는 짝꿍 패턴을 항상 함께 씁니다.</p>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-item-head"><span class="quiz-num">Q2</span><span class="quiz-tag">CSS</span></div>
+        <div class="quiz-body">
+          <div class="quiz-main">
+            <p class="quiz-question"><code>::before</code>, <code>::after</code>로 별이나 따옴표 장식을 넣었는데 화면에 아무것도 안 보인다. 가장 먼저 의심해야 할 것은?</p>
+            <ul class="quiz-choices">
+              <li><label><input type="radio" name="q2"><span class="quiz-radio-box"></span><span><code>color</code> 속성 누락</span></label></li>
+              <li><label><input type="radio" name="q2" class="quiz-opt-correct"><span class="quiz-radio-box"></span><span><code>content</code> 속성 누락</span></label></li>
+              <li><label><input type="radio" name="q2"><span class="quiz-radio-box"></span><span><code>position</code> 속성 누락</span></label></li>
+              <li><label><input type="radio" name="q2"><span class="quiz-radio-box"></span><span><code>display</code> 속성 누락</span></label></li>
+              <li><label><input type="radio" name="q2"><span class="quiz-radio-box"></span><span><code>::before</code> 자체를 지원 안 하는 브라우저라서</span></label></li>
+            </ul>
+          </div>
+          <div class="quiz-side">
+            <input type="checkbox" id="q2-check" class="quiz-check-input" hidden>
+            <label for="q2-check" class="quiz-btn quiz-btn-check"></label>
+            <input type="checkbox" id="q2-hint" class="quiz-hint-input" hidden>
+            <label for="q2-hint" class="quiz-btn quiz-btn-hint"></label>
+          </div>
+        </div>
+        <p class="quiz-hint-box"><span class="quiz-hint-label">HINT:</span><br>가상요소가 화면에 나타나려면 꼭 있어야 하는 속성, 본문에서 계속 강조됐던 그거 기억나시나요?</p>
+        <p class="quiz-result quiz-result-empty"><strong>선택 안 함</strong> 답을 하나 먼저 골라주세요.</p>
+        <p class="quiz-result quiz-result-correct"><strong>정답입니다</strong><br><code>content</code> 속성이 빠졌을 가능성이 큽니다.<br>가상요소는 <code>content</code> 값이 있어야만 화면에 생성되고, 빈 장식(예: 밑줄용 박스)이라도 <code>content: "";</code>처럼 빈 문자열이라도 반드시 적어줘야 합니다.</p>
+        <p class="quiz-result quiz-result-wrong"><strong>아쉬워요, 정답은 ②번</strong><br><code>content</code> 속성이 빠졌을 가능성이 큽니다.<br>가상요소는 <code>content</code> 값이 있어야만 화면에 생성되고, 빈 장식(예: 밑줄용 박스)이라도 <code>content: "";</code>처럼 빈 문자열이라도 반드시 적어줘야 합니다.</p>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-item-head"><span class="quiz-num">Q3</span><span class="quiz-tag">HTML</span></div>
+        <div class="quiz-body">
+          <div class="quiz-main">
+            <p class="quiz-question">레이아웃만 놓고 보면 <code>&lt;div&gt;</code>로도 똑같이 만들 수 있는데, 굳이 <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> 같은 시맨틱 태그를 쓰는 이유는?</p>
+            <ul class="quiz-choices">
+              <li><label><input type="radio" name="q3"><span class="quiz-radio-box"></span><span>브라우저가 더 빠르게 렌더링해서</span></label></li>
+              <li><label><input type="radio" name="q3" class="quiz-opt-correct"><span class="quiz-radio-box"></span><span>태그 이름에 뜻이 담겨 검색엔진, 화면낭독기가 구조를 인식해서</span></label></li>
+              <li><label><input type="radio" name="q3"><span class="quiz-radio-box"></span><span>CSS 코드가 자동으로 줄어들어서</span></label></li>
+              <li><label><input type="radio" name="q3"><span class="quiz-radio-box"></span><span>자동으로 반응형이 적용돼서</span></label></li>
+              <li><label><input type="radio" name="q3"><span class="quiz-radio-box"></span><span>div보다 코드 줄 수가 항상 짧아져서</span></label></li>
+            </ul>
+          </div>
+          <div class="quiz-side">
+            <input type="checkbox" id="q3-check" class="quiz-check-input" hidden>
+            <label for="q3-check" class="quiz-btn quiz-btn-check"></label>
+            <input type="checkbox" id="q3-hint" class="quiz-hint-input" hidden>
+            <label for="q3-hint" class="quiz-btn quiz-btn-hint"></label>
+          </div>
+        </div>
+        <p class="quiz-hint-box"><span class="quiz-hint-label">HINT:</span><br>겉모습은 똑같아도 태그 이름 자체가 하는 역할이 따로 있어요. 그게 뭘지 생각해보세요.</p>
+        <p class="quiz-result quiz-result-empty"><strong>선택 안 함</strong> 답을 하나 먼저 골라주세요.</p>
+        <p class="quiz-result quiz-result-correct"><strong>정답입니다</strong><br>화면에 보이는 모양은 똑같아도 태그 이름 자체에 뜻이 담겨 있어, 검색엔진과 화면낭독기가 문서 구조를 바로 인식합니다(SEO, 접근성 향상).<br>실제로 spacex.com 분석에서도 큰 회사 사이트조차 header, nav, footer 정도만 쓰고 나머지는 div로 짠 것을 확인했듯, div보다 먼저 고려해야 하는 우선순위입니다.</p>
+        <p class="quiz-result quiz-result-wrong"><strong>아쉬워요, 정답은 ②번</strong><br>화면에 보이는 모양은 똑같아도 태그 이름 자체에 뜻이 담겨 있어, 검색엔진과 화면낭독기가 문서 구조를 바로 인식합니다(SEO, 접근성 향상).<br>실제로 spacex.com 분석에서도 큰 회사 사이트조차 header, nav, footer 정도만 쓰고 나머지는 div로 짠 것을 확인했듯, div보다 먼저 고려해야 하는 우선순위입니다.</p>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-item-head"><span class="quiz-num">Q4</span><span class="quiz-tag">CSS</span></div>
+        <div class="quiz-body">
+          <div class="quiz-main">
+            <p class="quiz-question">버튼 3개가 전부 같은 색을 쓰도록 <code>:root</code>에 <code>--main-color</code> 변수를 정의해 재사용했다. 변수 없이 색을 하드코딩했다면, 나중에 브랜드 색을 바꿀 때 무슨 문제가 생길까?</p>
+            <ul class="quiz-choices">
+              <li><label><input type="radio" name="q4"><span class="quiz-radio-box"></span><span>자동으로 새 색이 반영돼서 문제없음</span></label></li>
+              <li><label><input type="radio" name="q4" class="quiz-opt-correct"><span class="quiz-radio-box"></span><span>색 쓰인 곳을 전부 찾아 하나하나 고쳐야 하고, 빠뜨리면 색이 어긋남</span></label></li>
+              <li><label><input type="radio" name="q4"><span class="quiz-radio-box"></span><span>페이지 로딩 속도가 느려짐</span></label></li>
+              <li><label><input type="radio" name="q4"><span class="quiz-radio-box"></span><span>HTML 구조 자체가 깨짐</span></label></li>
+              <li><label><input type="radio" name="q4"><span class="quiz-radio-box"></span><span>브라우저가 자동으로 색상 대비를 조절해줌</span></label></li>
+            </ul>
+          </div>
+          <div class="quiz-side">
+            <input type="checkbox" id="q4-check" class="quiz-check-input" hidden>
+            <label for="q4-check" class="quiz-btn quiz-btn-check"></label>
+            <input type="checkbox" id="q4-hint" class="quiz-hint-input" hidden>
+            <label for="q4-hint" class="quiz-btn quiz-btn-hint"></label>
+          </div>
+        </div>
+        <p class="quiz-hint-box"><span class="quiz-hint-label">HINT:</span><br><code>:root</code> 변수 하나만 고치면 한 번에 다 바뀌는데, 반대로 색을 다 따로따로 적어놨다면 나중에 얼마나 번거로울지 생각해보세요.</p>
+        <p class="quiz-result quiz-result-empty"><strong>선택 안 함</strong> 답을 하나 먼저 골라주세요.</p>
+        <p class="quiz-result quiz-result-correct"><strong>정답입니다</strong><br>색이 쓰인 곳을 전부 찾아서 하나하나 값을 고쳐야 하고, 한 곳이라도 빠뜨리면 페이지 안에서 색이 미묘하게 어긋납니다.<br><code>:root</code> 변수로 관리하면 <code>--main-color</code> 한 줄만 고쳐도 <code>var(--main-color)</code>를 쓰는 모든 곳이 한꺼번에 바뀌어 유지보수가 안전해집니다.</p>
+        <p class="quiz-result quiz-result-wrong"><strong>아쉬워요, 정답은 ②번</strong><br>색이 쓰인 곳을 전부 찾아서 하나하나 값을 고쳐야 하고, 한 곳이라도 빠뜨리면 페이지 안에서 색이 미묘하게 어긋납니다.<br><code>:root</code> 변수로 관리하면 <code>--main-color</code> 한 줄만 고쳐도 <code>var(--main-color)</code>를 쓰는 모든 곳이 한꺼번에 바뀌어 유지보수가 안전해집니다.</p>
+      </div>
+
+      <div class="quiz-item">
+        <div class="quiz-item-head"><span class="quiz-num">Q5</span><span class="quiz-tag">HTML, CSS</span></div>
+        <div class="quiz-body">
+          <div class="quiz-main">
+            <p class="quiz-question"><code>&lt;meta name="viewport"&gt;</code> 태그 없이 만든 페이지를 폰으로 열면 화면이 어떻게 보일까?</p>
+            <ul class="quiz-choices">
+              <li><label><input type="radio" name="q5"><span class="quiz-radio-box"></span><span>화면이 자동으로 세로형으로 바뀜</span></label></li>
+              <li><label><input type="radio" name="q5" class="quiz-opt-correct"><span class="quiz-radio-box"></span><span>PC 폭 그대로 렌더링돼 글자, 요소가 깨알같이 작게 보임</span></label></li>
+              <li><label><input type="radio" name="q5"><span class="quiz-radio-box"></span><span>페이지가 아예 안 열림</span></label></li>
+              <li><label><input type="radio" name="q5"><span class="quiz-radio-box"></span><span><code>@media</code>가 자동으로 꺼짐</span></label></li>
+              <li><label><input type="radio" name="q5"><span class="quiz-radio-box"></span><span>자동으로 텍스트가 확대돼서 잘 보임</span></label></li>
+            </ul>
+          </div>
+          <div class="quiz-side">
+            <input type="checkbox" id="q5-check" class="quiz-check-input" hidden>
+            <label for="q5-check" class="quiz-btn quiz-btn-check"></label>
+            <input type="checkbox" id="q5-hint" class="quiz-hint-input" hidden>
+            <label for="q5-hint" class="quiz-btn quiz-btn-hint"></label>
+          </div>
+        </div>
+        <p class="quiz-hint-box"><span class="quiz-hint-label">HINT:</span><br>viewport가 없으면 브라우저는 화면 폭을 PC 기준으로 볼까요, 폰 기준으로 볼까요?</p>
+        <p class="quiz-result quiz-result-empty"><strong>선택 안 함</strong> 답을 하나 먼저 골라주세요.</p>
+        <p class="quiz-result quiz-result-correct"><strong>정답입니다</strong><br>viewport 태그가 없으면 브라우저가 페이지를 PC 폭 그대로 렌더링한 뒤 폰 화면에 욱여넣어, 글자와 요소가 깨알같이 작게 보입니다.<br>viewport는 화면 폭을 기기 너비에 맞추는 반응형의 전제 조건이고, <code>@media (max-width: ...)</code>는 그 위에서 폭 조건별로 다른 스타일을 얹는 것입니다.<br>순서상 viewport가 먼저 있어야 media query도 의미가 있습니다.</p>
+        <p class="quiz-result quiz-result-wrong"><strong>아쉬워요, 정답은 ②번</strong><br>viewport 태그가 없으면 브라우저가 페이지를 PC 폭 그대로 렌더링한 뒤 폰 화면에 욱여넣어, 글자와 요소가 깨알같이 작게 보입니다.<br>viewport는 화면 폭을 기기 너비에 맞추는 반응형의 전제 조건이고, <code>@media (max-width: ...)</code>는 그 위에서 폭 조건별로 다른 스타일을 얹는 것입니다.<br>순서상 viewport가 먼저 있어야 media query도 의미가 있습니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>&copy; 2026 미니 프로젝트 — 사이트 분석, HTML/CSS 정리, 퀴즈</small>
+  </footer>
+
+</body>
+</html>
