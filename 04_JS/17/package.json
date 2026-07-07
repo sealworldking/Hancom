@@ -1,0 +1,11 @@
+{
+  "name": "js-17-crud-practice",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "json-server db.json --port 3000 --static . --routes routes.json"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}
