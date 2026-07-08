@@ -1,0 +1,240 @@
+/* ===== 시연/실습 무대 ===== */
+.stage {
+  position: relative;
+  background: var(--paper);
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.1);
+  padding: 26px 20px;
+  min-height: 160px;
+  margin-bottom: 14px;
+}
+
+.stage-status {
+  min-height: 20px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--sky-deep);
+  margin-bottom: 14px;
+}
+
+/* ===== 참조부호 조각(공통): 배열칸 / 스택-큐-리스트 값 / 드래그카드 ===== */
+.array-slot,
+.elem-card,
+.drag-card {
+  position: relative;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  border: 2px solid var(--sky);
+  border-radius: 12px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 3px 8px rgba(14, 165, 233, 0.15);
+  transition: transform 0.3s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ===== 배열: 정렬 트랙 ===== */
+.array-track {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  align-items: flex-end;
+  min-height: 110px;
+  flex-wrap: wrap;
+}
+
+.array-slot.compare {
+  border-color: var(--red);
+  box-shadow: 0 4px 10px var(--red-dim);
+  color: var(--red);
+  transform: translateY(-6px);
+}
+
+.array-slot.sorted {
+  border-color: var(--good);
+  box-shadow: 0 4px 10px var(--good-dim);
+  color: var(--good);
+}
+
+/* ===== 스택: 세로 타워 ===== */
+.stack-tower {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 220px;
+  justify-content: flex-start;
+}
+
+.stack-base {
+  width: 140px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--sky-pale);
+  margin: 6px auto 0;
+}
+
+/* ===== 큐: 가로 레인 ===== */
+.queue-lane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 70px;
+  padding: 0 8px;
+  overflow-x: auto;
+}
+
+.queue-lane .label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--ink-dim);
+  font-weight: 700;
+}
+
+/* ===== 연결리스트: 체인 ===== */
+.list-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  min-height: 70px;
+  flex-wrap: wrap;
+  padding: 8px;
+}
+
+.list-node {
+  position: relative;
+  padding: 10px 16px;
+  margin-right: 26px;
+  background: var(--paper);
+  border: 2px solid var(--sky);
+  border-radius: 12px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  box-shadow: 0 3px 8px rgba(14, 165, 233, 0.15);
+}
+
+.list-node::after {
+  content: "->";
+  position: absolute;
+  right: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sky-deep);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.list-node:last-child::after {
+  content: "";
+}
+
+.list-node.null-node {
+  border-style: dashed;
+  border-color: var(--ink-faint);
+  color: var(--ink-dim);
+  background: transparent;
+  box-shadow: none;
+  font-size: 13px;
+}
+
+/* ===== 실습: 카드 풀 + 드롭존 ===== */
+.pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px;
+  border: 2px dashed var(--sky-pale);
+  border-radius: 16px;
+  min-height: 64px;
+  margin-bottom: 14px;
+}
+
+.drag-card {
+  cursor: grab;
+}
+
+.drag-card:active {
+  cursor: grabbing;
+}
+
+.drag-card.dragging {
+  opacity: 0.3;
+}
+
+.dropzone {
+  transition: box-shadow 0.15s ease;
+}
+
+.dropzone.drag-over {
+  box-shadow: 0 0 0 1px var(--red) inset;
+}
+
+.array-slot.dropzone-empty {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--ink-faint);
+  color: var(--ink-dim);
+  box-shadow: none;
+}
+
+/* ===== 채점 결과 ===== */
+.result {
+  text-align: center;
+  padding: 14px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 14px;
+  border-radius: 16px;
+}
+
+.result.good {
+  background: var(--good-dim);
+  color: var(--good);
+}
+
+.result.bad {
+  background: var(--red-dim);
+  color: var(--red);
+}
+
+.pop {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.right-flash {
+  border-color: var(--good) !important;
+  color: var(--good) !important;
+  box-shadow: 0 4px 10px var(--good-dim) !important;
+}
+
+.wrong-flash {
+  border-color: var(--red) !important;
+  color: var(--red) !important;
+  box-shadow: 0 4px 10px var(--red-dim) !important;
+}
+
+@media (max-width: 560px) {
+  .array-track {
+    flex-wrap: wrap;
+  }
+}

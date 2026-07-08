@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <title>연결리스트 - 자료구조 놀이터</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/lesson.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="index.html">&lt;- 메뉴</a>
+    <div class="steps">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <h1>연결리스트 (Linked List)</h1>
+    </header>
+
+    <!-- Step 1: 설명 -->
+    <section class="step-panel" data-step="1">
+      <div class="mascot">
+        <p class="bubble">연결리스트는 노드(Node)들을 한 줄로 연결해 데이터를 관리하는 동적 자료구조이다.</p>
+      </div>
+      <div class="card">
+        <h2>Information</h2>
+        <ul>
+          <li>구조적 특징</li>
+          <li class="sub">Head(시작): 리스트의 첫 번째 노드를 가리키는 참조로,<br>모든 탐색은 항상 여기서부터 시작된다.</li>
+          <li class="sub">Tail(끝): 리스트의 마지막 노드로,<br>다음을 가리키는 포인터는 Null을 가리킨다.</li>
+          <li>핵심 메커니즘</li>
+          <li class="sub">동적 추가: 데이터가 추가될 때마다 메모리를 새로 할당받아 기존 Tail 뒤에 연결하므로,<br>배열처럼 처음 설정한 크기에 갇히지 않고, 컴퓨터의 남은 메모리 한도 내에서 필요할 때마다 동적으로 늘어난다.</li>
+          <li class="sub">효율적인 삽입/삭제: 중간에 값을 삽입하거나 삭제할 때, 다른 데이터들을 한 칸씩 이동(Shift)시킬 필요 없이,<br>전후 노드의 포인터가 가리키는 노드만 변경하면 되므로 매우 효율적이다.</li>
+        </ul>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-next="2">다음 단계 ▶</button>
+      </div>
+    </section>
+
+    <!-- Step 2: 시연 (수동 진행) -->
+    <section class="step-panel" data-step="2">
+      <div class="stage">
+        <div class="stage-status" id="demo-status">다음 연산을 눌러봐</div>
+        <div class="list-chain" id="demo-chain"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn ghost" data-prev="1">◀ 이전 단계</button>
+        <button class="btn" id="demo-next">다음 연산 ▶</button>
+        <button class="btn ghost" id="demo-replay">처음부터</button>
+        <button class="btn push-right" data-next="3">다음 단계 ▶</button>
+      </div>
+    </section>
+
+    <!-- Step 3: 직접 해보기 -->
+    <section class="step-panel" data-step="3">
+      <div class="card">
+        <h2>직접 해보기</h2>
+        <p>아래 순서대로 카드를 드래그해서 체인 끝에 연결해봐.</p>
+        <p><strong>연결 순서: <span id="order-hint"></span></strong></p>
+      </div>
+      <div class="pool" id="pool"></div>
+      <div class="stage">
+        <div class="list-chain dropzone" id="practice-chain"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn ghost" data-prev="2">◀ 이전 단계</button>
+        <button class="btn ghost" id="retry-btn" style="display:none;">다시 도전</button>
+        <a class="btn ghost" href="index.html" id="finish-btn" style="display:none;">완료! 메뉴로</a>
+      </div>
+      <div class="result" id="result" style="display:none;"></div>
+
+      <div class="card" id="delete-intro" style="display:none;">
+        <h2>삭제 연습</h2>
+        <p>노드 <strong><span id="delete-target-value"></span></strong>를 삭제한다고 가정해보자.</p>
+        <p>삭제 후 서로 연결되어야 할 두 노드를 순서대로 클릭해봐 (이전 노드 → 다음 노드).</p>
+      </div>
+      <div class="stage" id="delete-stage" style="display:none;">
+        <div class="list-chain" id="delete-chain"></div>
+      </div>
+      <div class="result" id="delete-result" style="display:none;"></div>
+    </section>
+  </div>
+
+  <footer class="titleblock">
+    <div><b>MADE BY</b>YUJIN-HAN</div>
+    <div><b>TOPIC</b>04 / LINKED LIST</div>
+    <div><b>UPDATED</b>2026.07</div>
+    <div><b>PROGRESS</b><span id="progress-count">-</span></div>
+  </footer>
+
+  <script src="scripts/common.js"></script>
+  <script src="scripts/linkedlist.js"></script>
+</body>
+</html>

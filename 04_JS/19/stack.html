@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <title>스택 - 자료구조 놀이터</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/lesson.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="index.html">&lt;- 메뉴</a>
+    <div class="steps">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <h1>스택 (Stack)</h1>
+    </header>
+
+    <!-- Step 1: 설명 -->
+    <section class="step-panel" data-step="1">
+      <div class="mascot">
+        <p class="bubble">스택 (Stack): 나중에 들어온 값이 가장 먼저 나가는 자료구조</p>
+      </div>
+      <div class="card">
+        <h2>Information</h2>
+        <ul>
+          <li>구현 기능</li>
+          <li class="sub">push: 맨 위에 새 값을 올린다.</li>
+          <li class="sub">pop: 맨 위에 있는 값을 뺀다.</li>
+          <li>규칙: LIFO(Last In, First Out)를 따른다.</li>
+          <li>비유: 접시 쌓기로 생각하면 편하다. Ctrl+Z 명령어가 스택 기반이다.</li>
+        </ul>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-next="2">다음 단계 ▶</button>
+      </div>
+    </section>
+
+    <!-- Step 2: 시연 (수동 진행) -->
+    <section class="step-panel" data-step="2">
+      <div class="stage">
+        <div class="stage-status" id="demo-status">다음 연산을 눌러봐 (push -> pop)</div>
+        <div class="stack-tower" id="demo-tower"></div>
+        <div class="stack-base"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn ghost" data-prev="1">◀ 이전 단계</button>
+        <button class="btn" id="demo-next">다음 연산 ▶</button>
+        <button class="btn ghost" id="demo-replay">처음부터</button>
+        <button class="btn push-right" data-next="3">다음 단계 ▶</button>
+      </div>
+    </section>
+
+    <!-- Step 3: 직접 해보기 -->
+    <section class="step-panel" data-step="3">
+      <div class="card">
+        <h2>직접 해보기</h2>
+        <p>아래 순서대로 카드를 드래그해서 스택에 push 해봐. 가장 나중 카드가 맨 위로 쌓여야 해.</p>
+        <p><strong>push 순서: <span id="order-hint"></span></strong></p>
+      </div>
+      <div class="pool" id="pool"></div>
+      <div class="stage">
+        <div class="stack-tower dropzone" id="practice-tower"></div>
+        <div class="stack-base"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn ghost" data-prev="2">◀ 이전 단계</button>
+        <button class="btn ghost" id="retry-btn" style="display:none;">다시 도전</button>
+        <a class="btn ghost" href="index.html" id="finish-btn" style="display:none;">완료! 메뉴로</a>
+      </div>
+      <div class="result" id="result" style="display:none;"></div>
+    </section>
+  </div>
+
+  <footer class="titleblock">
+    <div><b>MADE BY</b>YUJIN-HAN</div>
+    <div><b>TOPIC</b>02 / STACK</div>
+    <div><b>UPDATED</b>2026.07</div>
+    <div><b>PROGRESS</b><span id="progress-count">-</span></div>
+  </footer>
+
+  <script src="scripts/common.js"></script>
+  <script src="scripts/stack.js"></script>
+</body>
+</html>

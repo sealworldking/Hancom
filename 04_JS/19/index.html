@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <title>자료구조 놀이터</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>자료구조 놀이터</h1>
+      <p class="tagline">배열부터 연결리스트까지, 손으로 익히는 자료구조 학습 놀이터</p>
+      <div class="mascot">
+        <p class="bubble">자료구조, 글로만 읽으면 어렵다. 직접 쌓고 빼보면서 몸으로 익혀보자.</p>
+      </div>
+    </header>
+
+    <main>
+      <div class="menu-grid" id="menu">
+        <a class="menu-card" href="array.html" data-key="array">
+          <span class="badge">완료</span>
+          <div class="num">1</div>
+          <div class="name">배열 · 정렬</div>
+        </a>
+        <a class="menu-card" href="stack.html" data-key="stack">
+          <span class="badge">완료</span>
+          <div class="num">2</div>
+          <div class="name">스택</div>
+        </a>
+        <a class="menu-card" href="queue.html" data-key="queue">
+          <span class="badge">완료</span>
+          <div class="num">3</div>
+          <div class="name">큐</div>
+        </a>
+        <a class="menu-card" href="linkedlist.html" data-key="linkedlist">
+          <span class="badge">완료</span>
+          <div class="num">4</div>
+          <div class="name">연결리스트</div>
+        </a>
+        <div class="menu-card disabled">
+          <div class="num">5</div>
+          <div class="name">해시테이블</div>
+          <span class="soon">준비중</span>
+        </div>
+        <div class="menu-card disabled">
+          <div class="num">6</div>
+          <div class="name">이진트리</div>
+          <span class="soon">준비중</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="titleblock">
+    <div><b>MADE BY</b>YUJIN-HAN</div>
+    <div><b>TOPIC</b>00 / INDEX</div>
+    <div><b>UPDATED</b>2026.07</div>
+    <div><b>PROGRESS</b><span id="progress-count">-</span></div>
+  </footer>
+
+  <script src="scripts/common.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

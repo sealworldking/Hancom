@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <title>큐 - 자료구조 놀이터</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/lesson.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="index.html">&lt;- 메뉴</a>
+    <div class="steps">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <h1>큐 (Queue)</h1>
+    </header>
+
+    <!-- Step 1: 설명 -->
+    <section class="step-panel" data-step="1">
+      <div class="mascot">
+        <p class="bubble">큐 (Queue): 먼저 들어온 값이 가장 먼저 나가는 자료구조</p>
+      </div>
+      <div class="card">
+        <h2>Information</h2>
+        <ul>
+          <li>구현 기능</li>
+          <li class="sub">enqueue: 줄 맨 뒤(rear)에 새 값을 추가한다.</li>
+          <li class="sub">dequeue: 줄 맨 앞(front)에 있는 값을 뺀다.</li>
+          <li>규칙: FIFO(First In, First Out)를 따른다.</li>
+          <li>비유: 대기줄, 프린터 인쇄 대기열이 큐 방식이다.</li>
+        </ul>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-next="2">다음 단계 ▶</button>
+      </div>
+    </section>
+
+    <!-- Step 2: 시연 (수동 진행) -->
+    <section class="step-panel" data-step="2">
+      <div class="stage">
+        <div class="stage-status" id="demo-status">다음 연산을 눌러봐 (enqueue -> dequeue)</div>
+        <div class="queue-lane">
+          <span class="label">FRONT</span>
+          <div class="queue-lane" id="demo-lane" style="flex:1;"></div>
+          <span class="label">REAR</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn ghost" data-prev="1">◀ 이전 단계</button>
+        <button class="btn" id="demo-next">다음 연산 ▶</button>
+        <button class="btn ghost" id="demo-replay">처음부터</button>
+        <button class="btn push-right" data-next="3">다음 단계 ▶</button>
+      </div>
+    </section>
+
+    <!-- Step 3: 직접 해보기 -->
+    <section class="step-panel" data-step="3">
+      <div class="card">
+        <h2>직접 해보기</h2>
+        <p>아래 순서대로 카드를 드래그해서 큐에 enqueue 해봐. 순서대로 뒤(오른쪽)에 붙어야 해.</p>
+        <p><strong>enqueue 순서: <span id="order-hint"></span></strong></p>
+      </div>
+      <div class="pool" id="pool"></div>
+      <div class="stage">
+        <div class="queue-lane">
+          <span class="label">FRONT</span>
+          <div class="queue-lane dropzone" id="practice-lane" style="flex:1;"></div>
+          <span class="label">REAR</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn ghost" data-prev="2">◀ 이전 단계</button>
+        <button class="btn ghost" id="retry-btn" style="display:none;">다시 도전</button>
+        <a class="btn ghost" href="index.html" id="finish-btn" style="display:none;">완료! 메뉴로</a>
+      </div>
+      <div class="result" id="result" style="display:none;"></div>
+    </section>
+  </div>
+
+  <footer class="titleblock">
+    <div><b>MADE BY</b>YUJIN-HAN</div>
+    <div><b>TOPIC</b>03 / QUEUE</div>
+    <div><b>UPDATED</b>2026.07</div>
+    <div><b>PROGRESS</b><span id="progress-count">-</span></div>
+  </footer>
+
+  <script src="scripts/common.js"></script>
+  <script src="scripts/queue.js"></script>
+</body>
+</html>
