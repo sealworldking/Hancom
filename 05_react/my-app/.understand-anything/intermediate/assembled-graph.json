@@ -1,0 +1,425 @@
+{
+  "nodes": [
+    {
+      "id": "file:.gitignore",
+      "type": "config",
+      "name": ".gitignore",
+      "filePath": ".gitignore",
+      "summary": "Git ignore configuration excluding build artifacts, dependencies, and editor configuration files from version control.",
+      "tags": [
+        "configuration",
+        "vcs",
+        "build-output"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Project documentation describing the React + Vite template setup with information about available plugins (Oxc and SWC) and guidance on expanding ESLint configuration for production use.",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "getting-started"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "NPM package manifest defining project metadata, build scripts (dev, build, lint, preview), and dependencies including React 19.2.7, Vite, and ESLint plugins.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependency-management"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:eslint.config.js",
+      "type": "config",
+      "name": "eslint.config.js",
+      "filePath": "eslint.config.js",
+      "summary": "ESLint configuration using flat config format with recommended rules from @eslint/js, react-hooks plugin, and react-refresh plugin for optimal React development.",
+      "tags": [
+        "configuration",
+        "linting",
+        "code-quality"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses ESLint flat config (v9+) with defineConfig API and globalIgnores for dist directory."
+    },
+    {
+      "id": "config:vite.config.js",
+      "type": "config",
+      "name": "vite.config.js",
+      "filePath": "vite.config.js",
+      "summary": "Vite build configuration enabling React plugin for HMR (Hot Module Replacement) and optimized development/production builds.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "bundler"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "index.html",
+      "summary": "HTML entry point defining the DOM root element and importing the main application module with module-type script tag enabling ES6 imports.",
+      "tags": [
+        "entry-point",
+        "markup",
+        "application-bootstrap"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Root div with id='root' serves as React mount point; script type='module' enables ES6 imports."
+    },
+    {
+      "id": "file:package-lock.json",
+      "type": "file",
+      "name": "package-lock.json",
+      "filePath": "package-lock.json",
+      "summary": "NPM lockfile (lockfileVersion 3) freezing exact versions of dependencies including React, Vite, ESLint, Babel utilities, and supporting libraries for reproducible builds.",
+      "tags": [
+        "dependency-management",
+        "build-system",
+        "reproducibility"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/assets/hero.png",
+      "type": "file",
+      "name": "hero.png",
+      "filePath": "src/assets/hero.png",
+      "summary": "Hero banner image used as a visual asset in the React application landing page or hero section.",
+      "tags": [
+        "asset",
+        "image",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/assets/react.svg",
+      "type": "file",
+      "name": "react.svg",
+      "filePath": "src/assets/react.svg",
+      "summary": "React logo SVG asset used for branding and UI components throughout the application.",
+      "tags": [
+        "asset",
+        "logo",
+        "brand"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/assets/vite.svg",
+      "type": "file",
+      "name": "vite.svg",
+      "filePath": "src/assets/vite.svg",
+      "summary": "Vite build tool logo SVG asset used in UI components or documentation.",
+      "tags": [
+        "asset",
+        "logo",
+        "build-tool"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.claude/settings.local.json",
+      "type": "config",
+      "name": "settings.local.json",
+      "filePath": ".claude/settings.local.json",
+      "summary": "Claude Code project configuration permitting specific PowerShell and Bash commands for the Understand-Anything knowledge graph analysis pipeline, including file operations, script execution, and graph merging.",
+      "tags": [
+        "configuration",
+        "development-tools",
+        "permissions"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:public/favicon.svg",
+      "type": "file",
+      "name": "favicon.svg",
+      "filePath": "public/favicon.svg",
+      "summary": "Project favicon SVG with gradient-filled geometric logo using purple (#863bff) and cyan (#47bfff) colors with blur filters and mask effects.",
+      "tags": [
+        "branding",
+        "assets",
+        "markup"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:public/icons.svg",
+      "type": "file",
+      "name": "icons.svg",
+      "filePath": "public/icons.svg",
+      "summary": "SVG sprite sheet containing social media and documentation icon symbols (Bluesky, Discord, GitHub, X/Twitter, documentation, social) used throughout the application.",
+      "tags": [
+        "assets",
+        "icons",
+        "markup"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/App.css",
+      "type": "file",
+      "name": "App.css",
+      "filePath": "src/App.css",
+      "summary": "Styling for the App component featuring responsive layout design with CSS Grid, Flexbox, transitions, and dark mode support for hero section, counter button, and multi-section navigation.",
+      "tags": [
+        "styles",
+        "responsive-design",
+        "component-styling"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses SCSS-style nesting syntax via CSS nesting spec with media queries for mobile responsiveness and CSS custom properties for theming."
+    },
+    {
+      "id": "file:src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "src/index.css",
+      "summary": "Global CSS stylesheet defining design system with CSS custom properties (colors, fonts, shadows), responsive typography, and light/dark mode theme variables applied to root element.",
+      "tags": [
+        "design-system",
+        "typography",
+        "global-styles"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/App.jsx:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "src/App.jsx",
+      "lineRange": [
+        7,
+        120
+      ],
+      "summary": "Main React component rendering the application UI with interactive counter button, hero section with framework logos, and documentation/social navigation sections using SVG icon sprites.",
+      "tags": [
+        "component",
+        "entry-point",
+        "react"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/App.jsx",
+      "type": "file",
+      "name": "App.jsx",
+      "filePath": "src/App.jsx",
+      "summary": "Primary React application component combining state management via useState, styled UI layout with imported CSS and image assets, and dynamic SVG icon integration for navigation sections.",
+      "tags": [
+        "component",
+        "entry-point",
+        "react"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main.jsx",
+      "type": "file",
+      "name": "main.jsx",
+      "filePath": "src/main.jsx",
+      "summary": "Application entry point that initializes React 18 root, imports global styles, renders App component wrapped in StrictMode for development error detection.",
+      "tags": [
+        "entry-point",
+        "bootstrap",
+        "react"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:package.json",
+      "target": "config:eslint.config.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "config:vite.config.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:vite.config.js",
+      "target": "file:index.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:index.html",
+      "target": "config:package.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:vite.config.js",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:eslint.config.js",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:.gitignore",
+      "target": "file:package-lock.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:package-lock.json",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:index.html",
+      "target": "file:src/main.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/App.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "file:src/App.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "file:src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "function:src/App.jsx:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/App.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/App.css",
+      "target": "file:src/index.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:src/App.jsx:App",
+      "target": "file:public/icons.svg",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "file:src/App.jsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:.claude/settings.local.json",
+      "target": "file:src/App.jsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:public/favicon.svg",
+      "target": "file:src/App.jsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.3
+    },
+    {
+      "source": "file:public/icons.svg",
+      "target": "function:src/App.jsx:App",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.4
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/assets/hero.png",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/assets/react.svg",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/assets/vite.svg",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    }
+  ]
+}

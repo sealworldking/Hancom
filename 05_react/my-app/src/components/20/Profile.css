@@ -1,0 +1,7 @@
+/* Profile.css = Profile.jsx 부품 전용 꾸미기 */
+/* className="profile" 단 요소 안을 꾸밈 */
+
+/* .profile p = profile 안의 p(<p>에 작성했던 거(=job))만 콕 집음 */
+.profile p{
+    color: red;   /* job 글자 빨강 */
+}

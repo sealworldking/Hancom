@@ -1,0 +1,40 @@
+{
+  "nodes": [
+    {"id": "config:.claude/settings.local.json", "type": "config", "name": ".claude/settings.local.json", "filePath": ".claude/settings.local.json", "summary": "Local Claude Code configuration"},
+    {"id": "file:public/favicon.svg", "type": "file", "name": "favicon.svg", "filePath": "public/favicon.svg", "summary": "Project favicon asset"},
+    {"id": "file:public/icons.svg", "type": "file", "name": "icons.svg", "filePath": "public/icons.svg", "summary": "Icon sprite sheet with documentation, social, GitHub, Discord, X, Bluesky icons"},
+    {"id": "file:src/App.css", "type": "file", "name": "App.css", "filePath": "src/App.css", "summary": "158 lines of App component styling"},
+    {"id": "file:src/App.jsx", "type": "file", "name": "App.jsx", "filePath": "src/App.jsx", "summary": "Main React component with interactive counter and community links"},
+    {"id": "file:src/index.css", "type": "file", "name": "index.css", "filePath": "src/index.css", "summary": "Global stylesheet with design tokens (100 lines)"},
+    {"id": "file:src/main.jsx", "type": "file", "name": "main.jsx", "filePath": "src/main.jsx", "summary": "React entry point rendering App component (9 lines)"},
+    {"id": "config:eslint.config.js", "type": "config", "name": "eslint.config.js", "filePath": "eslint.config.js", "summary": "ESLint configuration for JavaScript/JSX linting"},
+    {"id": "file:index.html", "type": "file", "name": "index.html", "filePath": "index.html", "summary": "HTML bootstrap entry point loading React app (14 lines)"},
+    {"id": "config:package.json", "type": "config", "name": "package.json", "filePath": "package.json", "summary": "Project configuration and dependency manifest"},
+    {"id": "document:README.md", "type": "document", "name": "README.md", "filePath": "README.md", "summary": "Project documentation"},
+    {"id": "config:vite.config.js", "type": "config", "name": "vite.config.js", "filePath": "vite.config.js", "summary": "Vite build configuration with React plugin (6 lines)"},
+    {"id": "file:src/assets/hero.png", "type": "file", "name": "hero.png", "filePath": "src/assets/hero.png", "summary": "Hero image asset"},
+    {"id": "file:src/assets/react.svg", "type": "file", "name": "react.svg", "filePath": "src/assets/react.svg", "summary": "React logo with gradient effects"},
+    {"id": "file:src/assets/vite.svg", "type": "file", "name": "vite.svg", "filePath": "src/assets/vite.svg", "summary": "Vite logo with filter effects"},
+    {"id": "config:.gitignore", "type": "config", "name": ".gitignore", "filePath": ".gitignore", "summary": "Git exclusion patterns"}
+  ],
+  "edges": [
+    {"source": "file:index.html", "target": "file:src/main.jsx", "type": "imports"},
+    {"source": "file:src/main.jsx", "target": "file:src/App.jsx", "type": "imports"},
+    {"source": "file:src/main.jsx", "target": "file:src/index.css", "type": "imports"},
+    {"source": "file:src/App.jsx", "target": "file:src/App.css", "type": "imports"},
+    {"source": "file:src/App.jsx", "target": "file:src/assets/react.svg", "type": "imports"},
+    {"source": "file:src/App.jsx", "target": "file:src/assets/vite.svg", "type": "imports"},
+    {"source": "file:src/App.jsx", "target": "file:src/assets/hero.png", "type": "imports"},
+    {"source": "config:package.json", "target": "config:vite.config.js", "type": "configures"},
+    {"source": "config:vite.config.js", "target": "file:index.html", "type": "configures"},
+    {"source": "document:README.md", "target": "config:package.json", "type": "documents"},
+    {"source": "config:eslint.config.js", "target": "file:src/App.jsx", "type": "configures"},
+    {"source": "config:eslint.config.js", "target": "file:src/main.jsx", "type": "configures"}
+  ],
+  "layers": [
+    {"id": "layer:entry-point", "name": "Entry Point", "description": "HTML bootstrap and initial routing"},
+    {"id": "layer:application", "name": "Application", "description": "React components, styles, and visual assets"},
+    {"id": "layer:build-configuration", "name": "Build Configuration", "description": "Build tools, linting, and dependencies"},
+    {"id": "layer:project-support", "name": "Project Support", "description": "Documentation, git config, IDE settings"}
+  ]
+}

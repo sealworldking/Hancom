@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 17,
+  "totalBatches": 3,
+  "exportsByPath": {
+    "src/App.css": [],
+    "src/App.jsx": [],
+    "src/index.css": [],
+    "src/main.jsx": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "fileCategory": "config",
+          "path": ".gitignore",
+          "language": "text",
+          "sizeLines": 25
+        },
+        {
+          "fileCategory": "docs",
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 9
+        },
+        {
+          "fileCategory": "config",
+          "path": "eslint.config.js",
+          "language": "javascript",
+          "sizeLines": 12
+        },
+        {
+          "fileCategory": "markup",
+          "path": "index.html",
+          "language": "html",
+          "sizeLines": 15
+        },
+        {
+          "fileCategory": "data",
+          "path": "package-lock.json",
+          "language": "json",
+          "sizeLines": 2457
+        },
+        {
+          "fileCategory": "config",
+          "path": "package.json",
+          "language": "json",
+          "sizeLines": 28
+        },
+        {
+          "fileCategory": "config",
+          "path": "vite.config.js",
+          "language": "javascript",
+          "sizeLines": 6
+        }
+      ],
+      "batchImportData": {
+        ".gitignore": [],
+        "README.md": [],
+        "eslint.config.js": [],
+        "index.html": [
+          "src/main.jsx"
+        ],
+        "package-lock.json": [],
+        "package.json": [],
+        "vite.config.js": []
+      },
+      "neighborMap": {
+        "index.html": [
+          {
+            "path": "src/main.jsx",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "fileCategory": "data",
+          "path": "src/assets/hero.png",
+          "language": "binary",
+          "sizeLines": 0
+        },
+        {
+          "fileCategory": "markup",
+          "path": "src/assets/react.svg",
+          "language": "svg",
+          "sizeLines": 0
+        },
+        {
+          "fileCategory": "markup",
+          "path": "src/assets/vite.svg",
+          "language": "svg",
+          "sizeLines": 0
+        }
+      ],
+      "batchImportData": {
+        "src/assets/hero.png": [],
+        "src/assets/react.svg": [],
+        "src/assets/vite.svg": []
+      },
+      "neighborMap": {
+        "src/assets/hero.png": [
+          {
+            "path": "src/App.jsx",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "src/assets/react.svg": [
+          {
+            "path": "src/App.jsx",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "src/assets/vite.svg": [
+          {
+            "path": "src/App.jsx",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "fileCategory": "config",
+          "path": ".claude/settings.local.json",
+          "language": "json",
+          "sizeLines": 16
+        },
+        {
+          "fileCategory": "markup",
+          "path": "public/favicon.svg",
+          "language": "svg",
+          "sizeLines": 0
+        },
+        {
+          "fileCategory": "markup",
+          "path": "public/icons.svg",
+          "language": "svg",
+          "sizeLines": 0
+        },
+        {
+          "fileCategory": "code",
+          "path": "src/App.css",
+          "language": "css",
+          "sizeLines": 158
+        },
+        {
+          "fileCategory": "code",
+          "path": "src/App.jsx",
+          "language": "jsx",
+          "sizeLines": 116
+        },
+        {
+          "fileCategory": "code",
+          "path": "src/index.css",
+          "language": "css",
+          "sizeLines": 100
+        },
+        {
+          "fileCategory": "code",
+          "path": "src/main.jsx",
+          "language": "jsx",
+          "sizeLines": 9
+        }
+      ],
+      "batchImportData": {
+        ".claude/settings.local.json": [],
+        "public/favicon.svg": [],
+        "public/icons.svg": [],
+        "src/App.css": [],
+        "src/App.jsx": [
+          "src/App.css",
+          "src/assets/hero.png",
+          "src/assets/react.svg",
+          "src/assets/vite.svg"
+        ],
+        "src/index.css": [],
+        "src/main.jsx": [
+          "src/App.jsx",
+          "src/index.css"
+        ]
+      },
+      "neighborMap": {
+        "src/App.jsx": [
+          {
+            "path": "src/assets/hero.png",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/assets/react.svg",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/assets/vite.svg",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/main.jsx": [
+          {
+            "path": "index.html",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ]
+      }
+    }
+  ]
+}

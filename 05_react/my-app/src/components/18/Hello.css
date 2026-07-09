@@ -1,0 +1,19 @@
+/* Hello.css = Hello.jsx 부품 전용 꾸미기 */
+/* JSX에서 className="box" 단 요소에 이 .box 스타일이 입혀짐 */
+
+.box{
+    padding:20px;                    /* 안쪽 여백 */
+    background:rgb(255, 208, 0);     /* 배경색 (노랑) */
+    border-radius: 12px;             /* 모서리 둥글게 */
+    text-align:center;               /* 글자 가운데 정렬 */
+}
+
+/* .box h1 = box 안에 있는 h1 만 골라 꾸밈 */
+.box h1{
+    color:rgb(255, 255, 255);        /* 글자색 (흰색) */
+}
+
+/* 정리 */
+/* 1. .box     = className="box" 요소 꾸미기 */
+/* 2. .box h1  = box 안의 h1 만 콕 집어 꾸미기 (자식 선택) */
+/* 3. 색은 rgb(빨강, 초록, 파랑) 0~255 로 지정 */

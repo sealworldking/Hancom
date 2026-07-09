@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/assets/hero.png",
+      "type": "file",
+      "name": "hero.png",
+      "filePath": "src/assets/hero.png",
+      "summary": "Hero banner image used as a visual asset in the React application landing page or hero section.",
+      "tags": ["asset", "image", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/assets/react.svg",
+      "type": "file",
+      "name": "react.svg",
+      "filePath": "src/assets/react.svg",
+      "summary": "React logo SVG asset used for branding and UI components throughout the application.",
+      "tags": ["asset", "logo", "brand"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/assets/vite.svg",
+      "type": "file",
+      "name": "vite.svg",
+      "filePath": "src/assets/vite.svg",
+      "summary": "Vite build tool logo SVG asset used in UI components or documentation.",
+      "tags": ["asset", "logo", "build-tool"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

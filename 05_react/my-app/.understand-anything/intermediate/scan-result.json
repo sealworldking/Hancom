@@ -1,0 +1,185 @@
+{
+    "projectDescription":  "React + Vite template providing minimal setup with HMR and ESLint configuration.",
+    "frameworks":  [
+                       "React",
+                       "Vite"
+                   ],
+    "files":  [
+                  {
+                      "fileCategory":  "config",
+                      "path":  ".claude/settings.local.json",
+                      "language":  "json",
+                      "sizeLines":  16
+                  },
+                  {
+                      "fileCategory":  "config",
+                      "path":  ".gitignore",
+                      "language":  "text",
+                      "sizeLines":  25
+                  },
+                  {
+                      "fileCategory":  "config",
+                      "path":  "eslint.config.js",
+                      "language":  "javascript",
+                      "sizeLines":  12
+                  },
+                  {
+                      "fileCategory":  "markup",
+                      "path":  "index.html",
+                      "language":  "html",
+                      "sizeLines":  15
+                  },
+                  {
+                      "fileCategory":  "config",
+                      "path":  "package.json",
+                      "language":  "json",
+                      "sizeLines":  28
+                  },
+                  {
+                      "fileCategory":  "data",
+                      "path":  "package-lock.json",
+                      "language":  "json",
+                      "sizeLines":  2457
+                  },
+                  {
+                      "fileCategory":  "markup",
+                      "path":  "public/favicon.svg",
+                      "language":  "svg",
+                      "sizeLines":  0
+                  },
+                  {
+                      "fileCategory":  "markup",
+                      "path":  "public/icons.svg",
+                      "language":  "svg",
+                      "sizeLines":  0
+                  },
+                  {
+                      "fileCategory":  "docs",
+                      "path":  "README.md",
+                      "language":  "markdown",
+                      "sizeLines":  9
+                  },
+                  {
+                      "fileCategory":  "code",
+                      "path":  "src/App.css",
+                      "language":  "css",
+                      "sizeLines":  158
+                  },
+                  {
+                      "fileCategory":  "code",
+                      "path":  "src/App.jsx",
+                      "language":  "jsx",
+                      "sizeLines":  116
+                  },
+                  {
+                      "fileCategory":  "data",
+                      "path":  "src/assets/hero.png",
+                      "language":  "binary",
+                      "sizeLines":  0
+                  },
+                  {
+                      "fileCategory":  "markup",
+                      "path":  "src/assets/react.svg",
+                      "language":  "svg",
+                      "sizeLines":  0
+                  },
+                  {
+                      "fileCategory":  "markup",
+                      "path":  "src/assets/vite.svg",
+                      "language":  "svg",
+                      "sizeLines":  0
+                  },
+                  {
+                      "fileCategory":  "code",
+                      "path":  "src/index.css",
+                      "language":  "css",
+                      "sizeLines":  100
+                  },
+                  {
+                      "fileCategory":  "code",
+                      "path":  "src/main.jsx",
+                      "language":  "jsx",
+                      "sizeLines":  9
+                  },
+                  {
+                      "fileCategory":  "config",
+                      "path":  "vite.config.js",
+                      "language":  "javascript",
+                      "sizeLines":  6
+                  }
+              ],
+    "complexity":  {
+                       "estimate":  "simple",
+                       "breakdown":  {
+                                         "html":  "simple",
+                                         "css":  "simple",
+                                         "javascript":  "simple",
+                                         "jsx":  "simple"
+                                     }
+                   },
+    "filteredByIgnore":  0,
+    "projectName":  "my-app",
+    "languages":  [
+                      "javascript",
+                      "jsx",
+                      "css",
+                      "html"
+                  ],
+    "importMap":  {
+                      "public/icons.svg":  [
+
+                                           ],
+                      "README.md":  [
+
+                                    ],
+                      "src/index.css":  [
+
+                                        ],
+                      "src/App.css":  [
+
+                                      ],
+                      "package.json":  [
+
+                                       ],
+                      ".gitignore":  [
+
+                                     ],
+                      "src/assets/hero.png":  [
+
+                                              ],
+                      "public/favicon.svg":  [
+
+                                             ],
+                      "src/App.jsx":  [
+                                          "src/App.css",
+                                          "src/assets/hero.png",
+                                          "src/assets/react.svg",
+                                          "src/assets/vite.svg"
+                                      ],
+                      "eslint.config.js":  [
+
+                                           ],
+                      "src/assets/vite.svg":  [
+
+                                              ],
+                      "package-lock.json":  [
+
+                                            ],
+                      "index.html":  [
+                                         "src/main.jsx"
+                                     ],
+                      "src/main.jsx":  [
+                                           "src/App.jsx",
+                                           "src/index.css"
+                                       ],
+                      ".claude/settings.local.json":  [
+
+                                                      ],
+                      "src/assets/react.svg":  [
+
+                                               ],
+                      "vite.config.js":  [
+
+                                         ]
+                  }
+}

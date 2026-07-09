@@ -1,0 +1,164 @@
+{
+  "nodes": [
+    {
+      "id": "config:.claude/settings.local.json",
+      "type": "config",
+      "name": "settings.local.json",
+      "filePath": ".claude/settings.local.json",
+      "summary": "Claude Code project configuration permitting specific PowerShell and Bash commands for the Understand-Anything knowledge graph analysis pipeline, including file operations, script execution, and graph merging.",
+      "tags": ["configuration", "development-tools", "permissions"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:public/favicon.svg",
+      "type": "file",
+      "name": "favicon.svg",
+      "filePath": "public/favicon.svg",
+      "summary": "Project favicon SVG with gradient-filled geometric logo using purple (#863bff) and cyan (#47bfff) colors with blur filters and mask effects.",
+      "tags": ["branding", "assets", "markup"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:public/icons.svg",
+      "type": "file",
+      "name": "icons.svg",
+      "filePath": "public/icons.svg",
+      "summary": "SVG sprite sheet containing social media and documentation icon symbols (Bluesky, Discord, GitHub, X/Twitter, documentation, social) used throughout the application.",
+      "tags": ["assets", "icons", "markup"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/App.css",
+      "type": "file",
+      "name": "App.css",
+      "filePath": "src/App.css",
+      "summary": "Styling for the App component featuring responsive layout design with CSS Grid, Flexbox, transitions, and dark mode support for hero section, counter button, and multi-section navigation.",
+      "tags": ["styles", "responsive-design", "component-styling"],
+      "complexity": "moderate",
+      "languageNotes": "Uses SCSS-style nesting syntax via CSS nesting spec with media queries for mobile responsiveness and CSS custom properties for theming."
+    },
+    {
+      "id": "file:src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "src/index.css",
+      "summary": "Global CSS stylesheet defining design system with CSS custom properties (colors, fonts, shadows), responsive typography, and light/dark mode theme variables applied to root element.",
+      "tags": ["design-system", "typography", "global-styles"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/App.jsx:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "src/App.jsx",
+      "lineRange": [7, 120],
+      "summary": "Main React component rendering the application UI with interactive counter button, hero section with framework logos, and documentation/social navigation sections using SVG icon sprites.",
+      "tags": ["component", "entry-point", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/App.jsx",
+      "type": "file",
+      "name": "App.jsx",
+      "filePath": "src/App.jsx",
+      "summary": "Primary React application component combining state management via useState, styled UI layout with imported CSS and image assets, and dynamic SVG icon integration for navigation sections.",
+      "tags": ["component", "entry-point", "react"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main.jsx",
+      "type": "file",
+      "name": "main.jsx",
+      "filePath": "src/main.jsx",
+      "summary": "Application entry point that initializes React 18 root, imports global styles, renders App component wrapped in StrictMode for development error detection.",
+      "tags": ["entry-point", "bootstrap", "react"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/App.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "file:src/App.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "file:src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "function:src/App.jsx:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/App.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/App.css",
+      "target": "file:src/index.css",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:src/App.jsx:App",
+      "target": "file:public/icons.svg",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "file:src/App.jsx",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:.claude/settings.local.json",
+      "target": "file:src/App.jsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:public/favicon.svg",
+      "target": "file:src/App.jsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.3
+    },
+    {
+      "source": "file:public/icons.svg",
+      "target": "function:src/App.jsx:App",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.4
+    }
+  ]
+}

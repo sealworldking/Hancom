@@ -1,0 +1,89 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "my-app",
+    "languages": ["javascript", "jsx", "css", "html"],
+    "frameworks": ["React", "Vite"],
+    "description": "React + Vite template providing minimal setup with HMR and ESLint configuration.",
+    "analyzedAt": "2026-07-09T10:54:00Z",
+    "gitCommitHash": "7be57f1b87c1748afb49eb61b5479d57f96bb4fc"
+  },
+  "nodes": [
+    {"id": "file:.gitignore", "type": "config", "name": ".gitignore", "filePath": ".gitignore", "summary": "Version control exclusion configuration that ignores build artifacts, logs, node_modules, and editor-specific files for the React development environment.", "tags": ["configuration", "git", "build-system"], "complexity": "simple"},
+    {"id": "document:README.md", "type": "document", "name": "README.md", "filePath": "README.md", "summary": "Project documentation describing the React + Vite template setup, available plugin options, React Compiler status, and guidance on expanding ESLint configuration for production applications.", "tags": ["documentation", "entry-point", "overview"], "complexity": "simple"},
+    {"id": "config:eslint.config.js", "type": "config", "name": "eslint.config.js", "filePath": "eslint.config.js", "summary": "ESLint configuration file that enforces recommended rules for JavaScript/JSX files, with React Hooks and React Refresh plugin integrations for development workflow.", "tags": ["configuration", "linting", "build-system"], "complexity": "simple"},
+    {"id": "file:index.html", "type": "file", "name": "index.html", "filePath": "index.html", "summary": "HTML entry point that serves the application with a root div mounting point and loads the React application from src/main.jsx as an ES module.", "tags": ["entry-point", "markup", "bootstrap"], "complexity": "simple"},
+    {"id": "config:package.json", "type": "config", "name": "package.json", "filePath": "package.json", "summary": "Project configuration and dependency manifest defining build/dev/lint scripts, React and Vite as core dependencies, and ESLint/Vite plugins as development tools.", "tags": ["configuration", "build-system", "dependency-management"], "complexity": "simple"},
+    {"id": "config:vite.config.js", "type": "config", "name": "vite.config.js", "filePath": "vite.config.js", "summary": "Vite build configuration enabling React support via the @vitejs/plugin-react with HMR capabilities for fast development iteration.", "tags": ["configuration", "build-system", "development-tool"], "complexity": "simple"},
+    {"id": "config:package-lock.json", "type": "config", "name": "package-lock.json", "filePath": "package-lock.json", "summary": "Dependency lock file that pins exact versions of all npm packages and transitive dependencies for reproducible builds across environments.", "tags": ["configuration", "dependency-management", "build-system"], "complexity": "simple"},
+    {"id": "file:src/assets/hero.png", "type": "file", "name": "hero.png", "filePath": "src/assets/hero.png", "summary": "Binary image asset used as a visual hero graphic in the React application interface.", "tags": ["asset", "image"], "complexity": "simple"},
+    {"id": "file:src/assets/react.svg", "type": "file", "name": "react.svg", "filePath": "src/assets/react.svg", "summary": "React logo SVG with gradient effects for visual branding in the application interface.", "tags": ["asset", "logo", "branding"], "complexity": "simple"},
+    {"id": "file:src/assets/vite.svg", "type": "file", "name": "vite.svg", "filePath": "src/assets/vite.svg", "summary": "Vite logo SVG with filter effects for visual branding in the application interface.", "tags": ["asset", "logo", "branding"], "complexity": "simple"},
+    {"id": "file:public/favicon.svg", "type": "file", "name": "favicon.svg", "filePath": "public/favicon.svg", "summary": "Project favicon SVG that displays in browser tabs and bookmarks.", "tags": ["asset", "favicon"], "complexity": "simple"},
+    {"id": "file:public/icons.svg", "type": "file", "name": "icons.svg", "filePath": "public/icons.svg", "summary": "Icon sprite sheet containing documentation, social, GitHub, Discord, X, and Bluesky icon symbols.", "tags": ["asset", "icons", "sprite"], "complexity": "simple"},
+    {"id": "file:src/App.css", "type": "file", "name": "App.css", "filePath": "src/App.css", "summary": "158 lines of scoped styling for the App React component including layout, animations, and visual theming.", "tags": ["stylesheet", "component-style", "css"], "complexity": "moderate"},
+    {"id": "file:src/App.jsx", "type": "file", "name": "App.jsx", "filePath": "src/App.jsx", "summary": "Main React component (116 lines) implementing the interactive counter demo and community links UI with state management via useState hook.", "tags": ["component", "main", "react"], "complexity": "moderate"},
+    {"id": "function:src/App.jsx:App", "type": "function", "name": "App", "filePath": "src/App.jsx", "summary": "Root React component function that renders the interactive UI with counter state and community resource links.", "tags": ["component", "react", "function"], "complexity": "moderate"},
+    {"id": "file:src/index.css", "type": "file", "name": "index.css", "filePath": "src/index.css", "summary": "Global stylesheet (100 lines) with design tokens, CSS resets, and site-wide styling applied to all components.", "tags": ["stylesheet", "global", "css"], "complexity": "moderate"},
+    {"id": "file:src/main.jsx", "type": "file", "name": "main.jsx", "filePath": "src/main.jsx", "summary": "React entry point (9 lines) that imports React, creates the root rendering context, mounts the App component, and imports global styles.", "tags": ["entrypoint", "react", "bootstrap"], "complexity": "simple"},
+    {"id": "config:.claude/settings.local.json", "type": "config", "name": ".claude/settings.local.json", "filePath": ".claude/settings.local.json", "summary": "Local Claude Code configuration for IDE settings and analysis tools.", "tags": ["configuration", "ide"], "complexity": "simple"}
+  ],
+  "edges": [
+    {"source": "file:index.html", "target": "file:src/main.jsx", "type": "imports", "weight": 0.7},
+    {"source": "file:src/main.jsx", "target": "file:src/App.jsx", "type": "imports", "weight": 0.7},
+    {"source": "file:src/main.jsx", "target": "file:src/index.css", "type": "imports", "weight": 0.7},
+    {"source": "file:src/App.jsx", "target": "file:src/App.css", "type": "imports", "weight": 0.7},
+    {"source": "file:src/App.jsx", "target": "file:src/assets/react.svg", "type": "imports", "weight": 0.7},
+    {"source": "file:src/App.jsx", "target": "file:src/assets/vite.svg", "type": "imports", "weight": 0.7},
+    {"source": "file:src/App.jsx", "target": "file:src/assets/hero.png", "type": "imports", "weight": 0.7},
+    {"source": "function:src/App.jsx:App", "target": "file:src/App.jsx", "type": "contains", "weight": 1.0},
+    {"source": "config:package.json", "target": "config:vite.config.js", "type": "configures", "weight": 0.6},
+    {"source": "config:vite.config.js", "target": "file:index.html", "type": "configures", "weight": 0.6},
+    {"source": "document:README.md", "target": "config:package.json", "type": "documents", "weight": 0.5},
+    {"source": "config:eslint.config.js", "target": "file:src/App.jsx", "type": "configures", "weight": 0.6},
+    {"source": "config:eslint.config.js", "target": "file:src/main.jsx", "type": "configures", "weight": 0.6},
+    {"source": "config:package.json", "target": "config:eslint.config.js", "type": "configures", "weight": 0.6},
+    {"source": "file:src/App.jsx", "target": "file:public/icons.svg", "type": "imports", "weight": 0.7},
+    {"source": "config:vite.config.js", "target": "file:src/App.jsx", "type": "configures", "weight": 0.6},
+    {"source": "file:public/favicon.svg", "target": "file:index.html", "type": "related", "weight": 0.5},
+    {"source": "file:src/App.jsx", "target": "file:public/icons.svg", "type": "related", "weight": 0.5},
+    {"source": "config:eslint.config.js", "target": "config:package.json", "type": "depends_on", "weight": 0.6},
+    {"source": "document:README.md", "target": "config:vite.config.js", "type": "documents", "weight": 0.5},
+    {"source": "config:package.json", "target": "config:package-lock.json", "type": "depends_on", "weight": 0.6},
+    {"source": "file:.gitignore", "target": "config:package-lock.json", "type": "configures", "weight": 0.6}
+  ],
+  "layers": [
+    {
+      "id": "layer:entry-point",
+      "name": "Entry Point",
+      "description": "HTML bootstrap and initial application mounting point where browser loads the React application.",
+      "nodeIds": ["file:index.html"]
+    },
+    {
+      "id": "layer:application",
+      "name": "Application",
+      "description": "React components, stylesheets, and visual assets that compose the user interface and interactive features.",
+      "nodeIds": ["file:src/main.jsx", "file:src/App.jsx", "file:src/App.css", "file:src/index.css", "file:src/assets/hero.png", "file:src/assets/react.svg", "file:src/assets/vite.svg", "file:public/favicon.svg", "file:public/icons.svg", "function:src/App.jsx:App"]
+    },
+    {
+      "id": "layer:build-configuration",
+      "name": "Build Configuration",
+      "description": "Vite build configuration, package management, and linting tools that power development and production builds.",
+      "nodeIds": ["config:vite.config.js", "config:package.json", "config:package-lock.json", "config:eslint.config.js"]
+    },
+    {
+      "id": "layer:project-support",
+      "name": "Project Support",
+      "description": "Project documentation, git configuration, and IDE settings that support development workflow.",
+      "nodeIds": ["document:README.md", "config:.gitignore", "config:.claude/settings.local.json"]
+    }
+  ],
+  "tour": [
+    {"order": 1, "title": "Project Overview", "description": "Start with README.md to understand the project's purpose and vision. This React + Vite template is designed to provide a minimal but complete setup for React development with Hot Module Replacement (HMR) and ESLint rules preconfigured.", "nodeIds": ["document:README.md"]},
+    {"order": 2, "title": "HTML Bootstrap", "description": "The index.html file is the entry point for the browser. It defines the root DOM container where React will mount the application and loads the main JavaScript bundle.", "nodeIds": ["file:index.html"]},
+    {"order": 3, "title": "React Application Entry", "description": "The main.jsx file is the JavaScript entry point that Vite loads. It imports React, renders the App component into the DOM root, and imports the global stylesheet.", "nodeIds": ["file:src/main.jsx"]},
+    {"order": 4, "title": "Main App Component", "description": "App.jsx is the root React component implementing the interactive counter demo and community links UI. It demonstrates core React patterns: state management with useState, JSX rendering, and asset imports.", "nodeIds": ["file:src/App.jsx"], "languageLesson": "React components use curly braces {} to embed JavaScript expressions. The useState hook manages state, while onClick handlers connect interactions to updates."},
+    {"order": 5, "title": "Styling Strategy", "description": "Two CSS files establish the project's styling approach: index.css defines global design tokens, while App.css contains scoped styles for the App component.", "nodeIds": ["file:src/index.css", "file:src/App.css"]},
+    {"order": 6, "title": "Build & Development Tools", "description": "The package.json, vite.config.js, and eslint.config.js files configure the entire development and build pipeline. These three files form the foundation of the development experience.", "nodeIds": ["config:package.json", "config:vite.config.js", "config:eslint.config.js"], "languageLesson": "Vite uses plugins to enable JSX and HMR. The React plugin transpiles JSX, and ESLint enforces code quality with configurable rules."}
+  ]
+}

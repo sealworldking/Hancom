@@ -1,0 +1,21 @@
+/* Badge.css = Badge 부품 전용 꾸미기 */
+
+/* .badge = 초록/빨강 공통 모양 */
+.badge{
+    display: inline-block;   /* 글자만큼만 폭 차지 */
+    padding: 8px 16px;
+    margin: 6px;
+    border-radius: 8px;
+    color: rgb(255, 255, 255);            /* 글자 흰색 */
+    font-weight: 600;
+}
+
+/* type="new" -> 초록 배경 */
+.green{
+    background: green;
+}
+
+/* type="not" -> 빨강 배경 */
+.red{
+    background: red;
+}

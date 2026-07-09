@@ -1,0 +1,106 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".claude/settings.local.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "permissions",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "public/favicon.svg",
+      "language": "svg",
+      "fileCategory": "markup",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {}
+    },
+    {
+      "path": "public/icons.svg",
+      "language": "svg",
+      "fileCategory": "markup",
+      "totalLines": 24,
+      "nonEmptyLines": 24,
+      "metrics": {}
+    },
+    {
+      "path": "src/App.css",
+      "language": "css",
+      "fileCategory": "code",
+      "totalLines": 184,
+      "nonEmptyLines": 158,
+      "metrics": {}
+    },
+    {
+      "path": "src/App.jsx",
+      "language": "jsx",
+      "fileCategory": "code",
+      "totalLines": 122,
+      "nonEmptyLines": 116,
+      "functions": [
+        {
+          "name": "App",
+          "startLine": 7,
+          "endLine": 120,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "App",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "App",
+          "callee": "setCount",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/index.css",
+      "language": "css",
+      "fileCategory": "code",
+      "totalLines": 111,
+      "nonEmptyLines": 100,
+      "metrics": {}
+    },
+    {
+      "path": "src/main.jsx",
+      "language": "jsx",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 9,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

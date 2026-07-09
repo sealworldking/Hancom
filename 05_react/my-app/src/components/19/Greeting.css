@@ -1,0 +1,13 @@
+/* Greeting.css = Greeting.jsx 부품 전용 꾸미기 */
+/* className="greeting" 단 요소에 이 스타일이 입혀짐 */
+
+.greeting{
+    padding:20px;                    /* 안쪽 여백 */
+    background:rgb(97, 218, 251);    /* 배경색 (React 하늘색) */
+    border-radius: 12px;             /* 모서리 둥글게 */
+    text-align:center;               /* 글자 가운데 정렬 */
+}
+
+.greeting h1{
+    color:rgb(255, 255, 255);        /* 글자색 (흰색) */
+}
