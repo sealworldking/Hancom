@@ -1,0 +1,383 @@
+<div class="js-log">
+<style>
+.js-log{
+  --ink:#26333b; --sub:#8593a0; --accent:#3b9fd4; --deep:#2b7aa8;
+  --chip-bg:#f1f3f5; --chip-ink:#5a6772;
+  --line:#e7ebee; --card:#ffffff; --code-bg:#f7f8f9; --badge-bg:#eef4f8;
+  --hl:#eef0f2;
+  max-width:820px; margin:0 auto; padding:24px 20px 48px; color:var(--ink);
+  background:#ffffff; color-scheme:light;
+  font-family:"Pretendard","Noto Sans KR",-apple-system,"Segoe UI",sans-serif;
+  line-height:1.8; font-size:16px; letter-spacing:-.2px;
+  word-break:keep-all; overflow-wrap:break-word;
+}
+.js-log *{box-sizing:border-box;}
+.js-log h1,.js-log h2,.js-log h3{margin:0; line-height:1.45; word-break:keep-all;}
+.js-log p{margin:10px 0; word-break:keep-all;}
+.js-log .badge{
+  display:inline-block; font-size:13px; font-weight:700; color:var(--deep);
+  background:var(--badge-bg); padding:5px 14px; border-radius:20px; margin-bottom:16px;
+}
+.js-log .title{
+  border-left:4px solid var(--accent); padding-left:16px; margin-bottom:44px;
+}
+.js-log .title h1{font-size:26px; font-weight:800; margin-bottom:10px;}
+.js-log .title .meta{font-size:14px; color:var(--sub);}
+.js-log h2{
+  font-size:20px; font-weight:800; color:var(--deep);
+  margin:56px 0 18px; padding-bottom:10px; border-bottom:2px solid var(--line);
+}
+.js-log .intro{color:#3d4a53; margin:14px 0 10px;}
+.js-log .intro b{color:var(--ink);}
+.js-log .grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0;}
+.js-log .card{
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:18px 20px;
+}
+.js-log .card h3{font-size:15px; font-weight:800; color:var(--ink); margin-bottom:11px;}
+.js-log .card .chips{display:flex; flex-wrap:wrap; gap:7px;}
+.js-log .chip{
+  font-family:"D2Coding","Consolas","Menlo",monospace; font-size:12.5px; color:var(--chip-ink);
+  background:var(--chip-bg); padding:3px 9px; border-radius:6px;
+}
+.js-log h3.item{font-size:16px; font-weight:800; color:var(--ink); margin:38px 0 10px;}
+.js-log h3.item .num{
+  display:inline-block; color:var(--deep); background:var(--badge-bg); font-size:13px;
+  font-weight:700; padding:2px 9px; border-radius:6px; margin-right:9px; vertical-align:middle;
+}
+.js-log code{
+  font-family:"D2Coding","Consolas","Menlo",monospace; font-size:13.5px;
+  background:var(--hl); color:#41505a; padding:2px 6px; border-radius:5px; word-break:break-all;
+}
+.js-log pre{
+  background:var(--code-bg); border:1px solid var(--line); border-radius:10px;
+  padding:16px 18px; overflow-x:auto; margin:14px 0; font-size:13px; line-height:1.65;
+  font-family:"D2Coding","Consolas","Menlo",monospace; color:#3a4750; word-break:normal;
+}
+.js-log pre code{background:none; color:inherit; padding:0; font-size:inherit;}
+.js-log .cmt{color:#9aa6ae;}
+.js-log ul{margin:12px 0; padding-left:2px; list-style:none;}
+.js-log ul li{position:relative; padding-left:18px; margin:8px 0; color:#3d4a53;}
+.js-log ul li::before{content:"-"; position:absolute; left:2px; color:var(--sub); font-weight:700;}
+.js-log .memo{
+  background:#fff; border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:8px; padding:14px 17px; margin:18px 0;
+}
+.js-log .memo .h{font-weight:800; color:var(--deep); font-size:14px; margin-bottom:6px;}
+.js-log table{width:100%; border-collapse:collapse; margin:16px 0; font-size:14px;}
+.js-log th,.js-log td{border:1px solid var(--line); padding:9px 12px; word-break:keep-all;}
+.js-log th{background:var(--badge-bg); color:var(--deep); font-weight:800; text-align:center;}
+.js-log td{color:#3d4a53; text-align:left;}
+.js-log .qa{border-top:1px solid var(--line); padding:16px 2px 6px; margin-top:8px;}
+.js-log .qa .q{font-weight:800; color:var(--ink); margin-bottom:5px;}
+.js-log .qa .a{color:#3d4a53; margin:0;}
+@media (max-width:600px){ .js-log .grid{grid-template-columns:1fr;} }
+</style>
+<span class="badge"># React 학습일지</span>
+<div class="title">
+<h1>[Front-End Bootcamp-08] React 심화 - 리스트 렌더링, useState, useEffect, 데이터 가져오기</h1>
+<div class="meta">2026.07.10, 배운 내용: 객체 매핑, 배열 map, MUI, 레이아웃, useState, 폼 입력, useEffect, fetch API</div>
+</div>
+<h2 data-ke-size="size26">오늘 다룬 것들</h2>
+<p class="intro" data-ke-size="size16">어제가 <b>props로 값 흘려보내기(정적 화면)</b>였다면, 오늘은 화면이 <b>스스로 변하기 시작</b>했다.<br />배열을 <code>map</code>으로 펼쳐 목록을 그리고, <code>useState</code>로 값을 기억하고, <code>useEffect</code>로 타이밍을 잡고, 마지막엔 <code>fetch</code>로 실제 서버 데이터까지 받아 화면에 꽂았다.<br />핵심 한 줄: <b>state를 바꾸면 화면은 React가 알아서 다시 그린다.</b> 내가 화면을 직접 안 건드린다.</p>
+<div class="grid">
+<div class="card">
+<h3 data-ke-size="size23">객체 매핑 (24)</h3>
+<div class="chips"><span class="chip">map[type]</span><span class="chip">cfg</span><span class="chip">삼항 연산자 대신</span></div>
+</div>
+<div class="card">
+<h3 data-ke-size="size23">배열 렌더링 (25, 26)</h3>
+<div class="chips"><span class="chip">[...Array(5)]</span><span class="chip">.map</span><span class="chip">key</span></div>
+</div>
+<div class="card">
+<h3 data-ke-size="size23">MUI 라이브러리 (27)</h3>
+<div class="chips"><span class="chip">@mui/material</span><span class="chip">Button</span><span class="chip">variant</span></div>
+</div>
+<div class="card">
+<h3 data-ke-size="size23">레이아웃 (28)</h3>
+<div class="chips"><span class="chip">Header</span><span class="chip">Menu</span><span class="chip">flex</span></div>
+</div>
+<div class="card">
+<h3 data-ke-size="size23">useState (29, 30, 31)</h3>
+<div class="chips"><span class="chip">count</span><span class="chip">setCount</span><span class="chip">+1 / -1 / 리셋</span></div>
+</div>
+<div class="card">
+<h3 data-ke-size="size23">폼 입력 (32)</h3>
+<div class="chips"><span class="chip">value</span><span class="chip">onChange</span><span class="chip">e.target.value</span></div>
+</div>
+<div class="card">
+<h3 data-ke-size="size23">Props + State (33)</h3>
+<div class="chips"><span class="chip">name = props</span><span class="chip">count = state</span></div>
+</div>
+<div class="card">
+<h3 data-ke-size="size23">useEffect (34, 35, 36, 37)</h3>
+<div class="chips"><span class="chip">[]</span><span class="chip">[값]</span><span class="chip">생략</span><span class="chip">cleanup</span></div>
+</div>
+<div class="card">
+<h3 data-ke-size="size23">데이터 가져오기 (38, 39)</h3>
+<div class="chips"><span class="chip">fetch</span><span class="chip">.then</span><span class="chip">async/await</span></div>
+</div>
+</div>
+<h2 data-ke-size="size26">항목별 메모</h2>
+
+<h3 class="item" data-ke-size="size23"><span class="num">24</span>Alert, 객체 매핑 (삼항 연산자 대신)</h3>
+<p data-ke-size="size16">1) <b>객체 매핑</b>이란, 종류(<code>type</code>)가 여러 개일 때 삼항 연산자를 길게 3중첩하지 않고, 객체를 표(사전)처럼 만들어 골라 쓸 수 있는 방법이다.<br />2) 핵심은 <code>const cfg = map[type]</code> 한 줄이다. <code>type</code> 값으로 <code>map</code>에서 그 종류의 설정 객체 전체(<code>{ icon, color }</code>)를 통째로 꺼내 <code>cfg</code>에 담는 코드이다.<br />&rarr; 이 덕에 아래에서 <code>cfg.color</code>, <code>cfg.icon</code>처럼 점 하나로 색과 아이콘을 바로 꺼내 쓸 수 있다. 삼항 연산자를 썼을 때와는 달리, 색 따로, 아이콘 따로 구할 필요가 없는 것이다.</p>
+<pre class="javascript"><code>// src/components/Alert.jsx
+const Alert = ({ type, text }) =&gt; {
+  <span class="cmt">// 종류별 설정 모음 (키: {아이콘, 색})</span>
+  const map = {
+    success: { icon: '👌', color: 'green' },
+    error:   { icon: '🤯', color: 'crimson' },
+    warning: { icon: '💀', color: 'orange' },
+  };
+  const cfg = map[type];   <span class="cmt">// type을 열쇠로 설정 한 번에 꺼냄</span>
+  return &lt;p style={{ color: cfg.color }}&gt;{cfg.icon} {text}&lt;/p&gt;;
+};
+export default Alert;</code></pre>
+<ul data-ke-list-type="disc">
+<li><code>type='success'</code>이면 <code>cfg</code>는 <code>{ icon:'👌', color:'green' }</code> 객체 전체가 된다.</li>
+<li>이렇게 설정하면, <code>cfg.color='green'</code>, <code>cfg.icon='👌'</code>로 필요한 값만 꺼내 쓸 수 있다.</li>
+<li>이 방법의 장점은 if나 삼항 연산자였다면 종류가 늘었을 때 코드가 매우 길어졌을 텐데, 이 방법을 이용하면 <code>map</code>에 한 줄만 추가하면 되기에 효과적인 최적화가 가능하다는 것이다.</li>
+</ul>
+
+<h3 class="item" data-ke-size="size23"><span class="num">25</span>Rating, 배열 메서드로 반복 렌더링</h3>
+<p data-ke-size="size16">React로 화면을 만들다 보면 같은 요소를 개수만큼 반복해서 그려야 할 때가 많다. 이번엔 별점(<code>Rating</code>)을 직접 만들며, 배열 메서드로 반복 렌더링하는 법을 알아보겠다.<br />1) <code>Rating</code> 컴포넌트를 이용하면 숫자 props인 <code>score</code>를 받아, 별 5칸 중 앞에서부터 <code>score</code>개는 채운 별(⭐), 나머지는 달(🌙)로 그리게 할 수 있다.<br />2) 기존 방식이라면 <code>&lt;span&gt;⭐&lt;/span&gt;</code>를 손으로 5개 일일이 적어야 하며, 별 개수가 늘면 그만큼 줄도 늘어나게 된다.<br />&rarr; <code>[...Array(5)].map</code>을 쓰면 5칸짜리 배열을 만들어 반복하며 별 5개를 자동으로 찍는다. 직접 다 안 찍어도 되고, 가운데 숫자만 바꾸면 되므로 별이 100개여도 코드는 이 한 줄로 그대로다.</p>
+<pre class="javascript"><code>// src/components/Rating.jsx
+const Rating = ({ score }) =&gt; {
+  return (
+    &lt;div&gt;
+      {[...Array(5)].map((_, i) =&gt; (
+        &lt;span key={i}&gt;{i &lt; score ? '⭐' : '🌙'}&lt;/span&gt;
+      ))}
+    &lt;/div&gt;
+  );
+};</code></pre>
+<div class="memo">
+<div class="h">&lt; 중요 &gt; 스프레드 위치가 핵심</div>
+<code>Array(5)</code>는 값이 아예 없는 "빈 구멍" 5개라 <code>.map</code>이 건너뛴다.<br />먼저 <code>[...Array(5)]</code>로 펼쳐 <code>undefined</code>를 채워야 진짜 배열이 되어 map이 돈다.<br /><code>[...Array(5).map(...)]</code>(안쪽 map)이 아니라 <code>[...Array(5)].map(...)</code>(바깥 map)으로 작성해야 한다.</div>
+<ul data-ke-list-type="disc">
+<li><code>...</code>(스프레드) = 배열을 펼치는 연산자. <code>Array(5)</code>의 빈 구멍을 <code>undefined</code>로 하나씩 채워 진짜 배열로 만든다</li>
+<li><code>.map((_, i) =&gt; ...)</code> = 그 배열을 돌며 각 칸을 화면 요소로 바꾼다.<br /><code>_</code> = 칸의 값(undefined, 안 써서 밑줄), <code>i</code> = 번호(0~4)</li>
+<li><code>i &lt; score</code>면 별, 아니면 달 - (Ex. <code>score=3</code>이면 i가 0,1,2일 때만 ⭐이 찍힘)</li>
+</ul>
+
+<h3 class="item" data-ke-size="size23"><span class="num">26</span>Tag, 배열 props + map (실무 기본형)</h3>
+<p data-ke-size="size16">25번은 <code>[...Array(5)]</code>로 가짜 빈 배열을 만들어 반복했다. 이번엔 실제 데이터가 담긴 배열을 그대로 props로 받아 그리는 법을 알아보겠다. 상품 목록, 댓글, 검색 결과처럼 실무 데이터는 대부분 이 형태다.<br />1) <code>Tag</code> 컴포넌트는 문자열 배열(<code>tags</code>)을 props로 받아, <code>map</code>으로 각 항목을 <code>&lt;span&gt;#항목&lt;/span&gt;</code> 형태의 태그로 그린다.<br />2) <code>tags.map((tag) =&gt; ...)</code>에서 <code>tag</code>는 배열의 각 요소 하나(<code>'react'</code>, <code>'props'</code>, ...)를 가리킨다. <code>'#' + tag</code>로 앞에 샵을 붙여 <code>#react</code>처럼 표시한다.<br />&rarr; 배열에 값이 3개면 태그 3개, 10개면 10개가 자동으로 그려진다. 즉 데이터(배열)만 바꾸면 화면이 알아서 따라 바뀐다.</p>
+<pre class="javascript"><code>// src/components/Tag.jsx
+const Tag = ({ tags }) =&gt; {
+  return (
+    &lt;div&gt;
+      {tags.map((tag) =&gt; (
+        &lt;span key={tag}&gt;{'#' + tag}&lt;/span&gt;
+      ))}
+    &lt;/div&gt;
+  );
+};
+
+// App.jsx
+const list = ['HTML', 'CSS', 'JS', 'REACT'];
+&lt;Tag tags={list} /&gt;   <span class="cmt">// 배열 통째로 넘김</span></code></pre>
+<div class="memo">
+<div class="h">key는 왜 중요한가 (값이 이름표면 중복되면?)</div>
+<code>key</code>는 React가 각 항목을 구분하는 고유 이름표다. 같은 값이 2개면 경고가 뜨고 목록이 바뀔 때 엉킨다.<br />그래서 실무에서는 데이터의 고유 <code>id</code>를 써서 이 문제를 해결한다 (<code>key={t.id}</code>).<br />위의 예시는 특수한 상황으로, HTML/CSS/JS/REACT가 다 다르기에 <code>key={tag}</code>가 안전할 뿐이다.</div>
+
+<h3 class="item" data-ke-size="size23"><span class="num">27</span>MUI, 잘 만든 부품 갖다 쓰기</h3>
+<p data-ke-size="size16">지금까지는 버튼, 카드 같은 부품을 직접 만들었다. 이번엔 남이 잘 만들어 둔 완성품을 가져다 쓰는 법을 알아보겠다.<br />1) <b>라이브러리</b>란 자주 쓰는 부품, 기능을 미리 만들어 모아둔 꾸러미다. 그중 <b>MUI(Material UI)</b>는 구글 머티리얼 디자인 기반의 UI 부품 라이브러리로, 버튼, 입력칸, 팝업 같은 완성품을 모아 놓았다.<br />2) 설치(<code>npm install</code>) 후 <code>import { Button } from '@mui/material'</code> 한 줄로 부품을 가져와, <code>variant</code>, <code>onClick</code> 같은 props로 모양과 동작만 지정해 쓰면 된다.<br />&rarr; 내가 CSS를 직접 짜지 않아도 디자인이 일관되고, 부품 만드는 시간이 크게 줄어든다.</p>
+<pre class="javascript"><code>// 설치: npm install @mui/material @emotion/react @emotion/styled
+import { Button } from '@mui/material';
+
+const SubmitButton = () =&gt; (
+  &lt;Button variant="contained" onClick={() =&gt; alert('안녕!')}&gt;
+    제출
+  &lt;/Button&gt;
+);</code></pre>
+<ul data-ke-list-type="disc">
+<li><code>variant</code>, <code>onClick</code> 전부 props로 넘긴다. 즉, 부품은 완성돼 있고 나는 모양, 동작만 지정하면 된다.</li>
+<li><code>variant</code> 설정에서, <code>variant="contained"</code> = 꽉 찬 버튼, <code>"outlined"</code> = 테두리만, <code>"text"</code> = 글자만 선택하여, 미리 만들어진 모양 중 고를 수 있다.</li>
+<li>CSS를 직접 안 짜도 디자인 일관성 확보가 가능하다는 장점이 있다. (비슷한 것: Ant Design, Chakra, shadcn/ui)</li>
+</ul>
+<div class="memo">
+<div class="h">&lt; 중요 &gt; 서버 켠 뒤 라이브러리 설치하면 "Invalid hook call"</div>
+Vite 개발 서버가 켜진 상태에서 <code>npm install</code>하면 dep 캐시가 꼬여 React 인스턴스가 어긋난다.<br />해결: <code>node_modules/.vite</code> 지우고 <b>dev 서버 재시작</b>. 새 라이브러리 깔면 서버 한 번 껐다 켜기.</div>
+
+<h3 class="item" data-ke-size="size23"><span class="num">28</span>레이아웃, 컴포넌트 위치 정하기</h3>
+<p data-ke-size="size16">부품을 다 만들었으면 이제 화면에 배치해야 한다. 이번엔 여러 컴포넌트를 원하는 위치에 끼우는 법을 알아보겠다.<br />1) <code>App</code> 안에서 컴포넌트를 JSX 태그로 적으면, <b>적은 순서가 곧 화면에 쌓이는 순서</b>가 된다. HTML에서 <code>&lt;div&gt;</code>를 적던 자리에 <code>&lt;부품 /&gt;</code>를 적는 것과 똑같다.<br />2) 기본적으로는 세로로 쌓인다. 여기서, 가로로 나란히 놓으려면 부모 요소에 <code>display:flex</code>를 주면 된다. 순서를 바꾸려면 태그 줄을 위아래로 옮기면 된다.<br />&rarr; <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code> 같은 시맨틱 태그로 배치하면 화면은 같아도 접근성과 SEO에 유리하다.</p>
+<pre class="coffeescript"><code>const App = () =&gt; (
+  &lt;&gt;
+    &lt;Header /&gt;    <span class="cmt">// 맨 위</span>
+    &lt;Menu /&gt;      <span class="cmt">// 그 아래</span>
+    &lt;Content /&gt;   <span class="cmt">// 또 그 아래</span>
+    &lt;Footer /&gt;    <span class="cmt">// 맨 밑</span>
+  &lt;/&gt;
+);</code></pre>
+<ul data-ke-list-type="disc">
+<li>순서 바꾸기 = 태그 줄을 위/아래로 이동</li>
+<li>가로 배치 = 부모에 <code>display:flex</code> (세로 쌓기가 기본)</li>
+<li><code>&lt;header&gt; &lt;nav&gt; &lt;main&gt; &lt;footer&gt;</code> 같은 시맨틱 태그 = 접근성, SEO에 유리</li>
+</ul>
+
+<h3 class="item" data-ke-size="size23"><span class="num">29, 30, 31</span>useState, 값을 기억하고 바꾸기</h3>
+<p data-ke-size="size16">오늘의 메인. 지금까지 화면은 한 번 그리면 고정이었는데, 이제 값이 바뀌면 화면이 스스로 바뀌게 만든다.<br />&rarr; 그 도구가 <code>useState</code>다.<br />1) <code>useState</code>는 <b>값을 기억하는 상자</b>를 만든다. props는 부모가 준 고정값이라 못 바꾸지만, state는 컴포넌트가 스스로 기억하고 바꿀 수 있는 값이다.<br />2) <code>const [count, setCount] = useState(0)</code>은 초기값 0으로 시작해, 현재값 <code>count</code>와 그 값을 바꾸는 함수 <code>setCount</code>를 돌려준다. 버튼에서 <code>setCount</code>로 값을 바꾸도록 설정하면, React가 화면을 자동으로 다시 그린다.<br />&rarr; +1, -1, 리셋 등, 버튼이 여러 개여도 모두 <b>같은 <code>count</code></b>를 조작한다. 즉, 어느 버튼을 눌러도 화면은 최신 <code>count</code>를 반영한다.</p>
+<pre class="javascript"><code>// src/components/Counter.jsx
+import { useState } from 'react';
+
+const Counter = () =&gt; {
+  const [count, setCount] = useState(0);   <span class="cmt">// 값 + 바꾸는 함수 한 쌍 (초기값 0)</span>
+  return (
+    &lt;&gt;
+      &lt;button onClick={() =&gt; setCount(c =&gt; c - 1)}&gt;-1&lt;/button&gt;
+      &lt;span&gt;{count}&lt;/span&gt;
+      &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;+1&lt;/button&gt;
+      &lt;button onClick={() =&gt; setCount(0)}&gt;리셋&lt;/button&gt;   <span class="cmt">// 초기값으로</span>
+    &lt;/&gt;
+  );
+};</code></pre>
+<div class="memo">
+<div class="h">&lt; 중요 &gt; 왜 꼭 setCount로 바꿔야 하나</div>
+<code>count = count + 1</code>은 값만 바뀌고 React가 모른다 → 화면 그대로.<br /><code>setCount(...)</code>는 값 변경 + "화면 다시 그려" 신호를 함께 보낸다 → 화면 갱신.<br /><code>c =&gt; c + 1</code>의 <code>c</code>는 내가 정의하는 게 아니라 React가 넣어주는 "현재 값"이다.</div>
+<ul data-ke-list-type="disc">
+<li><code>const [count, setCount] = useState(0)</code> = <b>배열 구조분해</b>.<br />&rarr; useState가 돌려주는 <code>[현재값, 바꾸는 함수]</code> 한 쌍을 이 두 이름으로 받는다 (이름은 내 맘대로, 관례는 <code>값</code>/<code>set값</code>)</li>
+<li><code>c =&gt; c + 1</code>(함수형) = 현재값 <code>c</code>를 받아 +1. 빠르게 여러 번 눌러도 안 꼬여서 <code>setCount(count+1)</code>보다 안전하다.</li>
+<li>버튼이 2개든 3개든 <b>같은 state 하나</b>를 조작 (증가, 감소, 초기화)</li>
+<li>리셋은 현재값이 필요 없어 <code>setCount(0)</code>처럼 값만 넣는다</li>
+</ul>
+
+<h3 class="item" data-ke-size="size23"><span class="num">32</span>NameForm, 폼 입력 (controlled)</h3>
+<p data-ke-size="size16">이번엔 숫자가 아니라, 사용자가 입력창에 친 글자를 state로 다루는 법을 알아보겠다.<br />1) 입력값을 state에 저장해 두면 검색, 로그인, 댓글처럼 사용자가 친 내용을 코드로 자유롭게 쓸 수 있다.<br />2) input에 <code>value={name}</code>으로 state 값을 보여주고, <code>onChange={(e) =&gt; setName(e.target.value)}</code>로 글자를 칠 때마다 state를 갱신한다. <code>e.target.value</code>가 지금 입력칸의 글자다.<br />&rarr; state가 바뀌면 아래 <code>&lt;p&gt;안녕, {name}!&lt;/p&gt;</code>도 즉시 따라 바뀐다. 이렇게 input과 state가 항상 일치하는 방식을 <b>controlled(제어) 컴포넌트</b>라 한다.</p>
+<pre class="javascript"><code>const NameForm = () =&gt; {
+  const [name, setName] = useState('');
+  return (
+    &lt;&gt;
+      &lt;input value={name} onChange={(e) =&gt; setName(e.target.value)} /&gt;
+      &lt;p&gt;안녕, {name}!&lt;/p&gt;   <span class="cmt">// 칠 때마다 즉시 반영</span>
+    &lt;/&gt;
+  );
+};</code></pre>
+<ul data-ke-list-type="disc">
+<li><code>e.target.value</code> = 지금 입력칸의 글자</li>
+<li><code>value</code>만 있고 <code>onChange</code>가 없으면 타이핑이 안 먹는다 (둘 다 필수)</li>
+<li><code>{name}</code>이 자동 갱신되는 원리: setName → 컴포넌트 함수 재실행 → 새 값으로 다시 그림</li>
+</ul>
+
+<h3 class="item" data-ke-size="size23"><span class="num">33</span>ProductItem, Props + State 한 몸에</h3>
+<p data-ke-size="size16">이번엔 지금까지 따로 배운 props와 state를 한 컴포넌트에서 같이 쓰는 법을 알아보겠다.<br />1) <code>ProductItem</code>은 상품 이름 <code>name</code>을 props로 받고, 담은 개수 <code>count</code>는 자기 state로 관리한다.<br />&rarr; <code>name</code>은 밖(부모)에서 준 고정값이라 못 바꾸고, <code>count</code>는 스스로 기억하며 버튼으로 바꾼다.<br />2) 부모는 <code>&lt;ProductItem name="러닝화" /&gt;</code>처럼 <code>name</code>만 넘긴다.<br />&rarr; <code>count</code>는 부품 내부에서 <code>useState</code>로 알아서 관리하므로 부모는 신경 쓸 필요가 없다.<br />&rarr; 같은 부품에 <code>name</code>만 다르게 넘기면 카드를 여러 개 만들 수 있고, 각 카드는 자기 <code>count</code>를 독립적으로 관리한다. 장바구니, 상품 목록이 이 구조다.</p>
+<pre class="javascript"><code>const ProductItem = ({ name }) =&gt; {        <span class="cmt">// props (밖에서 받음)</span>
+  const [count, setCount] = useState(0);   <span class="cmt">// state (내가 관리)</span>
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p&gt;{count}개 담음&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;🛒 담기&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<table data-ke-align="alignLeft">
+<thead><tr><th>구분</th><th>props (name)</th><th>state (count)</th></tr></thead>
+<tbody>
+<tr><td>누가 주는가?</td><td>부모가 줌 (밖)</td><td>자기가 만듦 (안)</td></tr>
+<tr><td>바꿀 수 있는가?</td><td>못 바꿈 (읽기)</td><td>바꿈 (setCount)</td></tr>
+<tr><td>성격</td><td>고정값</td><td>변하는 값</td></tr>
+</tbody>
+</table>
+<ul data-ke-list-type="disc">
+<li>같은 부품에 <code>name</code>만 다르게 넘겨 카드 여러 개, 각 카드가 <code>count</code>를 독립 관리</li>
+</ul>
+
+<h3 class="item" data-ke-size="size23"><span class="num">34, 35, 36, 37</span>useEffect, 타이밍을 잡는 도구</h3>
+<p data-ke-size="size16">useState가 "값을 기억하는" 도구라면, useEffect는 "특정 타이밍에 코드를 실행하는" 도구다. 이번엔 화면이 그려진 뒤 언제 무엇을 실행할지 정하는 법을 알아보겠다.<br />1) <code>useEffect(함수, 의존성배열)</code>은 화면이 그려진 뒤 함수를 실행한다. 타이머, 서버 호출처럼 화면 밖 동작을 연결할 때 쓴다.<br />2) <b>두 번째 칸(의존성 배열)이 실행 타이밍을 결정</b>한다.<br />&rarr; <code>[]</code>는 처음 1번, <code>[값]</code>은 그 값이 바뀔 때마다, 생략하면 매 렌더마다 실행된다.<br />&rarr; 타이머처럼 뭔가를 켰다면 <code>return () =&gt; ...</code>로 정리(cleanup) 함수를 돌려줘, 컴포넌트가 사라질 때 꺼줘야 한다(아래 시계 예시 참고).</p>
+<pre class="javascript"><code>// 34) 처음 1번만
+useEffect(() =&gt; { console.log('화면 뜰 때 1번'); }, []);
+
+// 36) count 바뀔 때마다
+useEffect(() =&gt; { console.log('count:', count); }, [count]);
+
+// 37) 매 렌더마다 (거의 안 씀)
+useEffect(() =&gt; { console.log('매번'); });   <span class="cmt">// 배열 생략</span></code></pre>
+<pre class="javascript"><code>// 35) 시계 - setInterval + 정리(cleanup)
+const Clock = () =&gt; {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+  useEffect(() =&gt; {
+    const timer = setInterval(() =&gt; {
+      setTime(new Date().toLocaleTimeString());   <span class="cmt">// 1초마다 갱신</span>
+    }, 1000);
+    return () =&gt; clearInterval(timer);   <span class="cmt">// 사라질 때 타이머 끔 (정리)</span>
+  }, []);
+  return &lt;p&gt;🕛 {time}&lt;/p&gt;;
+};</code></pre>
+<table data-ke-align="alignLeft">
+<thead><tr><th>두 번째 칸</th><th>언제 실행되는가?</th><th>쓰는 곳</th></tr></thead>
+<tbody>
+<tr><td><code>[]</code></td><td>처음 1번만</td><td>시작 설정, 데이터 요청</td></tr>
+<tr><td><code>[값]</code></td><td>그 값 바뀔 때마다</td><td>값 변화 감지, 자동 저장</td></tr>
+<tr><td>생략</td><td>매 렌더마다</td><td>거의 안 씀 (무한 루프 위험)</td></tr>
+</tbody>
+</table>
+<div class="memo">
+<div class="h">&lt; 중요 &gt; useEffect가 2번 실행된다? (StrictMode)</div>
+개발 모드의 <code>&lt;StrictMode&gt;</code>는 정리(cleanup)를 제대로 했는지 검사하려고 effect를 일부러 2번 실행한다.<br />버그가 아니고, 실제 배포 빌드에선 1번만 돈다. StrictMode는 켜두는 게 정석.<br />또 <code>setState</code>를 배열 없는 useEffect 안에서 부르면 <b>무한 루프</b>가 된다(렌더→effect→setState→렌더…). 반드시 <code>[]</code>를 넣는다.</div>
+
+<h3 class="item" data-ke-size="size23"><span class="num">38, 39</span>데이터 가져오기, fetch + useEffect</h3>
+<p data-ke-size="size16">오늘의 최종 목표. 실제 서버나 공개 API에서 데이터를 받아 화면에 그리는 법을 알아보겠다.<br />1) 흐름은 <b>"화면이 뜨면 → 데이터를 요청하고 → 도착하면 state에 채워 화면을 갱신"</b>이다. 요청은 <code>useEffect(…, [])</code> 안에서 첫 렌더 때 1번만 보낸다.<br />2) <code>fetch(주소)</code>로 요청을 보내고, <code>.then(res =&gt; res.json())</code>으로 응답을 JS 객체로 바꾼 뒤, <code>.then(data =&gt; setTemp(...))</code>로 필요한 값을 state에 담는다. 실패에 대비해 <code>.catch</code>도 붙인다.<br />&rarr; 처음엔 빈 값(<code>null</code>, <code>[]</code>)이라 "불러오는 중"을 보여주고, 데이터가 도착하면 화면이 자동으로 채워진다.</p>
+<pre class="javascript"><code>// src/components/Weather.jsx  (open-meteo 무료 날씨 API)
+const Weather = () =&gt; {
+  const [temp, setTemp] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=37.5&amp;longitude=127&amp;current_weather=true')
+      .then((res) =&gt; res.json())                <span class="cmt">// 응답 → JSON 변환</span>
+      .then((data) =&gt; {
+        setTemp(data.current_weather.temperature);   <span class="cmt">// 깊이 파고들어 기온 꺼냄</span>
+        setIsLoading(false);
+      })
+      .catch((error) =&gt; console.error('실패:', error));
+  }, []);   <span class="cmt">// [] = 첫 렌더 1번만</span>
+
+  return &lt;p&gt;🌡️ 서울 기온: {isLoading ? '불러오는 중…' : temp + '°C'}&lt;/p&gt;;
+};</code></pre>
+<ul data-ke-list-type="disc">
+<li><b>비동기</b>: 데이터는 인터넷 너머라 시간차가 있다. 멈춰 기다리면 화면이 굳으니 "도착하면 그때 처리"(<code>.then</code>)</li>
+<li><code>.then((res) =&gt; res.json())</code> = 도착한 응답(<code>res</code>)을 JS가 쓸 수 있는 객체로 <b>변환</b>. 이 변환이 끝나야 다음 <code>.then</code>에서 <code>data</code>를 쓸 수 있다</li>
+<li><code>data.current_weather.temperature</code> = 응답이 <code>{ current_weather: { temperature } }</code>처럼 깊게 박혀 있어, 점(.)을 타고 상자 속 상자를 파고들어 기온만 꺼낸다</li>
+<li>주소의 <code>?</code>=옵션 시작, <code>&amp;</code>=옵션 이어붙이기 / 위도, 경도 바꾸면 다른 도시 (부산 35.1 / 129.0)</li>
+<li>38번(Users)과 구조 똑같음, 다른 건 <b>주소</b>와 <b>값 꺼내는 경로</b>뿐</li>
+<li>처음 빈 값(<code>null</code>, <code>[]</code>) → 로딩 표시 → 도착하면 채워 갱신</li>
+</ul>
+<div class="memo">
+<div class="h">async/await 버전 (같은 일, 더 읽기 쉬움)</div>
+<code>.then</code> 체인 대신 <code>const res = await fetch(...)</code>처럼 위→아래로 읽힌다.<br /><code>await</code> = "이 줄 끝날 때까지 기다렸다 다음" 이라는 뜻이다. 실무에서 많이 쓴다.</div>
+
+<h2 data-ke-size="size26">오늘의 큰 그림 — React 3대 도구</h2>
+<p data-ke-size="size16">오늘 배운 걸 한 표로 정리하면 이렇게 세 개다. 이 셋의 조합이 실전 React의 뼈대다.</p>
+<table data-ke-align="alignLeft">
+<thead><tr><th>도구</th><th>역할</th><th>한 줄</th></tr></thead>
+<tbody>
+<tr><td><code>useState</code></td><td>값 기억 + 화면 갱신</td><td>바꿀 땐 set함수로</td></tr>
+<tr><td><code>useEffect</code></td><td>타이밍 잡아 실행</td><td>두 번째 칸이 언제를 결정</td></tr>
+<tr><td><code>fetch</code></td><td>서버 데이터 요청</td><td>useEffect(…, []) 안에서 호출</td></tr>
+</tbody>
+</table>
+
+<h2 data-ke-size="size26">내가 헷갈렸던 포인트</h2>
+<div class="qa">
+<div class="q">Q. setCount의 c는 정의도 안 했는데 어떻게 쓰나?</div>
+<p class="a" data-ke-size="size16"><code>c =&gt; c + 1</code>은 "받으면 1 더한다"는 규칙(함수)만 적은 것.<br />거기에 실제 현재 값을 넣어주는 건 <code>setCount</code>(React)의 일이다. <code>c</code>는 그냥 받는 자리 이름일 뿐(x, 현재값 아무거나 가능).</p>
+</div>
+<div class="qa">
+<div class="q">Q. inline style로 다 되는데 CSS는 왜 쓰나?</div>
+<p class="a" data-ke-size="size16">inline은 <code>:hover</code>, <code>:active</code>, 미디어쿼리를 못 쓰고, 재사용이 안 돼 복붙 지옥이 된다.<br />동적인 값(상태에 따라 바뀌는 색 등)은 inline, 재사용, hover, 반응형은 CSS. 역할이 다르다. (우선순위: inline &gt; id &gt; class &gt; 태그)</p>
+</div>
+<div class="qa">
+<div class="q">Q. 화면은 흰 배경인데 글자가 회색으로 안 보였다.</div>
+<p class="a" data-ke-size="size16">템플릿 <code>index.css</code>의 <code>:root</code>가 전역 글자색을 <code>var(--text)</code>(회색)로 잡고, 다크모드에선 더 연해진다.<br />특정 요소만 바꾸려면 그 컴포넌트에서 <code>style={{ color:'black' }}</code>(inline이 이김), 전체를 바꾸려면 index.css의 변수 수정.</p>
+</div>
+<div class="qa">
+<div class="q">Q. 회사 이름이 왜 data.company가 아니라 data.company.name인가?</div>
+<p class="a" data-ke-size="size16">API 응답에서 <code>company</code>가 다시 <code>{ name, ... }</code> 객체이기 때문. 점(.)을 타고 상자 속 상자를 한 단계 더 파고들어 <code>company.name</code>으로 꺼낸다. 날씨도 같은 이유로 <code>data.current_weather.temperature</code>.</p>
+</div>
+<div class="qa">
+<div class="q">Q. useEffect 콘솔 로그가 2번 찍힌다. 버그인가?</div>
+<p class="a" data-ke-size="size16">아니다. 개발용 <code>&lt;StrictMode&gt;</code>가 정리(cleanup) 여부를 검사하려고 일부러 2번 실행한다. 실제 배포하면 1번. 켜두는 게 정석이다.</p>
+</div>
+</div>
+</div>
