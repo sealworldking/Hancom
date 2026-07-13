@@ -1,17 +1,47 @@
 import './App.css'
-import Weather from './components/39/Weather.jsx'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import Home from './pages/Home.jsx'
+import About from './pages/About.jsx'
+import Contact from './pages/Contact.jsx'
 
 function App(){
-  return(
-    <>
-    <Weather/>
-    </>
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link>
+        {' | '}
+        <Link to="/about">About</Link>
+        {' | '}
+        <Link to="/Contact">Contact</Link>
+      </nav>
+
+      {/* 주소에 맞는 화면을 여기서 그림 */}
+      <Routes>
+        <Route path="/" element={<Home />} />        {/* 주소가 / 면 Home */}
+        <Route path="/about" element={<About />} />   {/* 주소가 /about 면 About */}
+        <Route path="/Contact" element={<Contact />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
 export default App
 
 // ===== 이전 연습 코드 (보관용) =====
+
+// --- 39 Weather ---
+// import './App.css'
+// import Weather from './components/39/Weather.jsx'
+//
+// function App(){
+//   return(
+//     <>
+//     <Weather/>
+//     </>
+//   )
+// }
+//
+// export default App
 
 // --- 38 Users (fetch 데이터 가져오기) ---
 // import './App.css'
