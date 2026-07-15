@@ -1,16 +1,24 @@
-# React + Vite
+# GROQ Chat (로컬 2-서버 버전)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+원본 실습 버전. 백엔드(Express)와 프론트(Vite)를 각각 띄운다.
 
-Currently, two official plugins are available:
+## 실행
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+터미널 2개 필요.
 
-## React Compiler
+**터미널 1 — 백엔드** (상위 폴더 `07_GROQ`)
+```bash
+cd ..
+node server.js          # http://localhost:3000
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**터미널 2 — 프론트** (이 폴더)
+```bash
+npm install
+npm run dev             # http://localhost:5173
+```
 
-## Expanding the Oxlint configuration
+프론트가 `http://localhost:3000/api/chat`(server.js)로 요청한다.
+백엔드가 `07_GROQ/.env`의 `GROQ_API_KEY`를 사용한다.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+> Vercel 서버리스 배포 버전은 별도 폴더(`My First Vercel`)에 있다.

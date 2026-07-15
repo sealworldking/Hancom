@@ -1,19 +1,113 @@
+/* 색상 토큰 — 라이트 기본값. .dark 에서 덮어씀 */
 .chat-wrap {
+  --bg: #fff;
+  --fg: #000;
+  --line: #000;
+  --user-bg: #000;
+  --user-fg: #fff;
+  --bot-bg: #fff;
+  --bot-fg: #000;
+  --btn-bg: #000;
+  --btn-fg: #fff;
+  --chip-bg: #f2f2f2;
+  --notice: #b00020;
+
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--bg);
   box-sizing: border-box;
 }
 
+/* 다크모드: 배경 검정, 선·글자 흰색 */
+.chat-wrap.dark {
+  --bg: #000;
+  --fg: #fff;
+  --line: #fff;
+  --user-bg: #000;
+  --user-fg: #fff;
+  --bot-bg: #000;
+  --bot-fg: #fff;
+  --btn-bg: #000;
+  --btn-fg: #fff;
+  --chip-bg: #1a1a1a;
+  --notice: #ff6b6b;
+}
+
 .chat-header {
-  padding: 20px 32px;
-  border-bottom: 2px solid #000;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 32px;
+  border-bottom: 2px solid var(--line);
+  color: var(--fg);
+}
+
+.chat-title {
   font-size: 20px;
   font-weight: 700;
-  color: #000;
+}
+
+/* 좌측 상단 리스트 버튼 + 드롭다운 */
+.menu-wrap {
+  position: relative;
+}
+
+.list-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: var(--btn-bg);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.list-btn .bar {
+  width: 20px;
+  height: 2px;
+  background: var(--btn-fg);
+  border-radius: 2px;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  z-index: 10;
+  background: var(--bot-bg);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 6px;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-item {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 600;
   text-align: left;
+  cursor: pointer;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 2px solid var(--line);
+  border-radius: 6px;
+}
+
+.menu-item:hover {
+  background: var(--btn-fg);
+  color: var(--btn-bg);
 }
 
 .chat-log {
@@ -23,7 +117,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  background: #fff;
+  background: var(--bg);
 }
 
 .bubble {
@@ -40,41 +134,121 @@
 
 .bubble.user {
   align-self: flex-end;
-  background: #000;
-  color: #fff;
+  background: var(--user-bg);
+  color: var(--user-fg);
+  border: 2px solid var(--line);
   border-radius: 14px 14px 2px 14px;
 }
 
 .bubble.assistant {
   align-self: flex-start;
-  background: #fff;
-  color: #000;
-  border: 2px solid #000;
+  background: var(--bot-bg);
+  color: var(--bot-fg);
+  border: 2px solid var(--line);
   border-radius: 14px 14px 14px 2px;
+}
+
+/* 말풍선 안 이미지 */
+.bubble-img {
+  display: block;
+  max-width: 260px;
+  max-height: 260px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+.bubble-img:first-child {
+  margin-top: 0;
+}
+
+/* 전송 전 첨부 이미지 미리보기 */
+.preview-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 32px 0;
+}
+.preview-img {
+  max-height: 72px;
+  border-radius: 8px;
+  border: 2px solid var(--line);
+}
+.preview-remove {
+  cursor: pointer;
+  background: var(--bot-bg);
+  color: var(--fg);
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* 첨부된 텍스트 파일 칩 */
+.file-chip {
+  padding: 8px 14px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+  background: var(--chip-bg);
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 지원 안 되는 파일 알림 */
+.notice {
+  padding: 10px 32px 0;
+  color: var(--notice);
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .input-row {
   display: flex;
   gap: 12px;
   padding: 20px 32px;
-  border-top: 2px solid #000;
-  background: #fff;
+  border-top: 2px solid var(--line);
+  background: var(--bg);
+}
+
+/* 첨부 버튼은 정사각형, 넓은 padding 무시 */
+.input-row button.attach-btn {
+  padding: 0;
+  width: 52px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.attach-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .input-row input {
   flex: 1;
   padding: 14px 16px;
   font-size: 16px;
-  border: 2px solid #000;
+  border: 2px solid var(--line);
   border-radius: 8px;
-  color: #000;
-  background: #fff;
+  color: var(--fg);
+  background: var(--bot-bg);
+}
+
+.input-row input::placeholder {
+  color: var(--fg);
+  opacity: 0.5;
 }
 
 .input-row input:focus {
   outline: none;
-  border-color: #000;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+  border-color: var(--line);
+  box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.3);
 }
 
 .input-row button {
@@ -82,15 +256,15 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  background: #000;
-  color: #fff;
-  border: 2px solid #000;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 2px solid var(--line);
   border-radius: 8px;
 }
 
 .input-row button:hover:not(:disabled) {
-  background: #fff;
-  color: #000;
+  background: var(--btn-fg);
+  color: var(--btn-bg);
 }
 
 .input-row button:disabled {
