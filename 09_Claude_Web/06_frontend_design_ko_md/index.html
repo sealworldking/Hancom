@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>계산기</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+/>
+<style>
+  :root {
+    /* --- TDS color tokens (TOSS_DESIGN.md, OKLCH) --- */
+    --tds-bg-primary: oklch(1 0 0);
+    --tds-bg-secondary: oklch(0.957 0.005 247);   /* grey-100 */
+    --tds-bg-tertiary: oklch(0.913 0.008 247);    /* grey-200 */
+    --tds-fg-primary: oklch(0.234 0.030 254);     /* grey-900 */
+    --tds-fg-secondary: oklch(0.452 0.028 253);   /* grey-700 */
+    --tds-fg-tertiary: oklch(0.155 0.060 261 / 0.58);
+    --tds-fg-inverse: oklch(1 0 0);
+    --tds-bg-brand: oklch(0.624 0.176 254);       /* blue-500 — single accent */
+    --tds-bg-brand-pressed: oklch(0.522 0.176 257); /* blue-600 */
+    --tds-bg-brand-weak: oklch(0.965 0.020 250);  /* blue-50 */
+    --tds-fg-brand: oklch(0.624 0.176 254);
+    --tds-fg-danger: oklch(0.628 0.218 22);       /* red-500 */
+    --tds-press-overlay: oklch(0 0 0 / 0.26);
+    --tds-disabled-opacity: 0.30;
+
+    /* --- radius --- */
+    --radius-m: 12px;
+    --radius-2xl: 20px;
+    --radius-3xl: 24px;
+    --radius-full: 999px;
+
+    /* --- spacing --- */
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+
+    /* --- motion --- */
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --dur-fast: 120ms;
+    --dur-base: 200ms;
+
+    /* --- elevation --- */
+    --shadow-1: 0 1px 2px oklch(0.155 0.060 261 / 0.04),
+                0 1px 1px oklch(0.155 0.060 261 / 0.04);
+
+    --font-sans: "Pretendard Variable", Pretendard, -apple-system,
+      BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", "Noto Sans KR",
+      Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--tds-bg-secondary);
+    color: var(--tds-fg-primary);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+  }
+
+  .app {
+    width: 100%;
+    max-width: 400px;
+    background: var(--tds-bg-primary);
+    border-radius: var(--radius-3xl);
+    box-shadow: var(--shadow-1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* --- top-app-bar --- */
+  .topbar {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-6);
+  }
+  .topbar h1 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--tds-fg-primary);
+  }
+
+  /* --- display --- */
+  .display {
+    padding: var(--space-6);
+    padding-top: var(--space-4);
+    padding-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-2);
+    min-height: 168px;
+    justify-content: flex-end;
+    text-align: right;
+    overflow: hidden;
+  }
+  .display__expr {
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    color: var(--tds-fg-secondary);
+    font-variant-numeric: tabular-nums;
+    min-height: 22px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    direction: rtl;
+  }
+  .display__result {
+    font-size: 56px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--tds-fg-primary);
+    font-variant-numeric: tabular-nums;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    direction: rtl;
+    transition: color var(--dur-base) var(--ease);
+  }
+  .display__result.is-error { color: var(--tds-fg-danger); font-size: 28px; }
+  /* signature — 한글 금액 readout */
+  .display__readout {
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 500;
+    color: var(--tds-fg-tertiary);
+    font-variant-numeric: proportional-nums;
+    min-height: 17px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease);
+  }
+  .display__readout.is-visible { opacity: 1; }
+
+  /* --- keypad --- */
+  .keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6) var(--space-6);
+  }
+
+  .key {
+    position: relative;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    aspect-ratio: 1 / 1;
+    min-height: 44px;
+    border-radius: var(--radius-2xl);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    font-variant-numeric: tabular-nums;
+    background: var(--tds-bg-secondary);
+    color: var(--tds-fg-primary);
+    transition: transform var(--dur-fast) var(--ease);
+    user-select: none;
+  }
+  .key::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--tds-press-overlay);
+    opacity: 0;
+    transition: opacity var(--dur-fast) var(--ease);
+    pointer-events: none;
+  }
+  .key:active::after,
+  .key.is-active::after { opacity: 1; }
+  .key:active { transform: scale(0.96); }
+
+  .key:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--tds-bg-brand-weak),
+                0 0 0 5px var(--tds-bg-brand);
+  }
+
+  /* function keys (AC ± %) — quieter label */
+  .key--fn { color: var(--tds-fg-secondary); }
+
+  /* operators — weak brand variant */
+  .key--op {
+    background: var(--tds-bg-brand-weak);
+    color: var(--tds-fg-brand);
+    font-weight: 700;
+  }
+
+  /* equals — single primary, blue-500 fill */
+  .key--eq {
+    background: var(--tds-bg-brand);
+    color: var(--tds-fg-inverse);
+    font-weight: 700;
+  }
+  .key--eq:active { background: var(--tds-bg-brand-pressed); }
+
+  .key--wide { aspect-ratio: auto; grid-column: span 2; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+    .key:active { transform: none; }
+  }
+
+  @media (max-height: 720px) {
+    .key { font-size: 22px; }
+    .display__result { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+  <main class="app" role="application" aria-label="계산기">
+    <header class="topbar"><h1>계산기</h1></header>
+
+    <section class="display" aria-live="polite">
+      <div class="display__expr" id="expr" aria-hidden="true"></div>
+      <div class="display__result" id="result" role="status" aria-label="결과">0</div>
+      <div class="display__readout" id="readout" aria-hidden="true"></div>
+    </section>
+
+    <div class="keypad" id="keypad">
+      <button class="key key--fn" data-action="clear" aria-label="전체 지우기">AC</button>
+      <button class="key key--fn" data-action="negate" aria-label="부호 바꾸기">±</button>
+      <button class="key key--fn" data-action="percent" aria-label="퍼센트">%</button>
+      <button class="key key--op" data-op="÷" aria-label="나누기">÷</button>
+
+      <button class="key" data-digit="7">7</button>
+      <button class="key" data-digit="8">8</button>
+      <button class="key" data-digit="9">9</button>
+      <button class="key key--op" data-op="×" aria-label="곱하기">×</button>
+
+      <button class="key" data-digit="4">4</button>
+      <button class="key" data-digit="5">5</button>
+      <button class="key" data-digit="6">6</button>
+      <button class="key key--op" data-op="−" aria-label="빼기">−</button>
+
+      <button class="key" data-digit="1">1</button>
+      <button class="key" data-digit="2">2</button>
+      <button class="key" data-digit="3">3</button>
+      <button class="key key--op" data-op="+" aria-label="더하기">+</button>
+
+      <button class="key key--wide" data-digit="0">0</button>
+      <button class="key" data-action="dot" aria-label="소수점">.</button>
+      <button class="key key--eq" data-action="equals" aria-label="계산">=</button>
+    </div>
+  </main>
+
+<script>
+(function () {
+  "use strict";
+
+  var exprEl = document.getElementById("expr");
+  var resultEl = document.getElementById("result");
+  var readoutEl = document.getElementById("readout");
+  var keypad = document.getElementById("keypad");
+
+  // --- 상태 머신 ---
+  var current = "0";   // 화면에 찍히는 현재 입력값
+  var previous = null; // 확정된 이전 피연산자 (number)
+  var operator = null; // "+", "−", "×", "÷"
+  var waiting = false; // 다음 숫자 입력이 새 피연산자 시작인지
+  var errored = false;
+
+  var OPS = {
+    "+": function (a, b) { return a + b; },
+    "−": function (a, b) { return a - b; },
+    "×": function (a, b) { return a * b; },
+    "÷": function (a, b) { return b === 0 ? null : a / b; }
+  };
+
+  // 부동소수점 보정 후 세 자리 콤마 포맷
+  function formatNumber(str) {
+    if (str === "" || str === "-") return str;
+    var neg = str.charAt(0) === "-";
+    var body = neg ? str.slice(1) : str;
+    var parts = body.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return (neg ? "-" : "") + parts.join(".");
+  }
+
+  // number -> 소수 오차 정리된 문자열
+  function cleanNumber(n) {
+    if (!isFinite(n)) return null;
+    // 12자리 유효숫자로 반올림해 이진 부동소수 잔여 제거
+    var rounded = parseFloat(n.toPrecision(12));
+    return String(rounded);
+  }
+
+  // --- 시그니처: 한글 단위 readout ---
+  var BIG_UNITS = ["", "만", "억", "조", "경"];
+  function toKorean(str) {
+    if (str == null) return "";
+    var neg = str.charAt(0) === "-";
+    var body = neg ? str.slice(1) : str;
+    var intPart = body.split(".")[0];
+    if (!/^\d+$/.test(intPart)) return "";
+    intPart = intPart.replace(/^0+(?=\d)/, "");
+    if (intPart.length <= 4) return ""; // 만 미만이면 숨김
+    if (intPart.length > 20) return ""; // 경 초과는 표기 생략
+
+    // 뒤에서 4자리씩 끊기
+    var groups = [];
+    for (var i = intPart.length; i > 0; i -= 4) {
+      groups.unshift(intPart.slice(Math.max(0, i - 4), i));
+    }
+    var out = [];
+    for (var g = 0; g < groups.length; g++) {
+      var val = parseInt(groups[g], 10);
+      if (val === 0) continue;
+      var unit = BIG_UNITS[groups.length - 1 - g];
+      // 각 그룹은 콤마로 가독성 부여
+      out.push(val.toLocaleString("en-US") + unit);
+    }
+    if (!out.length) return "";
+    return (neg ? "-" : "") + out.join(" ");
+  }
+
+  // --- 렌더 ---
+  function render() {
+    if (errored) {
+      resultEl.textContent = "0으로 나눌 수 없어요";
+      resultEl.classList.add("is-error");
+      exprEl.textContent = "";
+      readoutEl.classList.remove("is-visible");
+      readoutEl.textContent = "";
+      return;
+    }
+    resultEl.classList.remove("is-error");
+    resultEl.textContent = formatNumber(current);
+
+    if (operator !== null && previous !== null) {
+      exprEl.textContent = formatNumber(cleanNumber(previous)) + " " + operator +
+        (waiting ? "" : " " + formatNumber(current));
+    } else {
+      exprEl.textContent = "";
+    }
+
+    var kor = toKorean(current);
+    if (kor) {
+      readoutEl.textContent = kor;
+      readoutEl.classList.add("is-visible");
+    } else {
+      readoutEl.classList.remove("is-visible");
+      readoutEl.textContent = "";
+    }
+  }
+
+  function resetError() {
+    if (errored) {
+      errored = false;
+      current = "0";
+      previous = null;
+      operator = null;
+      waiting = false;
+    }
+  }
+
+  // --- 입력 핸들러 ---
+  function inputDigit(d) {
+    resetError();
+    if (waiting) { current = d; waiting = false; }
+    else if (current === "0") { current = d; }
+    else { current += d; }
+  }
+
+  function inputDot() {
+    resetError();
+    if (waiting) { current = "0."; waiting = false; return; }
+    if (current.indexOf(".") === -1) current += ".";
+  }
+
+  function clearAll() {
+    current = "0"; previous = null; operator = null; waiting = false; errored = false;
+  }
+
+  function negate() {
+    resetError();
+    if (current === "0") return;
+    current = current.charAt(0) === "-" ? current.slice(1) : "-" + current;
+  }
+
+  function percent() {
+    resetError();
+    var n = parseFloat(current);
+    if (isNaN(n)) return;
+    // 진행 중 연산이 있으면 previous 대비 퍼센트, 없으면 값/100
+    var base = (operator !== null && previous !== null) ? previous : 1;
+    var res = (operator !== null && previous !== null) ? (previous * n / 100) : (n / 100);
+    var cleaned = cleanNumber(res);
+    current = cleaned === null ? "0" : cleaned;
+    waiting = false;
+  }
+
+  function chooseOperator(nextOp) {
+    resetError();
+    var inputValue = parseFloat(current);
+    if (operator !== null && !waiting) {
+      var result = OPS[operator](previous, inputValue);
+      if (result === null) { errored = true; render(); return; }
+      var cleaned = cleanNumber(result);
+      if (cleaned === null) { errored = true; render(); return; }
+      previous = parseFloat(cleaned);
+      current = cleaned;
+    } else {
+      previous = inputValue;
+    }
+    operator = nextOp;
+    waiting = true;
+  }
+
+  function equals() {
+    resetError();
+    if (operator === null || previous === null) return;
+    if (waiting) return; // 연산자만 누른 상태면 무시
+    var inputValue = parseFloat(current);
+    var result = OPS[operator](previous, inputValue);
+    if (result === null) { errored = true; render(); return; }
+    var cleaned = cleanNumber(result);
+    if (cleaned === null) { errored = true; render(); return; }
+    current = cleaned;
+    previous = null;
+    operator = null;
+    waiting = false;
+  }
+
+  function backspace() {
+    resetError();
+    if (waiting) return;
+    if (current.length <= 1 || (current.length === 2 && current.charAt(0) === "-")) {
+      current = "0";
+    } else {
+      current = current.slice(0, -1);
+    }
+  }
+
+  // --- 이벤트 위임 ---
+  keypad.addEventListener("click", function (e) {
+    var btn = e.target.closest(".key");
+    if (!btn) return;
+    handleKey(btn.dataset);
+    render();
+  });
+
+  function handleKey(data) {
+    if (data.digit != null) inputDigit(data.digit);
+    else if (data.op != null) chooseOperator(data.op);
+    else switch (data.action) {
+      case "clear": clearAll(); break;
+      case "negate": negate(); break;
+      case "percent": percent(); break;
+      case "dot": inputDot(); break;
+      case "equals": equals(); break;
+    }
+  }
+
+  // --- 키보드 ---
+  var KEY_OP = { "+": "+", "-": "−", "*": "×", "/": "÷" };
+  function flash(selector) {
+    var el = keypad.querySelector(selector);
+    if (!el) return;
+    el.classList.add("is-active");
+    setTimeout(function () { el.classList.remove("is-active"); }, 100);
+  }
+
+  document.addEventListener("keydown", function (e) {
+    var k = e.key;
+    if (k >= "0" && k <= "9") { inputDigit(k); flash('[data-digit="' + k + '"]'); }
+    else if (k === ".") { inputDot(); flash('[data-action="dot"]'); }
+    else if (KEY_OP[k]) { chooseOperator(KEY_OP[k]); flash('[data-op="' + KEY_OP[k] + '"]'); }
+    else if (k === "Enter" || k === "=") { e.preventDefault(); equals(); flash('[data-action="equals"]'); }
+    else if (k === "%") { percent(); flash('[data-action="percent"]'); }
+    else if (k === "Backspace") { backspace(); }
+    else if (k === "Escape") { clearAll(); flash('[data-action="clear"]'); }
+    else return;
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
