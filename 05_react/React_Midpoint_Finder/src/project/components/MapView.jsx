@@ -6,13 +6,48 @@ import { lineStyle } from '../data/lineStyles.js'
 import metroIcon from '../assets/regions/metro.png'
 import './MapView.css'
 
-// 색 핀 HTML (커스텀 오버레이)
+// 지도 위 핀을 그릴 HTML 문자열을 만드는 코드
 const pinHtml = (label, color, star) =>
   '<div class="kmap-pin' + (star ? ' star' : '') + '" style="--pin:' + color + '">' +
   (star ? '<span class="kmap-star">★</span>' : '') +
   '<span class="kmap-pin-label">' + label + '</span></div>'
 
-// center+level을 ms 동안 부드럽게 이동+확대
+// 좌표 하나를 카카오 LatLng 객체로 바꾸는 코드
+const latLng = (kakao, p) => new kakao.maps.LatLng(p.lat, p.lng)
+
+// 지도에 올려둔 도형과 오버레이를 모두 지우고 목록을 비우는 코드
+const clearLayer = (ref) => {
+  ref.current.forEach((item) => item.setMap(null))
+  ref.current = []
+}
+
+// 좌표 배열 하나를 선으로 그려 지도에 올리는 코드
+const drawPolyline = (kakao, map, points, color, opacity) =>
+  new kakao.maps.Polyline({
+    map,
+    path: points.map((p) => latLng(kakao, p)),
+    strokeWeight: 2.5,
+    strokeColor: color,
+    strokeOpacity: opacity,
+    strokeStyle: 'solid',
+  })
+
+// 지정한 거리 안에 있는 경계선 좌표만 담은 지도 영역을 만드는 코드
+const boundsOf = (kakao, boundary, center, maxKm) => {
+  const bounds = new kakao.maps.LatLngBounds()
+  let count = 0
+  boundary.forEach((ring) =>
+    ring.forEach((p) => {
+      if (distanceKm(center, p) <= maxKm) {
+        bounds.extend(latLng(kakao, p))
+        count++
+      }
+    })
+  )
+  return count ? bounds : null
+}
+
+// 지도의 중심과 확대 단계를 정해진 시간 동안 부드럽게 옮기는 코드
 const flyTo = (map, kakao, target, targetLevel, ms = 500) => {
   const start = map.getCenter()
   const sLat = start.getLat()
@@ -24,42 +59,29 @@ const flyTo = (map, kakao, target, targetLevel, ms = 500) => {
   const step = (now) => {
     const t = Math.min(1, (now - t0) / ms)
     const e = ease(t)
-    map.setCenter(new kakao.maps.LatLng(sLat + (target.lat - sLat) * e, sLng + (target.lng - sLng) * e))
-    const lvl = Math.round(sLevel + (targetLevel - sLevel) * e)
-    if (lvl !== map.getLevel()) map.setLevel(lvl)
+    map.setCenter(latLng(kakao, { lat: sLat + (target.lat - sLat) * e, lng: sLng + (target.lng - sLng) * e }))
+    const level = Math.round(sLevel + (targetLevel - sLevel) * e)
+    if (level !== map.getLevel()) map.setLevel(level)
     if (t < 1) map._flyRaf = requestAnimationFrame(step)
   }
   map._flyRaf = requestAnimationFrame(step)
 }
 
-const boundsOf = (kakao, boundary, center, maxKm = 110) => {
-  const b = new kakao.maps.LatLngBounds()
-  let n = 0
-  boundary.forEach((ring) =>
-    ring.forEach((p) => {
-      if (distanceKm(center, p) <= maxKm) {
-        b.extend(new kakao.maps.LatLng(p.lat, p.lng))
-        n++
-      }
-    })
-  )
-  return n ? b : null
-}
-
+// 목표 영역이 화면에 꽉 차는 중심과 확대 단계를 미리 계산해 그곳으로 이동하는 코드
 const flyToBounds = (map, kakao, bounds, adjust = 0, ms = 500) => {
   const cur = map.getCenter()
   const curLevel = map.getLevel()
   map.setBounds(bounds, 30, 30, 30, 30)
   const tc = map.getCenter()
   const target = { lat: tc.getLat(), lng: tc.getLng() }
-  const tLevel = map.getLevel() + adjust
+  const targetLevel = map.getLevel() + adjust
   map.setLevel(curLevel)
   map.setCenter(cur)
-  flyTo(map, kakao, target, tLevel, ms)
-  return tLevel
+  flyTo(map, kakao, target, targetLevel, ms)
+  return targetLevel
 }
 
-// 상시 지도 + 노선 필터 오버레이
+// 지도와 노선 표시 필터를 함께 그리는 코드
 const MapView = ({ markers = [], center, level = 8, boundary = null, lines = null, fitAdjust = 0, fitMaxKm = 110 }) => {
   const boxRef = useRef(null)
   const mapRef = useRef(null)
@@ -71,11 +93,11 @@ const MapView = ({ markers = [], center, level = 8, boundary = null, lines = nul
   const lastMarkersRef = useRef('')
   const [error, setError] = useState(null)
 
-  // 노선 필터 상태 (이름 단위로 숨김)
+  // 필터 펼침 여부와 숨긴 노선 이름을 담는 코드
   const [open, setOpen] = useState(true)
   const [hidden, setHidden] = useState(() => new Set())
 
-  // 노선 목록 (약칭 이름 기준 중복 제거 + 정렬)
+  // 필터에 띄울 노선 목록을 중복 없이 정렬해 만드는 코드
   const lineList = useMemo(() => {
     if (!lines) return []
     const seen = new Map()
@@ -88,13 +110,15 @@ const MapView = ({ markers = [], center, level = 8, boundary = null, lines = nul
     )
   }, [lines])
 
+  // 체크박스를 눌렀을 때 해당 노선을 숨기거나 다시 보이게 하는 코드
   const toggle = (name) =>
     setHidden((prev) => {
-      const n = new Set(prev)
-      n.has(name) ? n.delete(name) : n.add(name)
-      return n
+      const next = new Set(prev)
+      next.has(name) ? next.delete(name) : next.add(name)
+      return next
     })
 
+  // 지도를 만들고 노선, 경계선, 핀을 다시 그린 뒤 보기 좋은 위치로 맞추는 코드
   useEffect(() => {
     let cancelled = false
     loadKakaoMaps()
@@ -103,98 +127,87 @@ const MapView = ({ markers = [], center, level = 8, boundary = null, lines = nul
         const firstMount = !mapRef.current
         if (firstMount) {
           mapRef.current = new kakao.maps.Map(boxRef.current, {
-            center: new kakao.maps.LatLng(center.lat, center.lng),
+            center: latLng(kakao, center),
             level,
           })
           lastViewRef.current = center.lat + ',' + center.lng + ',' + level
+          // 많이 축소했을 때만 지역 경계선을 보여주기 위한 처리
           kakao.maps.event.addListener(mapRef.current, 'zoom_changed', () => {
-            const m = mapRef.current
-            const show = m.getLevel() >= fitLevelRef.current
-            boundaryRef.current.forEach((l) => l.setMap(show ? m : null))
+            const map = mapRef.current
+            const show = map.getLevel() >= fitLevelRef.current
+            boundaryRef.current.forEach((l) => l.setMap(show ? map : null))
           })
         }
         const map = mapRef.current
 
-        overlaysRef.current.forEach((o) => o.setMap(null))
-        overlaysRef.current = []
+        clearLayer(overlaysRef)
 
-        // 노선 다시 그리기 (숨긴 노선 제외, 색은 lineStyle)
-        linesRef.current.forEach((l) => l.setMap(null))
-        linesRef.current = []
-        if (lines) {
-          lines.forEach((ln) => {
-            const st = lineStyle(ln.ref)
-            if (hidden.has(st.name)) return
-            ln.paths.forEach((path) => {
-              const kpath = path.map((p) => new kakao.maps.LatLng(p.lat, p.lng))
-              const pl = new kakao.maps.Polyline({
-                map, path: kpath, strokeWeight: 2.5, strokeColor: st.color,
-                strokeOpacity: 0.95, strokeStyle: 'solid',
-              })
-              linesRef.current.push(pl)
-            })
+        // 숨기지 않은 노선만 다시 그리는 코드
+        clearLayer(linesRef)
+        lines?.forEach((ln) => {
+          const style = lineStyle(ln.ref)
+          if (hidden.has(style.name)) return
+          ln.paths.forEach((path) => {
+            linesRef.current.push(drawPolyline(kakao, map, path, style.color, 0.95))
           })
-        }
+        })
 
-        // 지역 경계선
-        boundaryRef.current.forEach((l) => l.setMap(null))
-        boundaryRef.current = []
-        if (boundary) {
-          boundary.forEach((ring) => {
-            const path = ring.map((p) => new kakao.maps.LatLng(p.lat, p.lng))
-            const line = new kakao.maps.Polyline({
-              map, path, strokeWeight: 2.5, strokeColor: '#ff3b30',
-              strokeOpacity: 0.9, strokeStyle: 'solid',
-            })
-            boundaryRef.current.push(line)
-          })
-        }
+        // 선택한 지역의 경계선을 그리는 코드
+        clearLayer(boundaryRef)
+        boundary?.forEach((ring) => {
+          boundaryRef.current.push(drawPolyline(kakao, map, ring, '#ff3b30', 0.9))
+        })
 
-        // 핀
+        // 사람 위치와 결과 위치에 핀을 세우는 코드
         const bounds = new kakao.maps.LatLngBounds()
         markers.forEach((m) => {
-          const pos = new kakao.maps.LatLng(m.lat, m.lng)
-          const ov = new kakao.maps.CustomOverlay({
-            map, position: pos, content: pinHtml(m.label, m.color, m.star),
-            yAnchor: 1, zIndex: m.star ? 10 : 1,
-          })
-          overlaysRef.current.push(ov)
+          const pos = latLng(kakao, m)
+          overlaysRef.current.push(
+            new kakao.maps.CustomOverlay({
+              map,
+              position: pos,
+              content: pinHtml(m.label, m.color, m.star),
+              yAnchor: 1,
+              zIndex: m.star ? 10 : 1,
+            })
+          )
           bounds.extend(pos)
         })
 
-        const mk = markers.map((m) => m.lat + ',' + m.lng).join('|')
-        const markersChanged = mk !== lastMarkersRef.current
-        lastMarkersRef.current = mk
+        // 핀이 바뀐 경우에만 화면을 옮겨 사용자의 조작을 방해하지 않는 처리
+        const markerKey = markers.map((m) => m.lat + ',' + m.lng).join('|')
+        const markersChanged = markerKey !== lastMarkersRef.current
+        lastMarkersRef.current = markerKey
 
         if (markers.length >= 2) {
           if (markersChanged) map.setBounds(bounds)
         } else if (markers.length === 1) {
           if (markersChanged) {
-            map.setCenter(new kakao.maps.LatLng(markers[0].lat, markers[0].lng))
+            map.setCenter(latLng(kakao, markers[0]))
             map.setLevel(5)
           }
         } else {
-          const key = center.lat + ',' + center.lng + ',' + level
-          const changed = key !== lastViewRef.current
-          const b = boundary && boundary.length ? boundsOf(kakao, boundary, center, fitMaxKm) : null
-          if (b) {
+          const viewKey = center.lat + ',' + center.lng + ',' + level
+          const viewChanged = viewKey !== lastViewRef.current
+          const fitBounds = boundary?.length ? boundsOf(kakao, boundary, center, fitMaxKm) : null
+          if (fitBounds) {
             if (firstMount) {
-              map.setBounds(b, 30, 30, 30, 30)
+              map.setBounds(fitBounds, 30, 30, 30, 30)
               if (fitAdjust) map.setLevel(map.getLevel() + fitAdjust)
               fitLevelRef.current = map.getLevel()
-            } else if (changed) {
-              fitLevelRef.current = flyToBounds(map, kakao, b, fitAdjust, 500)
+            } else if (viewChanged) {
+              fitLevelRef.current = flyToBounds(map, kakao, fitBounds, fitAdjust)
             }
           } else {
             if (firstMount) {
-              map.setCenter(new kakao.maps.LatLng(center.lat, center.lng))
+              map.setCenter(latLng(kakao, center))
               map.setLevel(level)
-            } else if (changed) {
-              flyTo(map, kakao, center, level, 500)
+            } else if (viewChanged) {
+              flyTo(map, kakao, center, level)
             }
             fitLevelRef.current = level
           }
-          lastViewRef.current = key
+          lastViewRef.current = viewKey
         }
 
         const showBoundary = map.getLevel() >= fitLevelRef.current
@@ -203,6 +216,25 @@ const MapView = ({ markers = [], center, level = 8, boundary = null, lines = nul
       .catch((e) => !cancelled && setError(e.message))
     return () => { cancelled = true }
   }, [markers, center, level, boundary, lines, hidden, fitAdjust, fitMaxKm])
+
+  // 화면 회전이나 창 크기 변경으로 지도 칸이 바뀌면 중심을 유지한 채 지도를 다시 맞추는 코드
+  useEffect(() => {
+    const box = boxRef.current
+    if (!box || typeof ResizeObserver === 'undefined') return
+    let timer = null
+    const observer = new ResizeObserver(() => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        const map = mapRef.current
+        if (!map) return
+        const keep = map.getCenter()
+        map.relayout()
+        map.setCenter(keep)
+      }, 150)
+    })
+    observer.observe(box)
+    return () => { clearTimeout(timer); observer.disconnect() }
+  }, [])
 
   if (error) {
     return (

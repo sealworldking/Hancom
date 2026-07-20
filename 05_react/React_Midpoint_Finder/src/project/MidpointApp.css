@@ -1,15 +1,13 @@
-/* ============================================================
-   "어디서 만나?" — 밝고 청량한 카카오 톤 (노랑 + 하늘색)
-   ============================================================ */
+/* 앱 전체에서 쓰는 색과 공통 레이아웃을 정하는 코드 */
 .mp-app {
-  --accent: #fee500;          /* 카카오 옐로 */
+  --accent: #fee500;          /* 강조색 */
   --accent-strong: #f4d200;
-  --accent-ink: #1c1a00;      /* 노랑 위 텍스트 */
-  --sky: #22b8f0;             /* 청량 하늘색 */
+  --accent-ink: #1c1a00;      /* 강조색 위에 올리는 글자색 */
+  --sky: #22b8f0;             /* 보조 강조색 */
   --sky-soft: #e6f7fe;
   --ink: #1b2230;
-  --navy: #202b45;            /* 로고 Midpoint */
-  --orange: #ff6a13;          /* 로고 Finder */
+  --navy: #202b45;            /* 로고 앞부분 색 */
+  --orange: #ff6a13;          /* 로고 뒷부분 색 */
   --muted: #6b7684;
   --line: #e7edf3;
   --card: #ffffff;
@@ -22,6 +20,7 @@
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   color: var(--ink);
   font-family: 'Pretendard', system-ui, -apple-system, 'Apple SD Gothic Neo',
@@ -30,7 +29,7 @@
   text-align: left;
 }
 
-/* ---------- 상단 배너 ---------- */
+/* 상단 배너를 꾸미는 코드 */
 .mp-banner {
   flex: 0 0 auto;
   display: flex;
@@ -59,7 +58,7 @@
   white-space: nowrap;
 }
 
-/* 네비 (Information / Contact) */
+/* 상단 메뉴 링크를 꾸미는 코드 */
 .mp-nav {
   display: flex;
   align-items: center;
@@ -79,7 +78,7 @@
 .mp-nav-link:hover { background: var(--sky-soft); color: #0b7fb0; }
 .mp-nav-link.active { color: var(--navy); background: #eef1f7; }
 
-/* 소개/Contact 정보 리스트 */
+/* 소개와 문의 페이지의 정보 목록을 꾸미는 코드 */
 .mp-info-list { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-direction: column; gap: 14px; }
 .mp-info-list li { display: flex; flex-direction: column; gap: 3px; }
 .mp-info-list b { font-size: 14.5px; font-weight: 800; color: var(--ink); }
@@ -97,7 +96,7 @@
 }
 .mp-brand-icon { width: 15px; height: 15px; object-fit: contain; }
 
-/* ---------- 지도+패널 행 ---------- */
+/* 지도와 오른쪽 패널을 나란히 놓는 코드 */
 .mp-shell {
   flex: 1;
   min-height: 0;
@@ -106,8 +105,8 @@
   overflow: hidden;
 }
 
-/* ---------- 좌: 지도 (68%) ---------- */
-.mp-map-pane { flex: 0 0 70%; position: relative; background: #eaf2f7; }
+/* 왼쪽 지도 영역을 꾸미는 코드 */
+.mp-map-pane { flex: 1 1 auto; min-width: 0; position: relative; background: #eaf2f7; }
 .mp-map-pane .kmap {
   position: absolute;
   inset: 0;
@@ -122,20 +121,21 @@
   background: var(--sky-soft);
 }
 
-/* ---------- 우: 패널 ---------- */
+/* 오른쪽 입력 패널을 꾸미는 코드 */
 .mp-panel {
-  flex: 1;
-  min-width: 360px;
+  flex: 0 0 clamp(300px, 32%, 540px);
+  min-width: 0;
   max-width: 540px;
-  max-height: 100vh;
+  min-height: 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
   padding: 30px 30px 44px;
   background: var(--panel-bg);
   border-left: 1px solid var(--line);
 }
 
-/* ---------- 헤더 ---------- */
+/* 패널 상단 문구를 꾸미는 코드 */
 .mp-header { margin-bottom: 22px; }
 .mp-logo {
   font-size: 25px;
@@ -154,7 +154,7 @@
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-/* 왼쪽 노랑 강조 바 = 섹션 제목 느낌 */
+/* 문구 왼쪽에 강조 막대를 그리는 코드 */
 .mp-tagline::before {
   content: '';
   position: absolute;
@@ -167,7 +167,7 @@
   background: var(--accent);
 }
 
-/* ---------- 카드 ---------- */
+/* 각 단계 내용을 담는 카드를 꾸미는 코드 */
 .mp-card {
   background: var(--card);
   border: 1px solid var(--line);
@@ -196,7 +196,7 @@
 .mp-about-title { text-align: center; margin-bottom: 20px; }
 .mp-about-intro { line-height: 1.65; }
 
-/* ---------- 버튼 ---------- */
+/* 버튼을 꾸미는 코드 */
 .mp-primary-btn {
   width: 100%;
   height: 52px;
@@ -232,11 +232,11 @@
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .mp-ghost-btn:hover { background: #d5f0fb; border-color: #0b7fb0; color: #0b6a94; }
-/* 세로 스택 = 글자 길어도 안 깨짐 */
+/* 버튼을 세로로 쌓아 긴 글자에도 깨지지 않게 하는 코드 */
 .mp-btn-row { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
 .mp-btn-row .mp-primary-btn { flex: none; width: 100%; }
 
-/* ---------- 검색 인풋 ---------- */
+/* 주소 검색 입력창을 꾸미는 코드 */
 .mp-search {
   width: 100%;
   box-sizing: border-box;
@@ -253,9 +253,7 @@
 .mp-search::placeholder { color: #a3abb6; }
 .mp-search:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(34, 184, 240, 0.14); }
 
-/* ============================================================
-   지역 선택
-   ============================================================ */
+/* 지역 선택 카드를 꾸미는 코드 */
 .region-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .region-card.wide { grid-column: 1 / -1; }
 .region-card {
@@ -284,9 +282,7 @@
 }
 .region-label { font-size: 15.5px; font-weight: 700; }
 
-/* ============================================================
-   사람/주소 입력
-   ============================================================ */
+/* 참여자 주소 입력 줄을 꾸미는 코드 */
 .people { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
 .person-row { display: flex; align-items: flex-start; gap: 10px; }
 .person-no {
@@ -350,7 +346,7 @@
 }
 .person-add:hover { border-color: var(--sky); color: var(--sky); }
 
-/* 주소 자동완성 드롭다운 */
+/* 주소 자동완성 목록을 꾸미는 코드 */
 .addr { position: relative; }
 .addr-list {
   list-style: none;
@@ -379,9 +375,7 @@
 .addr-sub { font-size: 12px; color: var(--muted); }
 .addr-empty { padding: 12px; color: #a3abb6; font-size: 13.5px; text-align: center; }
 
-/* ============================================================
-   결과 랭킹 — 순위는 숫자 하나로
-   ============================================================ */
+/* 결과 순위 목록을 꾸미는 코드 */
 .mp-ranking { list-style: none; padding: 0; margin: 0 0 16px; }
 .rank-row {
   display: flex;
@@ -444,7 +438,7 @@
 }
 .pp::marker { color: var(--muted); font-weight: 700; }
 
-/* 가중치 슬라이더 */
+/* 시간과 놀거리 비중 슬라이더를 꾸미는 코드 */
 .weight-box {
   background: var(--card);
   border: 1px solid var(--line);
@@ -468,7 +462,7 @@
   font-size: 12.5px; font-weight: 800; color: var(--ink);
 }
 
-/* 로딩 */
+/* 계산 중 표시를 꾸미는 코드 */
 .mp-loading {
   display: flex;
   flex-direction: column;
@@ -498,16 +492,73 @@
   margin: 0 0 16px;
 }
 
-/* ============================================================
-   반응형 — 좁으면 지도 위/패널 아래
-   ============================================================ */
+/* 화면이 좁으면 지도를 위, 패널을 아래로 쌓는 코드 */
 @media (max-width: 900px) {
-  .mp-shell { flex-direction: column; }
-  .mp-map-pane { flex: 0 0 auto; height: 40vh; }
-  .mp-panel { max-width: none; max-height: none; overflow: visible; border-left: none; border-top: 1px solid var(--line); }
+  /* 고정 높이를 풀어 패널 내용이 잘리지 않게 하는 코드 */
+  .mp-app {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+  .mp-banner { position: sticky; top: 0; }
+  .mp-shell { flex-direction: column; overflow: visible; }
+  .mp-map-pane {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 45vh;
+    min-height: 260px;
+    max-height: 420px;
+  }
+  .mp-panel {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: none;
+    overflow: visible;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding: 22px 18px 40px;
+  }
 }
+
+/* 휴대폰 화면에 맞춰 글자와 여백을 줄이는 코드 */
 @media (max-width: 640px) {
+  .mp-banner { padding: 10px 14px; gap: 10px; }
   .mp-brand-sub { display: none; }
-  .mp-brand { font-size: 22px; }
-  .mp-nav-link { padding: 8px 10px; }
+  .mp-brand { font-size: 21px; }
+  .mp-nav { gap: 2px; }
+  .mp-nav-link { padding: 8px 9px; font-size: 13px; }
+
+  .mp-map-pane { height: 38vh; min-height: 220px; }
+  .mp-panel { padding: 18px 14px 36px; }
+
+  .mp-card { padding: 20px 16px 18px; border-radius: 16px; }
+  .mp-card-title { font-size: 19px; }
+  .mp-tagline { font-size: 15.5px; }
+
+  .region-card { padding: 16px 8px; }
+  .region-icon { width: 38px; height: 38px; }
+  .region-label { font-size: 14px; }
+
+  /* 손가락으로 누를 수 있는 크기를 지키는 코드 */
+  .mp-primary-btn { height: 50px; font-size: 15px; }
+  .mp-ghost-btn { height: 48px; font-size: 14px; }
+  .mp-search, .person-filled, .person-empty { font-size: 16px; } /* 아이폰에서 입력창을 누를 때 화면이 확대되지 않게 하는 코드 */
+
+  .rank-row { padding: 13px 11px; gap: 10px; }
+  .rank-name { font-size: 15.5px; }
+  .rank-metric { flex-wrap: wrap; }
+  .rank-infra { white-space: normal; }
+}
+
+/* 아주 좁은 화면에서 카드를 한 줄로 세우는 코드 */
+@media (max-width: 380px) {
+  .mp-brand { font-size: 18px; }
+  .mp-nav-link { padding: 7px 7px; font-size: 12px; }
+  .region-grid { grid-template-columns: 1fr; }
+}
+
+/* 가로로 눕혔을 때 지도가 화면을 다 차지하지 않게 하는 코드 */
+@media (max-width: 900px) and (orientation: landscape) {
+  .mp-map-pane { height: 60vh; min-height: 200px; }
 }

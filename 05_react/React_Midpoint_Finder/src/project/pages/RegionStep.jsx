@@ -1,6 +1,6 @@
 import { REGION_META } from '../data/regions.js'
 
-// 시작 화면 — 지역권 선택 (중간지점은 같은 지역권 안에서만)
+// 첫 화면에서 어느 지역권에서 중간지점을 찾을지 고르게 하는 코드
 const RegionStep = ({ onPick }) => {
   return (
     <section className="mp-card">

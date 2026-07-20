@@ -17,7 +17,7 @@
   border-radius: 10px;
   white-space: nowrap;
 }
-/* 숫자 호선은 정원 */
+/* 숫자 호선 배지를 동그라미로 만드는 코드 */
 .line-badge.num {
   width: 20px;
   padding: 0;

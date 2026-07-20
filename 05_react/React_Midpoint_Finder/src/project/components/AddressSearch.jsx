@@ -1,33 +1,28 @@
 import { useEffect, useRef, useState } from 'react'
 import { searchPlaces } from '../utils/kakaoPlaces.js'
 
-// 주소/장소 검색 입력 + 자동완성 드롭다운 (카카오 Places)
+// 주소를 검색하고 자동완성 목록에서 고르게 하는 코드
 const AddressSearch = ({ region, onSelect }) => {
   const [q, setQ] = useState('')
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)
   const timer = useRef()
 
+  // 입력이 멈춘 뒤에만 검색해 요청 수를 줄이는 코드
   useEffect(() => {
-    if (!q.trim()) {
-      return
-    }
+    if (!q.trim()) return
 
     clearTimeout(timer.current)
-
     timer.current = setTimeout(async () => {
       setLoading(true)
-
       try {
         let places = await searchPlaces(q)
-
-        // 선택한 지역에 해당하는 결과만 지역별로 필터링한다.
+        // 선택한 지역 안의 결과만 남긴다
         if (region?.tokens) {
           places = places.filter((place) =>
             region.tokens.some((token) => place.address.startsWith(token)),
           )
         }
-
         setResults(places.slice(0, 8))
       } catch {
         setResults([])

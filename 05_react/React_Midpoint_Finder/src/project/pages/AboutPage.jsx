@@ -1,4 +1,4 @@
-// 소개 페이지 — 서비스 설명
+// 서비스가 무엇을 해주는지 소개하는 코드
 const AboutPage = () => {
   return (
     <section className="mp-card">

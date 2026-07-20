@@ -1,4 +1,4 @@
-// Contact 페이지 — 문의처
+// 문의처 정보를 보여주는 코드
 const ContactPage = () => {
   return (
     <section className="mp-card">

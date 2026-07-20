@@ -24,7 +24,7 @@
   text-align: center;
 }
 
-/* 커스텀 오버레이 핀 */
+/* 지도 위 핀을 꾸미는 코드 */
 .kmap-pin {
   position: relative;
   transform: translateY(-4px);
@@ -48,14 +48,14 @@
   border-top: 6px solid var(--pin);
 }
 
-/* 지도 래퍼 (지도 + 오버레이) */
+/* 지도와 오버레이를 겹쳐 놓는 코드 */
 .kmap-wrap { position: absolute; inset: 0; }
 
-/* 추천 1위 별핀 강조 */
+/* 1위 후보 핀을 눈에 띄게 하는 코드 */
 .kmap-pin.star { font-size: 13px; padding: 6px 12px; box-shadow: 0 3px 10px rgba(255, 59, 48, 0.45); }
 .kmap-star { margin-right: 3px; }
 
-/* ---------- 노선 필터 오버레이 (좌상단 접이식) ---------- */
+/* 지도 왼쪽 위 노선 필터를 꾸미는 코드 */
 .line-filter {
   position: absolute;
   top: 12px;
@@ -123,3 +123,18 @@
 .lf-item input { accent-color: #22b8f0; cursor: pointer; margin: 0; }
 .lf-dot { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
 .lf-name { white-space: nowrap; }
+
+/* 좁은 화면에서 필터가 지도를 덮지 않게 줄이는 코드 */
+@media (max-width: 640px) {
+  .line-filter {
+    top: 8px;
+    left: 8px;
+    min-width: 128px;
+    max-width: calc(100% - 16px);
+  }
+  .lf-head { padding: 8px 10px; font-size: 12.5px; }
+  /* 지도 높이에 맞춰 목록 높이를 제한하는 코드 */
+  .lf-body { max-height: 150px; }
+  .lf-item { font-size: 12px; padding: 5px 5px; }
+  .kmap-pin { font-size: 11px; padding: 4px 8px; }
+}

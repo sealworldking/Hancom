@@ -1,0 +1,33 @@
+/* 모든 요소의 크기 계산을 테두리 기준으로 통일하는 코드 */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* 페이지의 기본 배경, 글자색, 글꼴을 정하는 코드 */
+html, body {
+  margin: 0;
+  background: white;
+  color: black;
+  font-family: system-ui, sans-serif;
+  /* 좁은 화면에서 가로 스크롤이 생기지 않게 막는다 */
+  overflow-x: hidden;
+}
+
+/* 앱이 화면 높이를 채우게 하는 코드 (100dvh는 모바일 주소창을 감안한 높이) */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* 버튼의 기본 모양을 정하는 코드 (개별 버튼 스타일은 각 CSS에서 덮어쓴다) */
+button {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-family: inherit;
+  cursor: pointer;
+}
