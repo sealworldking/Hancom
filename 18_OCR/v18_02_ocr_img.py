@@ -12,7 +12,7 @@ pytesseract.pytesseract.tesseract_cmd = "C:/Program Files/Tesseract-OCR/tesserac
 # 2. 이미지 불러오기
 # "tesseract.png" 처럼 그냥 쓰면 "실행한 폴더" 에서 찾음
 #   => VS Code 는 C:\Hancom 에서 실행하므로 FileNotFoundError 가 남
-image = Image.open(os.path.join(base_dir, "reciept.png"))
+image = Image.open(os.path.join(base_dir, "translate.png"))
 
 # 3. OCR 수행
 results = pytesseract.image_to_string(

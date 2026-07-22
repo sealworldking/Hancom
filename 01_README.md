@@ -19,6 +19,19 @@
 - `14_yolo/` - YOLO 객체 탐지 (basic · advanced)
 - `15_OPENAPI/` - 공공 OpenAPI 활용 (ITS CCTV + YOLO)
 - `16_HuggingFace/` - HuggingFace 추론 API
+- `17_transformers/` - 문장 유사도 · 감정 분석 · 텍스트 생성 · 요약 · 번역
+- `18_OCR/` - Tesseract OCR (이미지에서 문자 인식)
+
+## 가상환경
+폴더마다 쓰는 환경이 다릅니다. 실행 전에 확인하세요.
+
+| 환경 | Python | 쓰는 곳 |
+|---|---|---|
+| `py39` | 3.9 | `14_yolo`, `15_OPENAPI` (ultralytics, opencv) |
+| `nlp310` | 3.10 | `17_transformers` (transformers, torch) |
+| `ocrpy38` | 3.8 | `18_OCR` (pytesseract, pillow) |
+
+각 파일 맨 위 또는 아래 주석에 필요한 환경과 설치 명령이 적혀 있습니다.
 
 ## API 키 관리
 키는 코드에 직접 쓰지 않고 프로젝트 루트의 `.env`에 보관합니다.
