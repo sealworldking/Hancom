@@ -42,7 +42,7 @@
 **복원 방법**
 
 ```bash
-python 13_yolo/advanced/11_Export/yolo_export.py
+python 14_yolo/advanced/11_Export/yolo_export.py
 ```
 
 실행 전 `pip install openvino`가 필요하다.
@@ -73,7 +73,7 @@ python 13_yolo/advanced/11_Export/yolo_export.py
 
 ```
 # 이메일 자격증명이 들어가는 실습 파일 (로컬에만 보관)
-13_yolo/advanced/03_Alarm/yolo_alarm.py
+14_yolo/advanced/03_Alarm/yolo_alarm.py
 ```
 
 **참고 - 코드 구조**
