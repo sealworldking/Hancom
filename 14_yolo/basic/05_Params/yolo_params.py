@@ -10,7 +10,7 @@ model=YOLO("yolo11n.pt")
 
 # 2. 모델 파라미터
 model(
-    "13_yolo/05_Params/input_params.jpg", # 추론할 이미지 경로
+    os.path.join(base_dir, "input_params.jpg"), # 추론할 이미지 경로
 
     save=True,                            # 결과를 파일로 저장
     #conf=0.5,                            # 신뢰도

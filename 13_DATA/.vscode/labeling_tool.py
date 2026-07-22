@@ -34,7 +34,7 @@ def imread_kr(path):
     return cv2.imdecode(data, cv2.IMREAD_COLOR)
 
 # 1. 폴더 준비 (이 스크립트가 있는 폴더 기준)
-# 코드는 .vscode 안에 있고 데이터는 그 부모 폴더(12_DATA)에 있어서
+# 코드는 .vscode 안에 있고 데이터는 그 부모 폴더(13_DATA)에 있어서
 # dirname을 한 번 더 씌워 한 칸 위를 가리킵니다
 base_dir=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 img_dir=os.path.join(base_dir,"captured_images")

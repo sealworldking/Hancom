@@ -7,7 +7,7 @@ import os # 폴더 경로를 다루는 도구
 import glob # 파일 목록을 찾는 도구
 
 # 1. 이미지 로드 (captured_images 안의 가장 최근 사진)
-# 코드는 .vscode 안에 있고 데이터는 그 부모 폴더(12_DATA)에 있어서
+# 코드는 .vscode 안에 있고 데이터는 그 부모 폴더(13_DATA)에 있어서
 # dirname을 한 번 더 씌워 한 칸 위를 가리킵니다
 base_dir=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 img_dir=os.path.join(base_dir,"captured_images")
